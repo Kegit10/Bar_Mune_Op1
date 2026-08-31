@@ -30,8 +30,31 @@ def create_app(config_class=Config):
     app.register_blueprint(reportes_bp, url_prefix='/api/reportes')
     app.register_blueprint(dashboard_bp, url_prefix='/api/dashboard')
 
+    import os
+    from flask import send_from_directory
+
+    frontend_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'frontend'))
+
     @app.route('/health', methods=['GET'])
     def health_check():
         return {"success": True, "message": "API is running", "data": None}, 200
+
+    @app.route('/', methods=['GET'])
+    def serve_index():
+        if os.path.exists(frontend_dir):
+            return send_from_directory(frontend_dir, 'index.html')
+        return {"success": True, "message": "Bar Mune API is running"}, 200
+
+    @app.route('/index.html', methods=['GET'])
+    def serve_index_html():
+        return send_from_directory(frontend_dir, 'index.html')
+
+    @app.route('/pages/<path:filename>', methods=['GET'])
+    def serve_pages(filename):
+        return send_from_directory(os.path.join(frontend_dir, 'pages'), filename)
+
+    @app.route('/assets/<path:filename>', methods=['GET'])
+    def serve_assets(filename):
+        return send_from_directory(os.path.join(frontend_dir, 'assets'), filename)
 
     return app

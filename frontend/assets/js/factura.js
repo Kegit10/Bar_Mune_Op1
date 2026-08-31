@@ -44,7 +44,7 @@
                 <!-- Header -->
                 <div class="flex justify-between items-start border-b-2 border-slate-900 pb-5 mb-5">
                     <div class="space-y-1">
-                        <img id="factura-logo" src="../assets/Logos/Horizontal_Fondo_Transparente_Positivo.png" onerror="this.src='../assets/Logos/Horizontal_Fondo_Transparente_Negativo.png'" alt="Bar Mune" class="h-10 w-auto mb-2 object-contain" />
+                        <img id="factura-logo" src="../assets/Logos/Horizontal_Fondo_Transparente_Positivo.png" onerror="this.src='../assets/Logos/Horizontal_Fondo_Transparente_Positivo'" alt="Bar Mune" class="h-10 w-auto mb-2 object-contain" />
                         <h2 class="text-base font-bold uppercase tracking-wide text-slate-900" id="factura-emisor-razon">Bar Luné S.A.S.</h2>
                         <p class="text-slate-600 font-mono font-medium">NIT: <span id="factura-emisor-nit">900.123.456-7</span></p>
                         <p class="text-slate-600">Sede: <strong id="factura-sede-nombre" class="text-slate-800">Restrepo</strong></p>
@@ -130,8 +130,8 @@
 
                 <!-- Footer Legal DIAN -->
                 <div class="border-t border-dashed border-slate-300 pt-4 text-center text-[10px] text-slate-500 space-y-1">
-                    <p class="font-bold text-slate-700 uppercase">Factura generada por sistema Bar Mune POS</p>
-                    <p>Resolución DIAN No. 18764000001 de 2026 • Rango Autorizado BM-20260000 a BM-20269999</p>
+                    <p class="font-bold text-slate-700 uppercase">Factura generada por sistema Bar Luné POS</p>
+                    <!--<p>Resolución DIAN No. 18764000001 de 2026 • Rango Autorizado BM-20260000 a BM-20269999</p>-->
                     <p>Régimen Común • Responsable del Impuesto sobre las Ventas (IVA)</p>
                     <p class="text-slate-400 italic mt-1">¡Gracias por su visita y preferencia!</p>
                 </div>

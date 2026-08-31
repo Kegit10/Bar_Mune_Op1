@@ -11,15 +11,23 @@ _pool = None
 
 def init_pool():
     global _pool
-    _pool = psycopg2.pool.ThreadedConnectionPool(
-        1, 10,
-        host=os.environ['DB_HOST'],
-        port=int(os.environ.get('DB_PORT', 5432)),
-        dbname=os.environ.get('DB_NAME', 'postgres'),
-        user=os.environ['DB_USER'],
-        password=os.environ['DB_PASSWORD'],
-        sslmode='require'
-    )
+    db_url = os.environ.get('DATABASE_URL')
+    if db_url:
+        _pool = psycopg2.pool.ThreadedConnectionPool(
+            1, 10,
+            dsn=db_url,
+            sslmode=os.environ.get('DB_SSLMODE', 'require')
+        )
+    else:
+        _pool = psycopg2.pool.ThreadedConnectionPool(
+            1, 10,
+            host=os.environ.get('DB_HOST', 'localhost'),
+            port=int(os.environ.get('DB_PORT', 5432)),
+            dbname=os.environ.get('DB_NAME', 'postgres'),
+            user=os.environ.get('DB_USER', 'postgres'),
+            password=os.environ.get('DB_PASSWORD', ''),
+            sslmode=os.environ.get('DB_SSLMODE', 'require')
+        )
 
 
 def _get_conn():
