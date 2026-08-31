@@ -180,7 +180,7 @@
             currentFacturaData = data;
 
             // Header emisor
-            document.getElementById('factura-emisor-razon').textContent = data.razon_social || 'Bar Mune S.A.S.';
+            document.getElementById('factura-emisor-razon').textContent = data.razon_social || 'Bar Luné S.A.S.';
             document.getElementById('factura-emisor-nit').textContent = data.nit || '900.123.456-7';
             document.getElementById('factura-sede-nombre').textContent = data.sede_nombre || 'Sede Principal';
             document.getElementById('factura-sede-dir').textContent = data.sede_direccion || 'Calle Principal';

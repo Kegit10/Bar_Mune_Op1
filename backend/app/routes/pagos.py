@@ -112,7 +112,7 @@ def get_pago_detail(identifier):
         data['nit'] = param_nit['valor'] if param_nit else '900.123.456-7'
 
         param_razon = query_one("SELECT valor FROM public.parametros_sistema WHERE clave = 'empresa_razon_social'")
-        data['razon_social'] = param_razon['valor'] if param_razon else 'Bar Mune S.A.S.'
+        data['razon_social'] = param_razon['valor'] if param_razon else 'Bar Luné S.A.S.'
 
         # Consultar items de la orden
         items_sql = """
