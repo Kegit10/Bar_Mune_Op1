@@ -32,7 +32,6 @@ class Api {
 
             return data;
         } catch (error) {
-            // No re-lanzar errores de redirección
             if (error.name !== 'AbortError') {
                 console.error('API Error:', path, error.message);
             }
@@ -58,6 +57,53 @@ class Api {
 
     delete(path) {
         return this.request(path, { method: 'DELETE' });
+    }
+
+    async download(path, fallbackFilename = 'reporte') {
+        const token = localStorage.getItem('barmune_token');
+        const headers = {
+            ...(token ? { 'Authorization': `Bearer ${token}` } : {})
+        };
+
+        try {
+            const response = await fetch(`${this.baseUrl}${path}`, { method: 'GET', headers });
+
+            if (response.status === 401) {
+                localStorage.removeItem('barmune_token');
+                localStorage.removeItem('barmune_user');
+                const onPages = window.location.pathname.includes('/pages/');
+                window.location.href = onPages ? '../index.html' : './index.html';
+                return;
+            }
+
+            if (!response.ok) {
+                const errData = await response.json().catch(() => null);
+                throw new Error(errData?.message || `Error en la descarga (${response.status})`);
+            }
+
+            // Extraer nombre de archivo si viene en content-disposition
+            let filename = fallbackFilename;
+            const disposition = response.headers.get('Content-Disposition');
+            if (disposition && disposition.includes('filename=')) {
+                const match = disposition.match(/filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/);
+                if (match && match[1]) {
+                    filename = match[1].replace(/['"]/g, '');
+                }
+            }
+
+            const blob = await response.blob();
+            const downloadUrl = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = downloadUrl;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            window.URL.revokeObjectURL(downloadUrl);
+        } catch (error) {
+            console.error('Download Error:', error);
+            throw error;
+        }
     }
 }
 

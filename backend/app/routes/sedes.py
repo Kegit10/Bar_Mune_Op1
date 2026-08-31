@@ -7,6 +7,7 @@ from app.utils.decorators import require_auth, require_roles
 
 sedes_bp = Blueprint('sedes', __name__, url_prefix='/api/sedes')
 
+
 def serialize(row):
     if row is None:
         return None
@@ -26,29 +27,30 @@ def serialize(row):
         return result
     return row
 
+
 @sedes_bp.route('', methods=['GET'])
 @require_auth
 def get_sedes():
     try:
         estado = request.args.get('estado')
-        
-        sql = "SELECT id, nombre, direccion, telefono, estado, creado_en FROM public.sedes WHERE 1=1"
+        sql = "SELECT id, nombre, direccion, ciudad, telefono, capacidad, estado, created_at, updated_at FROM public.sedes WHERE 1=1"
         params = []
         if estado:
             sql += " AND estado = %s"
             params.append(estado)
-        sql += " ORDER BY creado_en DESC"
-        
+        sql += " ORDER BY nombre ASC"
+
         rows = query(sql, tuple(params))
         return jsonify({"success": True, "message": "Sedes obtenidas", "data": serialize(rows)}), 200
     except Exception as e:
         return jsonify({"success": False, "message": str(e), "data": None}), 500
 
+
 @sedes_bp.route('/<id>', methods=['GET'])
 @require_auth
 def get_sede(id):
     try:
-        sql = "SELECT id, nombre, direccion, telefono, estado, creado_en FROM public.sedes WHERE id = %s"
+        sql = "SELECT id, nombre, direccion, ciudad, telefono, capacidad, estado, created_at, updated_at FROM public.sedes WHERE id = %s"
         row = query_one(sql, (id,))
         if not row:
             return jsonify({"success": False, "message": "Sede no encontrada", "data": None}), 404
@@ -56,71 +58,78 @@ def get_sede(id):
     except Exception as e:
         return jsonify({"success": False, "message": str(e), "data": None}), 500
 
+
 @sedes_bp.route('', methods=['POST'])
 @require_auth
-@require_roles(['admin'])
+@require_roles('admin')
 def create_sede():
     try:
-        data = request.json
-        nombre = data.get('nombre')
-        direccion = data.get('direccion')
-        telefono = data.get('telefono')
+        data = request.get_json() or {}
+        nombre = (data.get('nombre') or '').strip()
+        direccion = (data.get('direccion') or '').strip()
+        ciudad = (data.get('ciudad') or '').strip()
+        telefono = (data.get('telefono') or '').strip()
+        capacidad = int(data.get('capacidad') or 0)
         estado = data.get('estado', 'activa')
-        
+
         if not nombre:
-            return jsonify({"success": False, "message": "Nombre es requerido", "data": None}), 400
-            
+            return jsonify({"success": False, "message": "El nombre de la sede es requerido", "data": None}), 400
+
         sql = """
-            INSERT INTO public.sedes (nombre, direccion, telefono, estado)
-            VALUES (%s, %s, %s, %s)
-            RETURNING id, nombre, direccion, telefono, estado, creado_en
+            INSERT INTO public.sedes (nombre, direccion, ciudad, telefono, capacidad, estado)
+            VALUES (%s, %s, %s, %s, %s, %s)
+            RETURNING id, nombre, direccion, ciudad, telefono, capacidad, estado, created_at
         """
-        row = execute_one(sql, (nombre, direccion, telefono, estado))
-        return jsonify({"success": True, "message": "Sede creada", "data": serialize(row)}), 201
+        row = execute_one(sql, (nombre, direccion, ciudad, telefono, capacidad, estado))
+        return jsonify({"success": True, "message": "Sede creada exitosamente", "data": serialize(row)}), 201
     except Exception as e:
         return jsonify({"success": False, "message": str(e), "data": None}), 500
+
 
 @sedes_bp.route('/<id>', methods=['PUT'])
 @require_auth
-@require_roles(['admin'])
+@require_roles('admin')
 def update_sede(id):
     try:
-        data = request.json
-        
+        data = request.get_json() or {}
         sede = query_one("SELECT id FROM public.sedes WHERE id = %s", (id,))
         if not sede:
             return jsonify({"success": False, "message": "Sede no encontrada", "data": None}), 404
-            
+
         updates = []
         params = []
-        for field in ['nombre', 'direccion', 'telefono', 'estado']:
+        for field in ['nombre', 'direccion', 'ciudad', 'telefono', 'estado']:
             if field in data:
                 updates.append(f"{field} = %s")
                 params.append(data[field])
-                
+        if 'capacidad' in data:
+            updates.append("capacidad = %s")
+            params.append(int(data['capacidad'] or 0))
+
         if not updates:
-            return jsonify({"success": False, "message": "Sin datos", "data": None}), 400
-            
-        updates.append("actualizado_en = NOW()")
-        sql = f"UPDATE public.sedes SET {', '.join(updates)} WHERE id = %s RETURNING id, nombre, direccion, telefono, estado, creado_en"
+            return jsonify({"success": False, "message": "Sin datos para actualizar", "data": None}), 400
+
+        updates.append("updated_at = NOW()")
+        sql = f"UPDATE public.sedes SET {', '.join(updates)} WHERE id = %s RETURNING id, nombre, direccion, ciudad, telefono, capacidad, estado, created_at, updated_at"
         params.append(id)
-        
+
         row = execute_one(sql, tuple(params))
-        return jsonify({"success": True, "message": "Sede actualizada", "data": serialize(row)}), 200
+        return jsonify({"success": True, "message": "Sede actualizada exitosamente", "data": serialize(row)}), 200
     except Exception as e:
         return jsonify({"success": False, "message": str(e), "data": None}), 500
 
+
 @sedes_bp.route('/<id>', methods=['DELETE'])
 @require_auth
-@require_roles(['admin'])
+@require_roles('admin')
 def delete_sede(id):
     try:
         sede = query_one("SELECT id FROM public.sedes WHERE id = %s", (id,))
         if not sede:
             return jsonify({"success": False, "message": "Sede no encontrada", "data": None}), 404
-            
-        sql = "UPDATE public.sedes SET estado = 'inactiva', actualizado_en = NOW() WHERE id = %s RETURNING id"
+
+        sql = "UPDATE public.sedes SET estado = 'inactiva', updated_at = NOW() WHERE id = %s RETURNING id"
         row = execute_one(sql, (id,))
-        return jsonify({"success": True, "message": "Sede desactivada", "data": serialize(row)}), 200
+        return jsonify({"success": True, "message": "Sede desactivada exitosamente", "data": serialize(row)}), 200
     except Exception as e:
         return jsonify({"success": False, "message": str(e), "data": None}), 500

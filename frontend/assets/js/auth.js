@@ -3,8 +3,11 @@ const auth = {
         const response = await window.api.post('/api/auth/login', { email, password });
         // La API devuelve: { success: true, data: { access_token, user } }
         if (response && response.success && response.data && response.data.access_token) {
+            const user = response.data.user || {};
+            // Normalizar rol
+            user.rol = user.rol_nombre || user.rol || '';
             localStorage.setItem('barmune_token', response.data.access_token);
-            localStorage.setItem('barmune_user', JSON.stringify(response.data.user));
+            localStorage.setItem('barmune_user', JSON.stringify(user));
             return true;
         }
         const msg = response?.message || 'Credenciales inválidas';
@@ -14,7 +17,6 @@ const auth = {
     logout() {
         localStorage.removeItem('barmune_token');
         localStorage.removeItem('barmune_user');
-        // Navegar a index.html relativo a la raíz del servidor
         const base = window.location.pathname.includes('/pages/') 
             ? '../index.html' 
             : './index.html';
@@ -23,9 +25,21 @@ const auth = {
 
     getUser() {
         try {
-            const user = localStorage.getItem('barmune_user');
-            return user ? JSON.parse(user) : null;
-        } catch { return null; }
+            const userStr = localStorage.getItem('barmune_user');
+            if (!userStr) return null;
+            const user = JSON.parse(userStr);
+            if (user && !user.rol && user.rol_nombre) {
+                user.rol = user.rol_nombre;
+            }
+            return user;
+        } catch {
+            return null;
+        }
+    },
+
+    getRole() {
+        const user = this.getUser();
+        return (user?.rol || user?.rol_nombre || '').toLowerCase();
     },
 
     getToken() {
@@ -39,9 +53,9 @@ const auth = {
     hasRole(...roles) {
         const user = this.getUser();
         if (!user) return false;
-        // El rol puede estar en user.rol o user.roles.nombre
-        const rolNombre = user.rol_nombre || (user.roles && user.roles.nombre) || user.rol || '';
-        return roles.includes(rolNombre.toLowerCase());
+        const rolNombre = (user.rol_nombre || user.rol || '').toLowerCase();
+        const allowed = roles.map(r => String(r).toLowerCase());
+        return allowed.includes(rolNombre);
     },
 
     checkAuth() {

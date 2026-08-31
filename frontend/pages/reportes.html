@@ -7,75 +7,148 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        tailwind.config = { theme: { extend: { fontFamily: { sans: ['Inter', 'sans-serif'] }, colors: { slate: { 900: '#0F172A', 800: '#1E293B', 700: '#334155' }, amber: { 500: '#F59E0B', 600: '#D97706' } } } } }
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        slate: { 900: '#0F172A', 800: '#1E293B', 700: '#334155', 600: '#475569', 400: '#94A3B8' },
+                        amber: { 500: '#F59E0B', 600: '#D97706' }
+                    }
+                }
+            }
+        }
     </script>
     <link rel="stylesheet" href="../assets/css/app.css">
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
-<body class="bg-slate-900 text-white flex h-screen overflow-hidden" x-data="{ sidebarOpen: true, userRole: window.auth ? window.auth.getUser()?.rol?.toLowerCase() : '' }">
+<body class="bg-slate-900 text-white flex h-screen overflow-hidden" x-data="{ sidebarOpen: true }">
+
     <!-- Sidebar -->
-    <aside :class="sidebarOpen ? 'w-64' : 'w-20'" class="bg-[#0D1526] border-r border-slate-700 transition-all duration-300 flex flex-col h-full z-20 hidden md:flex">
-        <div class="h-16 flex items-center justify-center border-b border-slate-700">
-            <svg class="w-8 h-8 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 15.546c-.523 0-1.046.151-1.5.454a2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.701 2.701 0 00-1.5-.454M9 6v2m3-2v2m3-2v2M9 3h.01M12 3h.01M15 3h.01M21 21v-7a2 2 0 00-2-2H5a2 2 0 00-2 2v7h18zm-3-9v-2a2 2 0 00-2-2H8a2 2 0 00-2 2v2h12z"></path></svg>
-            <span x-show="sidebarOpen" class="ml-2 font-bold text-xl tracking-wide whitespace-nowrap">Bar Mune</span>
+    <aside :class="sidebarOpen ? 'w-64' : 'w-20'" class="bg-[#0D1526] border-r border-slate-700 transition-all duration-300 flex flex-col h-full z-20 hidden md:flex flex-shrink-0">
+        <div class="h-16 flex items-center px-4 border-b border-slate-700 gap-3">
+            <svg class="w-8 h-8 text-amber-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 15.546c-.523 0-1.046.151-1.5.454a2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.701 2.701 0 00-1.5-.454M9 6v2m3-2v2m3-2v2M9 3h.01M12 3h.01M15 3h.01M21 21v-7a2 2 0 00-2-2H5a2 2 0 00-2 2v7h18zm-3-9v-2a2 2 0 00-2-2H8a2 2 0 00-2 2v2h12z"/>
+            </svg>
+            <span x-show="sidebarOpen" class="font-bold text-xl tracking-wide whitespace-nowrap">Bar Mune</span>
         </div>
-        <nav class="flex-1 overflow-y-auto py-4 space-y-1">
-            <a href="dashboard.html" x-show="['admin','cajero','mesero'].includes(userRole)" class="flex items-center px-4 py-3 text-slate-400 hover:bg-slate-800 hover:text-white"><svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg><span x-show="sidebarOpen">Dashboard</span></a>
-            <a href="reportes.html" x-show="['admin','cajero'].includes(userRole)" class="flex items-center px-4 py-3 bg-amber-500/10 text-amber-500 border-r-2 border-amber-500"><svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg><span x-show="sidebarOpen">Reportes</span></a>
-            <a href="dashboard.html" class="flex items-center px-4 py-3 text-slate-400 hover:bg-slate-800 hover:text-white"><svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg><span x-show="sidebarOpen">Volver</span></a>
+
+        <nav class="flex-1 overflow-y-auto py-4 space-y-1 px-2" id="sidebar-nav">
+            <a href="dashboard.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-700/50 hover:text-white transition-colors">
+                <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                <span x-show="sidebarOpen" class="ml-3 font-medium text-sm whitespace-nowrap">Dashboard</span>
+            </a>
+            <a href="ordenes.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-700/50 hover:text-white transition-colors">
+                <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
+                <span x-show="sidebarOpen" class="ml-3 font-medium text-sm whitespace-nowrap">Órdenes</span>
+            </a>
+            <a href="pagos.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-700/50 hover:text-white transition-colors nav-cajero nav-admin" style="display:none">
+                <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                <span x-show="sidebarOpen" class="ml-3 font-medium text-sm whitespace-nowrap">Pagos</span>
+            </a>
+            <a href="inventario.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-700/50 hover:text-white transition-colors nav-cajero nav-admin" style="display:none">
+                <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+                <span x-show="sidebarOpen" class="ml-3 font-medium text-sm whitespace-nowrap">Inventario</span>
+            </a>
+            <a href="stock-alertas.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-700/50 hover:text-white transition-colors nav-cajero nav-admin" style="display:none">
+                <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                <span x-show="sidebarOpen" class="ml-3 font-medium text-sm whitespace-nowrap">Alertas Stock</span>
+            </a>
+            <a href="reportes.html" class="flex items-center px-3 py-2.5 rounded-lg bg-amber-500/10 text-amber-500 border border-amber-500/30 nav-cajero nav-admin" style="display:none">
+                <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                <span x-show="sidebarOpen" class="ml-3 font-medium text-sm whitespace-nowrap">Reportes</span>
+            </a>
+
+            <div class="nav-admin border-t border-slate-700 my-2" style="display:none"></div>
+
+            <a href="usuarios.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-700/50 hover:text-white transition-colors nav-admin" style="display:none">
+                <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+                <span x-show="sidebarOpen" class="ml-3 font-medium text-sm whitespace-nowrap">Usuarios</span>
+            </a>
+            <a href="sedes.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-700/50 hover:text-white transition-colors nav-admin" style="display:none">
+                <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                <span x-show="sidebarOpen" class="ml-3 font-medium text-sm whitespace-nowrap">Sedes</span>
+            </a>
+            <a href="parametros.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-700/50 hover:text-white transition-colors nav-admin" style="display:none">
+                <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                <span x-show="sidebarOpen" class="ml-3 font-medium text-sm whitespace-nowrap">Parámetros</span>
+            </a>
         </nav>
     </aside>
 
-    <div class="flex-1 flex flex-col h-screen overflow-hidden">
-        <header class="h-16 bg-slate-800 border-b border-slate-700 flex items-center justify-between px-4 z-10">
-            <h1 class="text-xl font-semibold text-white ml-4">Reportes</h1>
+    <!-- Main Content -->
+    <div class="flex-1 flex flex-col h-screen overflow-hidden min-w-0">
+        <!-- Topbar -->
+        <header class="h-16 bg-slate-800 border-b border-slate-700 flex items-center justify-between px-4 sm:px-6 z-10 flex-shrink-0">
+            <div class="flex items-center gap-4">
+                <button @click="sidebarOpen = !sidebarOpen" class="text-slate-400 hover:text-white hidden md:block">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                </button>
+                <h1 class="text-xl font-semibold text-white">Reportes y Estadísticas</h1>
+            </div>
+            <div class="flex items-center gap-3">
+                <div class="text-right hidden sm:block">
+                    <p id="user-name" class="text-sm font-medium text-white"></p>
+                    <p id="user-rol" class="text-xs text-slate-400 capitalize"></p>
+                </div>
+                <button onclick="window.auth.logout()" title="Cerrar sesión" class="p-2 text-slate-400 hover:text-red-400 transition-colors rounded-lg hover:bg-red-400/10">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+                </button>
+            </div>
         </header>
 
-        <main class="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8" x-data="reportesPage()">
+        <main class="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8" x-data="reportesPage()" x-init="init()">
             
             <!-- Tabs -->
             <div class="border-b border-slate-700 mb-6">
                 <nav class="-mb-px flex space-x-8">
-                    <button @click="activeTab = 'ventas'" :class="activeTab === 'ventas' ? 'border-amber-500 text-amber-500' : 'border-transparent text-slate-400 hover:text-white hover:border-slate-300'" class="whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm">Reporte de Ventas</button>
-                    <button @click="activeTab = 'inventario'" :class="activeTab === 'inventario' ? 'border-amber-500 text-amber-500' : 'border-transparent text-slate-400 hover:text-white hover:border-slate-300'" class="whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm">Reporte de Inventario</button>
+                    <button @click="setTab('ventas')" :class="activeTab === 'ventas' ? 'border-amber-500 text-amber-500 font-bold' : 'border-transparent text-slate-400 hover:text-white hover:border-slate-500'" class="whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm transition-colors">
+                        Reporte de Ventas
+                    </button>
+                    <button @click="setTab('inventario')" :class="activeTab === 'inventario' ? 'border-amber-500 text-amber-500 font-bold' : 'border-transparent text-slate-400 hover:text-white hover:border-slate-500'" class="whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm transition-colors">
+                        Reporte de Inventario
+                    </button>
                 </nav>
             </div>
 
-            <!-- Filters -->
+            <!-- Filters & Actions -->
             <div class="bg-slate-800 rounded-xl border border-slate-700 p-4 mb-6 flex flex-wrap gap-4 items-end shadow-sm">
                 <div x-show="activeTab === 'ventas'">
                     <label class="block text-xs font-medium text-slate-400 mb-1">Desde</label>
-                    <input type="date" x-model="filters.desde" class="bg-slate-700 border border-slate-600 rounded-lg px-3 py-2 text-sm text-white focus:ring-amber-500 outline-none">
+                    <input type="date" x-model="filters.desde" class="bg-slate-700 border border-slate-600 rounded-lg px-3 py-2 text-sm text-white focus:ring-1 focus:ring-amber-500 outline-none">
                 </div>
                 <div x-show="activeTab === 'ventas'">
                     <label class="block text-xs font-medium text-slate-400 mb-1">Hasta</label>
-                    <input type="date" x-model="filters.hasta" class="bg-slate-700 border border-slate-600 rounded-lg px-3 py-2 text-sm text-white focus:ring-amber-500 outline-none">
+                    <input type="date" x-model="filters.hasta" class="bg-slate-700 border border-slate-600 rounded-lg px-3 py-2 text-sm text-white focus:ring-1 focus:ring-amber-500 outline-none">
                 </div>
                 <div>
                     <label class="block text-xs font-medium text-slate-400 mb-1">Sede</label>
-                    <select x-model="filters.sede_id" class="bg-slate-700 border border-slate-600 rounded-lg px-3 py-2 text-sm text-white focus:ring-amber-500 outline-none w-48">
-                        <option value="">Todas</option>
-                        <template x-for="sede in sedes" :key="sede.id"><option :value="sede.id" x-text="sede.nombre"></option></template>
+                    <select x-model="filters.sede_id" id="reporte-sede-select" class="bg-slate-700 border border-slate-600 rounded-lg px-3 py-2 text-sm text-white focus:ring-1 focus:ring-amber-500 outline-none w-48">
+                        <option value="" class="bg-slate-800 text-white">Todas las Sedes</option>
                     </select>
                 </div>
-                <button @click="generarReporte()" class="bg-slate-700 hover:bg-slate-600 text-white font-medium px-4 py-2 rounded-lg transition-colors border border-slate-600">Vista Previa</button>
+                
+                <button @click="generarReporte()" :disabled="loading" class="bg-slate-700 hover:bg-slate-600 text-white font-medium px-4 py-2 rounded-lg transition-colors border border-slate-600 flex items-center gap-2">
+                    <svg x-show="loading" class="animate-spin h-4 w-4 text-white" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                    <span>Vista Previa</span>
+                </button>
                 
                 <div class="ml-auto flex gap-2">
-                    <button class="bg-amber-500 hover:bg-amber-600 text-white font-medium px-4 py-2 rounded-lg transition-colors shadow-sm flex items-center">
-                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-                        Descargar Excel
+                    <button @click="descargarReporte('xlsx')" :disabled="loading" class="bg-amber-500 hover:bg-amber-600 text-white font-medium px-4 py-2 rounded-lg transition-colors shadow-sm flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                        <span>Descargar Excel</span>
                     </button>
-                    <button class="bg-slate-700 hover:bg-slate-600 text-white font-medium px-4 py-2 rounded-lg transition-colors border border-slate-600 flex items-center">
-                        CSV
+                    <button @click="descargarReporte('csv')" :disabled="loading" class="bg-slate-700 hover:bg-slate-600 text-white font-medium px-4 py-2 rounded-lg transition-colors border border-slate-600 flex items-center gap-2">
+                        <span>CSV</span>
                     </button>
                 </div>
             </div>
 
-            <!-- Stats summary -->
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+            <!-- Summary Stats -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
                 <template x-for="stat in summaryStats" :key="stat.label">
                     <div class="bg-slate-800 rounded-xl p-5 border border-slate-700 shadow-sm flex flex-col justify-center">
-                        <p class="text-sm font-medium text-slate-400" x-text="stat.label"></p>
+                        <p class="text-xs font-medium text-slate-400 uppercase tracking-wider" x-text="stat.label"></p>
                         <p class="text-2xl font-bold text-white mt-1" x-text="stat.value"></p>
                     </div>
                 </template>
@@ -83,61 +156,80 @@
 
             <!-- Table Preview -->
             <div class="bg-slate-800 rounded-xl border border-slate-700 overflow-hidden shadow-sm">
-                <div class="overflow-x-auto max-h-[500px]">
+                <div class="overflow-x-auto max-h-[550px]">
                     <table class="w-full text-left text-sm whitespace-nowrap">
-                        <thead class="bg-slate-900/80 text-slate-400 sticky top-0 z-10 shadow-sm backdrop-blur">
+                        <thead class="bg-slate-900/90 text-slate-400 sticky top-0 z-10 backdrop-blur">
+                            <!-- Header Ventas -->
                             <tr x-show="activeTab === 'ventas'">
-                                <th class="px-6 py-4 font-semibold">Fecha</th>
-                                <th class="px-6 py-4 font-semibold"># Orden</th>
-                                <th class="px-6 py-4 font-semibold">Mesa</th>
-                                <th class="px-6 py-4 font-semibold">Mesero</th>
-                                <th class="px-6 py-4 font-semibold text-right">Subtotal</th>
-                                <th class="px-6 py-4 font-semibold text-right">Propina</th>
-                                <th class="px-6 py-4 font-semibold text-right">Total</th>
-                                <th class="px-6 py-4 font-semibold">Método Pago</th>
+                                <th class="px-5 py-3.5 font-semibold">Fecha</th>
+                                <th class="px-5 py-3.5 font-semibold"># Orden</th>
+                                <th class="px-5 py-3.5 font-semibold">Mesa</th>
+                                <th class="px-5 py-3.5 font-semibold">Sede</th>
+                                <th class="px-5 py-3.5 font-semibold">Mesero</th>
+                                <th class="px-5 py-3.5 font-semibold text-right">Subtotal</th>
+                                <th class="px-5 py-3.5 font-semibold text-right">Propina</th>
+                                <th class="px-5 py-3.5 font-semibold text-right">Total</th>
+                                <th class="px-5 py-3.5 font-semibold">Método Pago</th>
+                                <th class="px-5 py-3.5 font-semibold">Comprobante</th>
                             </tr>
+                            <!-- Header Inventario -->
                             <tr x-show="activeTab === 'inventario'">
-                                <th class="px-6 py-4 font-semibold">Código</th>
-                                <th class="px-6 py-4 font-semibold">Nombre</th>
-                                <th class="px-6 py-4 font-semibold">Categoría</th>
-                                <th class="px-6 py-4 font-semibold">Sede</th>
-                                <th class="px-6 py-4 font-semibold text-right">Costo</th>
-                                <th class="px-6 py-4 font-semibold text-right">Stock</th>
-                                <th class="px-6 py-4 font-semibold text-right">Valor Inv.</th>
+                                <th class="px-5 py-3.5 font-semibold">Código</th>
+                                <th class="px-5 py-3.5 font-semibold">Producto</th>
+                                <th class="px-5 py-3.5 font-semibold">Categoría</th>
+                                <th class="px-5 py-3.5 font-semibold">Sede</th>
+                                <th class="px-5 py-3.5 font-semibold text-right">Costo</th>
+                                <th class="px-5 py-3.5 font-semibold text-right">Precio</th>
+                                <th class="px-5 py-3.5 font-semibold text-right">Stock</th>
+                                <th class="px-5 py-3.5 font-semibold text-right">Mínimo</th>
+                                <th class="px-5 py-3.5 font-semibold text-right">Valor Total</th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-slate-700/50">
                             <!-- Ventas Rows -->
                             <template x-if="activeTab === 'ventas'">
                                 <template x-for="row in tableData" :key="row.id">
-                                    <tr class="hover:bg-slate-700/20">
-                                        <td class="px-6 py-3 text-slate-300" x-text="row.fecha"></td>
-                                        <td class="px-6 py-3 font-medium text-white" x-text="row.id"></td>
-                                        <td class="px-6 py-3 text-slate-300" x-text="row.mesa"></td>
-                                        <td class="px-6 py-3 text-slate-300" x-text="row.mesero"></td>
-                                        <td class="px-6 py-3 text-right text-slate-300" x-text="formatCurrency(row.subtotal)"></td>
-                                        <td class="px-6 py-3 text-right text-slate-300" x-text="formatCurrency(row.propina)"></td>
-                                        <td class="px-6 py-3 text-right font-bold text-amber-500" x-text="formatCurrency(row.total)"></td>
-                                        <td class="px-6 py-3 text-slate-300 uppercase text-xs font-semibold" x-text="row.metodo_pago"></td>
+                                    <tr class="hover:bg-slate-700/30 transition-colors">
+                                        <td class="px-5 py-3 text-slate-300" x-text="row.fecha"></td>
+                                        <td class="px-5 py-3 font-semibold text-white" x-text="'#' + (row.numero_orden || row.id.slice(0,6))"></td>
+                                        <td class="px-5 py-3 text-slate-300" x-text="row.mesa"></td>
+                                        <td class="px-5 py-3 text-slate-400" x-text="row.sede || 'N/A'"></td>
+                                        <td class="px-5 py-3 text-slate-300" x-text="row.mesero"></td>
+                                        <td class="px-5 py-3 text-right text-slate-300" x-text="formatCurrency(row.subtotal)"></td>
+                                        <td class="px-5 py-3 text-right text-slate-300" x-text="formatCurrency(row.propina)"></td>
+                                        <td class="px-5 py-3 text-right font-bold text-amber-400" x-text="formatCurrency(row.total)"></td>
+                                        <td class="px-5 py-3 uppercase text-xs font-semibold text-slate-300" x-text="row.metodo_pago"></td>
+                                        <td class="px-5 py-3 font-mono text-xs text-slate-400" x-text="row.numero_comprobante || '-'"></td>
                                     </tr>
                                 </template>
                             </template>
+
                             <!-- Inventario Rows -->
                             <template x-if="activeTab === 'inventario'">
                                 <template x-for="row in tableData" :key="row.id">
-                                    <tr class="hover:bg-slate-700/20">
-                                        <td class="px-6 py-3 text-slate-400 font-mono" x-text="row.codigo"></td>
-                                        <td class="px-6 py-3 font-medium text-white" x-text="row.nombre"></td>
-                                        <td class="px-6 py-3 text-slate-300" x-text="row.categoria"></td>
-                                        <td class="px-6 py-3 text-slate-300" x-text="row.sede"></td>
-                                        <td class="px-6 py-3 text-right text-slate-300" x-text="formatCurrency(row.costo)"></td>
-                                        <td class="px-6 py-3 text-right font-bold text-white" x-text="row.stock"></td>
-                                        <td class="px-6 py-3 text-right font-bold text-amber-500" x-text="formatCurrency(row.costo * row.stock)"></td>
+                                    <tr class="hover:bg-slate-700/30 transition-colors">
+                                        <td class="px-5 py-3 font-mono text-amber-500 font-semibold" x-text="row.codigo"></td>
+                                        <td class="px-5 py-3 font-medium text-white" x-text="row.nombre"></td>
+                                        <td class="px-5 py-3 text-slate-300" x-text="row.categoria || 'Sin categoría'"></td>
+                                        <td class="px-5 py-3 text-slate-400" x-text="row.sede || 'Principal'"></td>
+                                        <td class="px-5 py-3 text-right text-slate-300" x-text="formatCurrency(row.costo)"></td>
+                                        <td class="px-5 py-3 text-right text-slate-300" x-text="formatCurrency(row.precio)"></td>
+                                        <td class="px-5 py-3 text-right font-bold" :class="row.stock <= row.stock_minimo ? 'text-red-400' : 'text-white'" x-text="row.stock"></td>
+                                        <td class="px-5 py-3 text-right text-slate-400" x-text="row.stock_minimo"></td>
+                                        <td class="px-5 py-3 text-right font-bold text-amber-400" x-text="formatCurrency(row.valor_inventario)"></td>
                                     </tr>
                                 </template>
                             </template>
-                            <tr x-show="tableData.length === 0">
-                                <td colspan="10" class="px-6 py-8 text-center text-slate-500">No hay datos para mostrar. Presiona "Vista Previa".</td>
+
+                            <tr x-show="!loading && tableData.length === 0">
+                                <td colspan="10" class="px-6 py-12 text-center text-slate-500">
+                                    No se encontraron registros en el período o sede seleccionada.
+                                </td>
+                            </tr>
+                            <tr x-show="loading">
+                                <td colspan="10" class="px-6 py-12 text-center text-slate-400">
+                                    Cargando datos de la base de datos...
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -147,10 +239,32 @@
         </main>
     </div>
 
-    <script src="../assets/js/config.js"></script>
-    <script src="../assets/js/api.js"></script>
-    <script src="../assets/js/auth.js"></script>
+    <script src="../assets/js/config.js?v=3"></script>
+    <script src="../assets/js/api.js?v=3"></script>
+    <script src="../assets/js/auth.js?v=3"></script>
     <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const user = window.auth.getUser();
+            if (!user) { window.location.href = '../index.html'; return; }
+            if (!window.auth.hasRole('admin', 'cajero')) {
+                window.location.href = 'dashboard.html';
+                return;
+            }
+
+            const rolNombre = user.rol_nombre || user.rol || '';
+            document.getElementById('user-name').textContent = `${user.nombre} ${user.apellido || ''}`.trim();
+            document.getElementById('user-rol').textContent = rolNombre;
+
+            const rol = rolNombre.toLowerCase();
+            if (rol === 'admin' || rol === 'cajero') {
+                document.querySelectorAll('.nav-cajero, .nav-admin').forEach(el => el.style.display = 'flex');
+            }
+            if (rol === 'admin') {
+                document.querySelectorAll('.nav-admin').forEach(el => el.style.display = 'flex');
+                document.querySelectorAll('div.nav-admin').forEach(el => el.style.display = 'block');
+            }
+        });
+
         document.addEventListener('alpine:init', () => {
             Alpine.data('reportesPage', () => ({
                 activeTab: 'ventas',
@@ -158,48 +272,118 @@
                 filters: { desde: '', hasta: '', sede_id: '' },
                 tableData: [],
                 summaryStats: [],
-                
+                loading: false,
+
                 async init() {
                     const today = new Date().toISOString().split('T')[0];
-                    const firstDay = new Date(new Date().setDate(1)).toISOString().split('T')[0];
+                    const d = new Date();
+                    d.setDate(1);
+                    const firstDay = d.toISOString().split('T')[0];
                     this.filters.desde = firstDay;
                     this.filters.hasta = today;
-                    this.sedes = await window.api.get('/api/sedes').catch(()=>[{id:1, nombre:'Sede Norte'}]) || [];
+
+                    try {
+                        const resSedes = await window.api.get('/api/sedes');
+                        this.sedes = resSedes?.data || [];
+                        const rSede = document.getElementById('reporte-sede-select');
+                        if (rSede) {
+                            rSede.innerHTML = '<option value="" class="bg-slate-800 text-white">Todas las Sedes</option>' +
+                                this.sedes.map(s => `<option value="${s.id}" class="bg-slate-800 text-white">${s.nombre}</option>`).join('');
+                        }
+                    } catch(e) {
+                        this.sedes = [];
+                    }
+
+                    await this.generarReporte();
+                },
+
+                setTab(tab) {
+                    this.activeTab = tab;
                     this.generarReporte();
                 },
 
                 async generarReporte() {
+                    this.loading = true;
                     this.tableData = [];
-                    if (this.activeTab === 'ventas') {
-                        // Mock data
-                        this.tableData = [
-                            {id: 101, fecha: '2023-10-15 19:30', mesa: '5', mesero: 'Juan Pérez', subtotal: 45000, propina: 4500, total: 49500, metodo_pago: 'efectivo'},
-                            {id: 102, fecha: '2023-10-15 20:15', mesa: '2', mesero: 'Ana Gómez', subtotal: 150000, propina: 15000, total: 165000, metodo_pago: 'tarjeta'}
-                        ];
-                        const t = this.tableData.reduce((acc, row)=>acc+row.total, 0);
-                        this.summaryStats = [
-                            { label: 'Total Ventas', value: this.formatCurrency(t) },
-                            { label: 'Órdenes', value: this.tableData.length },
-                            { label: 'Promedio/Orden', value: this.formatCurrency(t/this.tableData.length) },
-                            { label: 'Propinas', value: this.formatCurrency(this.tableData.reduce((acc, row)=>acc+row.propina, 0)) }
-                        ];
-                    } else {
-                        // Mock data
-                        this.tableData = [
-                            {id: 1, codigo: 'CER-01', nombre: 'Corona', categoria: 'Cervezas', sede: 'Norte', costo: 3000, stock: 45},
-                            {id: 2, codigo: 'LIC-01', nombre: 'Don Julio', categoria: 'Licores', sede: 'Norte', costo: 80000, stock: 5}
-                        ];
-                        const totalInv = this.tableData.reduce((acc, row)=>acc+(row.costo*row.stock), 0);
-                        this.summaryStats = [
-                            { label: 'Valor Inventario', value: this.formatCurrency(totalInv) },
-                            { label: 'Total Productos', value: this.tableData.length },
-                            { label: 'Stock Total', value: this.tableData.reduce((acc, row)=>acc+row.stock, 0) },
-                            { label: 'Categorías', value: 2 }
-                        ];
+                    try {
+                        if (this.activeTab === 'ventas') {
+                            let url = `/api/reportes/ventas/preview?desde=${this.filters.desde}&hasta=${this.filters.hasta}`;
+                            if (this.filters.sede_id) url += `&sede_id=${this.filters.sede_id}`;
+                            const res = await window.api.get(url);
+                            this.tableData = res?.data || [];
+                            const summary = res?.summary || {};
+                            this.summaryStats = [
+                                { label: 'Total Ventas', value: this.formatCurrency(summary.total_ventas || 0) },
+                                { label: 'Órdenes Pagadas', value: (summary.num_ordenes || 0).toString() },
+                                { label: 'Promedio / Orden', value: this.formatCurrency(summary.promedio_orden || 0) },
+                                { label: 'Total Propinas', value: this.formatCurrency(summary.total_propinas || 0) }
+                            ];
+                        } else {
+                            let url = `/api/reportes/inventario/preview`;
+                            if (this.filters.sede_id) url += `?sede_id=${this.filters.sede_id}`;
+                            const res = await window.api.get(url);
+                            this.tableData = res?.data || [];
+                            const summary = res?.summary || {};
+                            this.summaryStats = [
+                                { label: 'Valor del Inventario', value: this.formatCurrency(summary.valor_total || 0) },
+                                { label: 'Unidades en Stock', value: (summary.stock_total || 0).toString() },
+                                { label: 'Productos Activos', value: (summary.total_productos || 0).toString() }
+                            ];
+                        }
+                    } catch (e) {
+                        console.error("Error cargando reporte:", e);
+                    } finally {
+                        this.loading = false;
                     }
                 },
 
-                formatCurrency(val) { return new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 }).format(val); }
+                async descargarReporte(formato) {
+                    this.loading = true;
+                    try {
+                        let path = '';
+                        let filename = '';
+                        if (this.activeTab === 'ventas') {
+                            path = `/api/reportes/ventas?format=${formato}&desde=${this.filters.desde}&hasta=${this.filters.hasta}`;
+                            if (this.filters.sede_id) path += `&sede_id=${this.filters.sede_id}`;
+                            filename = `reporte_ventas_${this.filters.desde}_${this.filters.hasta}.${formato}`;
+                        } else {
+                            path = `/api/reportes/inventario?format=${formato}`;
+                            if (this.filters.sede_id) path += `&sede_id=${this.filters.sede_id}`;
+                            filename = `reporte_inventario.${formato}`;
+                        }
+
+                        // Si api.download existe, usarlo; si no, hacer fetch directo con Blob
+                        if (window.api && typeof window.api.download === 'function') {
+                            await window.api.download(path, filename);
+                        } else {
+                            const token = localStorage.getItem('barmune_token');
+                            const baseUrl = window.API_BASE || 'http://localhost:5000';
+                            const response = await fetch(`${baseUrl}${path}`, {
+                                method: 'GET',
+                                headers: { ...(token ? { 'Authorization': `Bearer ${token}` } : {}) }
+                            });
+                            if (!response.ok) throw new Error(`Error en el servidor (${response.status})`);
+                            const blob = await response.blob();
+                            const downloadUrl = window.URL.createObjectURL(blob);
+                            const a = document.createElement('a');
+                            a.href = downloadUrl;
+                            a.download = filename;
+                            document.body.appendChild(a);
+                            a.click();
+                            a.remove();
+                            window.URL.revokeObjectURL(downloadUrl);
+                        }
+                    } catch (e) {
+                        alert('Error al descargar el reporte: ' + (e.message || 'Error desconocido'));
+                    } finally {
+                        this.loading = false;
+                    }
+                },
+
+                formatCurrency(val) {
+                    const num = parseFloat(val) || 0;
+                    return new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 }).format(num);
+                }
             }));
         });
     </script>

@@ -7,232 +7,254 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        tailwind.config = { theme: { extend: { fontFamily: { sans: ['Inter', 'sans-serif'] }, colors: { slate: { 900: '#0F172A', 800: '#1E293B', 700: '#334155' }, amber: { 500: '#F59E0B', 600: '#D97706' } } } } }
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        slate: { 900: '#0F172A', 800: '#1E293B', 700: '#334155', 600: '#475569', 400: '#94A3B8' },
+                        amber: { 500: '#F59E0B', 600: '#D97706' }
+                    }
+                }
+            }
+        }
     </script>
     <link rel="stylesheet" href="../assets/css/app.css">
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
-<body class="bg-slate-900 text-white flex h-screen overflow-hidden" x-data="{ sidebarOpen: true, userRole: window.auth ? window.auth.getUser()?.rol?.toLowerCase() : '' }">
-    <aside :class="sidebarOpen ? 'w-64' : 'w-20'" class="bg-[#0D1526] border-r border-slate-700 transition-all duration-300 flex flex-col h-full z-20 hidden md:flex">
-        <div class="h-16 flex items-center justify-center border-b border-slate-700">
-            <svg class="w-8 h-8 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 15.546c-.523 0-1.046.151-1.5.454a2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.701 2.701 0 00-1.5-.454M9 6v2m3-2v2m3-2v2M9 3h.01M12 3h.01M15 3h.01M21 21v-7a2 2 0 00-2-2H5a2 2 0 00-2 2v7h18zm-3-9v-2a2 2 0 00-2-2H8a2 2 0 00-2 2v2h12z"></path></svg>
-            <span x-show="sidebarOpen" class="ml-2 font-bold text-xl tracking-wide whitespace-nowrap">Bar Mune</span>
+<body class="bg-slate-900 text-white flex h-screen overflow-hidden" x-data="{ sidebarOpen: true }">
+
+    <!-- Sidebar -->
+    <aside :class="sidebarOpen ? 'w-64' : 'w-20'" class="bg-[#0D1526] border-r border-slate-700 transition-all duration-300 flex flex-col h-full z-20 hidden md:flex flex-shrink-0">
+        <div class="h-16 flex items-center px-4 border-b border-slate-700 gap-3">
+            <svg class="w-8 h-8 text-amber-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 15.546c-.523 0-1.046.151-1.5.454a2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.701 2.701 0 00-1.5-.454M9 6v2m3-2v2m3-2v2M9 3h.01M12 3h.01M15 3h.01M21 21v-7a2 2 0 00-2-2H5a2 2 0 00-2 2v7h18zm-3-9v-2a2 2 0 00-2-2H8a2 2 0 00-2 2v2h12z"/>
+            </svg>
+            <span x-show="sidebarOpen" class="font-bold text-xl tracking-wide whitespace-nowrap">Bar Mune</span>
         </div>
-        <nav class="flex-1 overflow-y-auto py-4 space-y-1">
-            <a href="dashboard.html" x-show="['admin','cajero','mesero'].includes(userRole)" class="flex items-center px-4 py-3 text-slate-400 hover:bg-slate-800 hover:text-white"><svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg><span x-show="sidebarOpen">Dashboard</span></a>
-            <a href="usuarios.html" x-show="['admin'].includes(userRole)" class="flex items-center px-4 py-3 text-slate-400 hover:bg-slate-800 hover:text-white"><svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg><span x-show="sidebarOpen">Usuarios</span></a>
-            <a href="sedes.html" x-show="['admin'].includes(userRole)" class="flex items-center px-4 py-3 text-slate-400 hover:bg-slate-800 hover:text-white"><svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg><span x-show="sidebarOpen">Sedes</span></a>
-            <a href="parametros.html" x-show="['admin'].includes(userRole)" class="flex items-center px-4 py-3 text-slate-400 hover:bg-slate-800 hover:text-white"><svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path></svg><span x-show="sidebarOpen">Parámetros</span></a>
-            <a href="inventario.html" x-show="['admin'].includes(userRole)" class="flex items-center px-4 py-3 text-slate-400 hover:bg-slate-800 hover:text-white"><svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg><span x-show="sidebarOpen">Inventario</span></a>
-            <a href="stock-alertas.html" x-show="['admin'].includes(userRole)" class="flex items-center px-4 py-3 bg-amber-500/10 text-amber-500 border-r-2 border-amber-500"><svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg><span x-show="sidebarOpen">Alertas Stock</span></a>
-            <a href="ordenes.html" x-show="['admin','cajero','mesero'].includes(userRole)" class="flex items-center px-4 py-3 text-slate-400 hover:bg-slate-800 hover:text-white"><svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg><span x-show="sidebarOpen">Órdenes</span></a>
-            <a href="pagos.html" x-show="['admin','cajero'].includes(userRole)" class="flex items-center px-4 py-3 text-slate-400 hover:bg-slate-800 hover:text-white"><svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path></svg><span x-show="sidebarOpen">Pagos</span></a>
-            <a href="reportes.html" x-show="['admin','cajero'].includes(userRole)" class="flex items-center px-4 py-3 text-slate-400 hover:bg-slate-800 hover:text-white"><svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg><span x-show="sidebarOpen">Reportes</span></a>
+
+        <nav class="flex-1 overflow-y-auto py-4 space-y-1 px-2" id="sidebar-nav">
+            <a href="dashboard.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-700/50 hover:text-white transition-colors">
+                <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                <span x-show="sidebarOpen" class="ml-3 font-medium text-sm whitespace-nowrap">Dashboard</span>
+            </a>
+            <a href="ordenes.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-700/50 hover:text-white transition-colors">
+                <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
+                <span x-show="sidebarOpen" class="ml-3 font-medium text-sm whitespace-nowrap">Órdenes</span>
+            </a>
+            <a href="pagos.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-700/50 hover:text-white transition-colors nav-cajero nav-admin" style="display:none">
+                <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                <span x-show="sidebarOpen" class="ml-3 font-medium text-sm whitespace-nowrap">Pagos</span>
+            </a>
+            <a href="inventario.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-700/50 hover:text-white transition-colors nav-cajero nav-admin" style="display:none">
+                <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+                <span x-show="sidebarOpen" class="ml-3 font-medium text-sm whitespace-nowrap">Inventario</span>
+            </a>
+            <a href="stock-alertas.html" class="flex items-center px-3 py-2.5 rounded-lg bg-amber-500/10 text-amber-500 border border-amber-500/30 nav-cajero nav-admin" style="display:none">
+                <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                <span x-show="sidebarOpen" class="ml-3 font-medium text-sm whitespace-nowrap">Alertas Stock</span>
+            </a>
+            <a href="reportes.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-700/50 hover:text-white transition-colors nav-cajero nav-admin" style="display:none">
+                <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                <span x-show="sidebarOpen" class="ml-3 font-medium text-sm whitespace-nowrap">Reportes</span>
+            </a>
+
+            <div class="nav-admin border-t border-slate-700 my-2" style="display:none"></div>
+
+            <a href="usuarios.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-700/50 hover:text-white transition-colors nav-admin" style="display:none">
+                <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+                <span x-show="sidebarOpen" class="ml-3 font-medium text-sm whitespace-nowrap">Usuarios</span>
+            </a>
+            <a href="sedes.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-700/50 hover:text-white transition-colors nav-admin" style="display:none">
+                <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                <span x-show="sidebarOpen" class="ml-3 font-medium text-sm whitespace-nowrap">Sedes</span>
+            </a>
+            <a href="parametros.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-700/50 hover:text-white transition-colors nav-admin" style="display:none">
+                <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                <span x-show="sidebarOpen" class="ml-3 font-medium text-sm whitespace-nowrap">Parámetros</span>
+            </a>
         </nav>
     </aside>
 
-    <div class="flex-1 flex flex-col h-screen overflow-hidden">
-        <header class="h-16 bg-slate-800 border-b border-slate-700 flex items-center justify-between px-4 sm:px-6 z-10">
-            <div class="flex items-center">
+    <!-- Main Content -->
+    <div class="flex-1 flex flex-col h-screen overflow-hidden min-w-0">
+        <!-- Topbar -->
+        <header class="h-16 bg-slate-800 border-b border-slate-700 flex items-center justify-between px-4 sm:px-6 z-10 flex-shrink-0">
+            <div class="flex items-center gap-4">
                 <button @click="sidebarOpen = !sidebarOpen" class="text-slate-400 hover:text-white hidden md:block">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
                 </button>
-                <h1 class="ml-4 text-xl font-semibold text-white">Alertas de Stock</h1>
+                <h1 class="text-xl font-semibold text-white">Alertas de Stock</h1>
             </div>
-            <div class="flex items-center space-x-4">
-                <span id="user-info" class="text-sm text-slate-300"></span>
-                <button onclick="window.auth.logout()" class="text-slate-400 hover:text-red-400 transition-colors">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+            <div class="flex items-center gap-3">
+                <div class="text-right hidden sm:block">
+                    <p id="user-name" class="text-sm font-medium text-white"></p>
+                    <p id="user-rol" class="text-xs text-slate-400 capitalize"></p>
+                </div>
+                <button onclick="window.auth.logout()" title="Cerrar sesión" class="p-2 text-slate-400 hover:text-red-400 transition-colors rounded-lg hover:bg-red-400/10">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
                 </button>
             </div>
         </header>
 
-        <main class="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8" x-data="alertasPage()">
-            <!-- Summary Cards -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                <div class="bg-slate-800 rounded-xl p-6 border border-slate-700 shadow-sm">
-                    <div class="flex items-center">
-                        <div class="p-3 rounded-lg bg-slate-700 text-slate-300">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
-                        </div>
-                        <div class="ml-4">
-                            <p class="text-sm font-medium text-slate-400">Total Alertas</p>
-                            <p class="text-2xl font-semibold text-white" x-text="alertas.length"></p>
-                        </div>
-                    </div>
+        <main class="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8" x-data="alertasPage()" x-init="init()">
+            <!-- Stats -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-8">
+                <div class="bg-slate-800 rounded-xl p-5 border border-slate-700">
+                    <p class="text-xs text-slate-400 font-medium">Total Alertas</p>
+                    <p class="text-2xl font-bold text-amber-400 mt-1" x-text="alertas.length"></p>
                 </div>
-                <div class="bg-slate-800 rounded-xl p-6 border border-red-900 shadow-sm bg-red-900/10">
-                    <div class="flex items-center">
-                        <div class="p-3 rounded-lg bg-red-500/20 text-red-500">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"></path></svg>
-                        </div>
-                        <div class="ml-4">
-                            <p class="text-sm font-medium text-red-400">Agotados (Stock = 0)</p>
-                            <p class="text-2xl font-semibold text-white" x-text="agotadosCount"></p>
-                        </div>
-                    </div>
+                <div class="bg-slate-800 rounded-xl p-5 border border-slate-700">
+                    <p class="text-xs text-slate-400 font-medium">Agotados (Stock 0)</p>
+                    <p class="text-2xl font-bold text-red-400 mt-1" x-text="alertas.filter(a => (a.stock_actual || a.stock) === 0).length"></p>
                 </div>
-                <div class="bg-slate-800 rounded-xl p-6 border border-orange-900 shadow-sm bg-orange-900/10">
-                    <div class="flex items-center">
-                        <div class="p-3 rounded-lg bg-orange-500/20 text-orange-500">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                        </div>
-                        <div class="ml-4">
-                            <p class="text-sm font-medium text-orange-400">Stock Crítico (Stock <= Mín)</p>
-                            <p class="text-2xl font-semibold text-white" x-text="criticosCount"></p>
-                        </div>
-                    </div>
+                <div class="bg-slate-800 rounded-xl p-5 border border-slate-700">
+                    <p class="text-xs text-slate-400 font-medium">Bajo Mínimo</p>
+                    <p class="text-2xl font-bold text-yellow-400 mt-1" x-text="alertas.filter(a => (a.stock_actual || a.stock) > 0).length"></p>
                 </div>
             </div>
 
-            <div class="flex flex-col sm:flex-row gap-4 mb-6">
-                <select x-model="filterSede" class="bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-amber-500 min-w-[200px]">
-                    <option value="">Todas las Sedes</option>
-                    <template x-for="sede in sedes" :key="sede.id"><option :value="sede.id" x-text="sede.nombre"></option></template>
-                </select>
-                <select x-model="filterCategoria" class="bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-amber-500 min-w-[200px]">
-                    <option value="">Todas las Categorías</option>
-                    <template x-for="cat in categorias" :key="cat.id"><option :value="cat.id" x-text="cat.nombre"></option></template>
-                </select>
-            </div>
-
+            <!-- Table -->
             <div class="bg-slate-800 rounded-xl border border-slate-700 overflow-hidden shadow-sm">
                 <div class="overflow-x-auto">
                     <table class="w-full text-left text-sm whitespace-nowrap">
                         <thead class="bg-slate-900/50 text-slate-400">
                             <tr>
+                                <th class="px-6 py-4 font-semibold">Código</th>
                                 <th class="px-6 py-4 font-semibold">Producto</th>
+                                <th class="px-6 py-4 font-semibold">Categoría</th>
                                 <th class="px-6 py-4 font-semibold">Sede</th>
-                                <th class="px-6 py-4 font-semibold text-center">Stock Actual</th>
-                                <th class="px-6 py-4 font-semibold text-center">Stock Mínimo</th>
-                                <th class="px-6 py-4 font-semibold text-center">Déficit</th>
+                                <th class="px-6 py-4 font-semibold text-right">Stock Actual</th>
+                                <th class="px-6 py-4 font-semibold text-right">Stock Mínimo</th>
+                                <th class="px-6 py-4 font-semibold text-right">Déficit</th>
                                 <th class="px-6 py-4 font-semibold text-right">Acción</th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-slate-700/50">
-                            <template x-for="alerta in filteredAlertas" :key="alerta.id">
-                                <tr :class="alerta.stock_actual === 0 ? 'bg-red-900/20' : 'bg-orange-900/10'" class="transition-colors">
-                                    <td class="px-6 py-4">
-                                        <div class="font-medium text-white" x-text="alerta.nombre"></div>
-                                        <div class="text-xs text-slate-400 font-mono mt-0.5" x-text="alerta.codigo"></div>
-                                    </td>
-                                    <td class="px-6 py-4 text-slate-300" x-text="getSedeName(alerta.sede_id)"></td>
-                                    <td class="px-6 py-4 text-center">
-                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium" :class="alerta.stock_actual === 0 ? 'bg-red-500/20 text-red-400' : 'bg-orange-500/20 text-orange-400'" x-text="alerta.stock_actual"></span>
-                                    </td>
-                                    <td class="px-6 py-4 text-center text-slate-400" x-text="alerta.stock_minimo"></td>
-                                    <td class="px-6 py-4 text-center font-bold text-red-400" x-text="alerta.stock_minimo - alerta.stock_actual"></td>
+                            <template x-for="item in alertas" :key="item.id">
+                                <tr class="hover:bg-slate-700/20 transition-colors">
+                                    <td class="px-6 py-4 font-mono font-semibold text-amber-500" x-text="item.codigo"></td>
+                                    <td class="px-6 py-4 font-medium text-white" x-text="item.nombre"></td>
+                                    <td class="px-6 py-4 text-slate-300" x-text="item.categoria_nombre || 'General'"></td>
+                                    <td class="px-6 py-4 text-slate-300" x-text="item.sede_nombre || 'Principal'"></td>
+                                    <td class="px-6 py-4 text-right font-bold" :class="(item.stock_actual || item.stock) === 0 ? 'text-red-500' : 'text-amber-400'" x-text="item.stock_actual || item.stock || 0"></td>
+                                    <td class="px-6 py-4 text-right text-slate-300" x-text="item.stock_minimo"></td>
+                                    <td class="px-6 py-4 text-right font-bold text-red-400" x-text="Math.max(0, item.stock_minimo - (item.stock_actual || item.stock || 0))"></td>
                                     <td class="px-6 py-4 text-right">
-                                        <button @click="openStockModal(alerta)" class="bg-slate-700 hover:bg-slate-600 text-white px-3 py-1.5 rounded-lg text-xs font-medium transition-colors border border-slate-600">Ajustar Stock</button>
+                                        <button @click="openModal(item)" class="px-3 py-1.5 bg-amber-500 hover:bg-amber-600 text-white rounded-lg text-xs font-semibold transition-colors">
+                                            Reabastecer
+                                        </button>
                                     </td>
                                 </tr>
                             </template>
-                            <tr x-show="filteredAlertas.length === 0">
-                                <td colspan="6" class="px-6 py-8 text-center text-slate-500">No hay alertas de stock.</td>
+                            <tr x-show="alertas.length === 0">
+                                <td colspan="8" class="px-6 py-12 text-center text-slate-500">
+                                    ¡Excelente! No hay alertas de stock bajo en este momento.
+                                </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
 
-            <!-- Ajustar Stock Modal -->
+            <!-- Quick Restock Modal -->
             <div x-show="showModal" class="fixed inset-0 z-50 overflow-y-auto" style="display: none;">
-                <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-                    <div class="fixed inset-0 bg-slate-900/80 transition-opacity" @click="showModal = false"></div>
-                    <span class="hidden sm:inline-block sm:align-middle sm:h-screen">&#8203;</span>
-                    <div class="inline-block align-bottom bg-slate-800 rounded-xl text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-sm sm:w-full border border-slate-700">
+                <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:p-0">
+                    <div class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm" @click="showModal = false"></div>
+                    <div class="inline-block bg-slate-800 rounded-xl text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:max-w-md sm:w-full border border-slate-700 z-10 p-6">
+                        <h3 class="text-lg font-bold text-white mb-1">Reabastecer Producto</h3>
+                        <p class="text-xs text-slate-400 mb-4" x-text="selectedProd?.nombre"></p>
+                        
                         <form @submit.prevent="updateStock">
-                            <div class="px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                                <h3 class="text-lg leading-6 font-medium text-white mb-4">Ajustar Stock</h3>
-                                <p class="text-sm text-slate-400 mb-4" x-text="stockForm.nombre"></p>
-                                <div class="space-y-4">
-                                    <div>
-                                        <label class="block text-sm font-medium text-slate-300">Nueva Cantidad</label>
-                                        <input type="number" x-model="stockForm.stock_actual" required class="mt-1 block w-full border border-slate-600 rounded-md bg-slate-700 text-white px-3 py-2 sm:text-sm">
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm font-medium text-slate-300">Notas (Opcional)</label>
-                                        <textarea x-model="stockForm.notas" class="mt-1 block w-full border border-slate-600 rounded-md bg-slate-700 text-white px-3 py-2 sm:text-sm" rows="2"></textarea>
-                                    </div>
-                                </div>
+                            <div class="mb-4">
+                                <label class="block text-xs font-medium text-slate-300 mb-1">Nueva Cantidad en Stock</label>
+                                <input type="number" x-model="newStock" required min="0" class="w-full border border-slate-600 rounded-lg bg-slate-700 text-white px-3 py-2 text-sm focus:border-amber-500 outline-none font-bold">
                             </div>
-                            <div class="bg-slate-900/50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse border-t border-slate-700">
-                                <button type="submit" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-amber-500 text-base font-medium text-white hover:bg-amber-600 sm:ml-3 sm:w-auto sm:text-sm">Guardar</button>
-                                <button type="button" @click="showModal = false" class="mt-3 w-full inline-flex justify-center rounded-md border border-slate-600 shadow-sm px-4 py-2 bg-slate-700 text-base font-medium text-slate-300 hover:bg-slate-600 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">Cancelar</button>
+                            <div class="flex justify-end gap-3">
+                                <button type="button" @click="showModal = false" class="px-4 py-2 bg-slate-700 text-slate-300 rounded-lg text-sm font-medium hover:bg-slate-600">Cancelar</button>
+                                <button type="submit" class="px-4 py-2 bg-amber-500 text-white rounded-lg text-sm font-medium hover:bg-amber-600">Actualizar</button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
 
-            <div x-show="toast.show" x-transition class="fixed top-4 right-4 z-50 rounded-lg p-4 shadow-lg border" :class="toast.type === 'success' ? 'bg-green-500/10 border-green-500/50 text-green-400' : 'bg-red-500/10 border-red-500/50 text-red-400'" style="display: none;">
-                <p x-text="toast.message" class="text-sm font-medium"></p>
+            <!-- Toast -->
+            <div x-show="toast.show" x-transition class="fixed top-4 right-4 z-50 rounded-lg px-4 py-3 shadow-lg border text-sm font-medium bg-green-900/90 border-green-500 text-green-200" style="display: none;">
+                <p x-text="toast.message"></p>
             </div>
         </main>
     </div>
 
-    <script src="../assets/js/config.js"></script>
-    <script src="../assets/js/api.js"></script>
-    <script src="../assets/js/auth.js"></script>
+    <script src="../assets/js/config.js?v=3"></script>
+    <script src="../assets/js/api.js?v=3"></script>
+    <script src="../assets/js/auth.js?v=3"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            if (!window.auth.hasRole('admin')) { window.location.href = 'dashboard.html'; return; }
             const user = window.auth.getUser();
-            if (user) document.getElementById('user-info').textContent = `${user.nombre} (${user.rol})`;
+            if (!user) { window.location.href = '../index.html'; return; }
+            if (!window.auth.hasRole('admin', 'cajero')) { window.location.href = 'dashboard.html'; return; }
+
+            const rolNombre = user.rol_nombre || user.rol || '';
+            document.getElementById('user-name').textContent = `${user.nombre} ${user.apellido || ''}`.trim();
+            document.getElementById('user-rol').textContent = rolNombre;
+
+            const rol = rolNombre.toLowerCase();
+            if (rol === 'admin' || rol === 'cajero') {
+                document.querySelectorAll('.nav-cajero, .nav-admin').forEach(el => el.style.display = 'flex');
+            }
+            if (rol === 'admin') {
+                document.querySelectorAll('.nav-admin').forEach(el => el.style.display = 'flex');
+                document.querySelectorAll('div.nav-admin').forEach(el => el.style.display = 'block');
+            }
         });
 
         document.addEventListener('alpine:init', () => {
             Alpine.data('alertasPage', () => ({
-                alertas: [], sedes: [], categorias: [],
-                filterSede: '', filterCategoria: '',
+                alertas: [],
                 showModal: false,
-                stockForm: { id: null, nombre: '', stock_actual: 0, notas: '' },
-                toast: { show: false, message: '', type: 'success' },
+                selectedProd: null,
+                newStock: 0,
+                toast: { show: false, message: '' },
 
-                async init() {
-                    await Promise.all([this.fetchSedes(), this.fetchCategorias()]);
-                    await this.fetchAlertas();
-                },
+                async init() { await this.fetchAlertas(); },
 
-                get filteredAlertas() {
-                    return this.alertas.filter(a => {
-                        const matchesSede = this.filterSede === '' || a.sede_id == this.filterSede;
-                        const matchesCat = this.filterCategoria === '' || a.categoria_id == this.filterCategoria;
-                        return matchesSede && matchesCat;
-                    });
-                },
-
-                get agotadosCount() { return this.alertas.filter(a => a.stock_actual === 0).length; },
-                get criticosCount() { return this.alertas.filter(a => a.stock_actual > 0 && a.stock_actual <= a.stock_minimo).length; },
-
-                async fetchSedes() { this.sedes = await window.api.get('/api/sedes').catch(()=>[]) || []; },
-                async fetchCategorias() { this.categorias = await window.api.get('/api/categorias').catch(()=>[]) || []; },
                 async fetchAlertas() {
-                    const allProducts = await window.api.get('/api/productos').catch(() => [
-                        {id: 1, codigo: 'CER-001', nombre: 'Corona Extra 330ml', stock_actual: 0, stock_minimo: 50, categoria_id: 1, sede_id: 1},
-                        {id: 2, codigo: 'LIC-001', nombre: 'Tequila Don Julio Reposado', stock_actual: 1, stock_minimo: 2, categoria_id: 2, sede_id: 1}
-                    ]) || [];
-                    this.alertas = allProducts.filter(p => p.stock_actual <= p.stock_minimo);
+                    try {
+                        const res = await window.api.get('/api/productos/alertas');
+                        let list = res?.data || [];
+                        const user = window.auth.getUser();
+                        if (!window.auth.hasRole('admin') && user?.sede_id) {
+                            list = list.filter(a => String(a.sede_id) === String(user.sede_id));
+                        }
+                        this.alertas = list;
+                    } catch (e) {
+                        this.alertas = [];
+                    }
                 },
 
-                getSedeName(id) { const s = this.sedes.find(s => s.id == id); return s ? s.nombre : 'Desconocida'; },
-
-                openStockModal(alerta) {
-                    this.stockForm = { id: alerta.id, nombre: alerta.nombre, stock_actual: alerta.stock_actual, notas: '' };
+                openModal(item) {
+                    this.selectedProd = item;
+                    this.newStock = (item.stock_actual || item.stock || 0) + 10;
                     this.showModal = true;
                 },
 
                 async updateStock() {
+                    if (!this.selectedProd) return;
                     try {
-                        await window.api.put(`/api/productos/${this.stockForm.id}/stock`, { stock_actual: this.stockForm.stock_actual, notas: this.stockForm.notas }).catch(()=>{});
-                        this.showToast('Stock ajustado exitosamente', 'success');
-                        await this.fetchAlertas();
+                        await window.api.put(`/api/productos/${this.selectedProd.id}`, {
+                            stock_actual: parseInt(this.newStock)
+                        });
+                        this.showToast('Stock actualizado correctamente');
                         this.showModal = false;
-                    } catch (e) { this.showToast('Error al actualizar', 'error'); }
+                        await this.fetchAlertas();
+                    } catch (e) {
+                        alert(e.message || 'Error al actualizar');
+                    }
                 },
 
-                showToast(message, type) {
-                    this.toast = { show: true, message, type };
+                showToast(message) {
+                    this.toast = { show: true, message };
                     setTimeout(() => { this.toast.show = false; }, 4000);
                 }
             }));

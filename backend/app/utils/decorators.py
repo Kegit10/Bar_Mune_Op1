@@ -9,7 +9,7 @@ def require_auth(f):
     def decorated(*args, **kwargs):
         try:
             verify_jwt_in_request()
-        except Exception as e:
+        except Exception:
             return jsonify({"success": False, "message": "Autenticación requerida", "data": None}), 401
         return f(*args, **kwargs)
     return decorated
@@ -17,23 +17,31 @@ def require_auth(f):
 
 def require_roles(*roles):
     """Verifica JWT y que el rol del usuario esté en la lista permitida.
-    Lee rol_nombre desde los additional_claims del JWT (sin llamar a la BD).
+    Acepta argumentos planos ('admin', 'cajero') o listas/tuplas (['admin', 'cajero']).
+    Lee rol_nombre desde los additional_claims del JWT.
     """
+    # Aplanar y normalizar argumentos de roles
+    allowed = []
+    for r in roles:
+        if isinstance(r, (list, tuple, set)):
+            allowed.extend([str(item).lower() for item in r])
+        elif r:
+            allowed.append(str(r).lower())
+
     def decorator(f):
         @wraps(f)
         def decorated(*args, **kwargs):
             try:
                 verify_jwt_in_request()
-                claims = get_jwt()  # Contiene additional_claims: rol_nombre, email, etc.
+                claims = get_jwt()
                 user_role = (claims.get('rol_nombre') or '').lower()
-                allowed = [r.lower() for r in roles]
                 if user_role not in allowed:
                     return jsonify({
                         "success": False,
-                        "message": f"Acceso denegado. Roles permitidos: {list(roles)}",
+                        "message": f"Acceso denegado. Roles permitidos: {allowed}",
                         "data": None
                     }), 403
-            except Exception as e:
+            except Exception:
                 return jsonify({"success": False, "message": "Autenticación requerida", "data": None}), 401
             return f(*args, **kwargs)
         return decorated
@@ -42,4 +50,7 @@ def require_roles(*roles):
 
 def get_current_user():
     """Helper: retorna los claims del usuario del JWT actual."""
-    return get_jwt()
+    try:
+        return get_jwt()
+    except Exception:
+        return {}

@@ -3,264 +3,486 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pagos - Bar Mune</title>
+    <title>Caja y Pagos - Bar Mune</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        tailwind.config = { theme: { extend: { fontFamily: { sans: ['Inter', 'sans-serif'] }, colors: { slate: { 900: '#0F172A', 800: '#1E293B', 700: '#334155' }, amber: { 500: '#F59E0B', 600: '#D97706' } } } } }
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        slate: { 900: '#0F172A', 800: '#1E293B', 700: '#334155', 600: '#475569', 400: '#94A3B8' },
+                        amber: { 500: '#F59E0B', 600: '#D97706' }
+                    }
+                }
+            }
+        }
     </script>
     <link rel="stylesheet" href="../assets/css/app.css">
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
-<body class="bg-slate-900 text-white flex h-screen overflow-hidden" x-data="{ sidebarOpen: true, userRole: window.auth ? window.auth.getUser()?.rol?.toLowerCase() : '' }">
-    <!-- Sidebar template -->
-    <aside :class="sidebarOpen ? 'w-64' : 'w-20'" class="bg-[#0D1526] border-r border-slate-700 transition-all duration-300 flex flex-col h-full z-20 hidden md:flex">
-        <div class="h-16 flex items-center justify-center border-b border-slate-700">
-            <svg class="w-8 h-8 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 15.546c-.523 0-1.046.151-1.5.454a2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.701 2.701 0 00-1.5-.454M9 6v2m3-2v2m3-2v2M9 3h.01M12 3h.01M15 3h.01M21 21v-7a2 2 0 00-2-2H5a2 2 0 00-2 2v7h18zm-3-9v-2a2 2 0 00-2-2H8a2 2 0 00-2 2v2h12z"></path></svg>
-            <span x-show="sidebarOpen" class="ml-2 font-bold text-xl tracking-wide whitespace-nowrap">Bar Mune</span>
+<body class="bg-slate-900 text-white flex h-screen overflow-hidden" x-data="{ sidebarOpen: true }">
+
+    <!-- Sidebar -->
+    <aside :class="sidebarOpen ? 'w-64' : 'w-20'" class="bg-[#0D1526] border-r border-slate-700 transition-all duration-300 flex flex-col h-full z-20 hidden md:flex flex-shrink-0">
+        <div class="h-16 flex items-center px-4 border-b border-slate-700 gap-3">
+            <svg class="w-8 h-8 text-amber-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 15.546c-.523 0-1.046.151-1.5.454a2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.701 2.701 0 00-1.5-.454M9 6v2m3-2v2m3-2v2M9 3h.01M12 3h.01M15 3h.01M21 21v-7a2 2 0 00-2-2H5a2 2 0 00-2 2v7h18zm-3-9v-2a2 2 0 00-2-2H8a2 2 0 00-2 2v2h12z"/>
+            </svg>
+            <span x-show="sidebarOpen" class="font-bold text-xl tracking-wide whitespace-nowrap">Bar Mune</span>
         </div>
-        <nav class="flex-1 overflow-y-auto py-4 space-y-1">
-            <a href="dashboard.html" x-show="['admin','cajero','mesero'].includes(userRole)" class="flex items-center px-4 py-3 text-slate-400 hover:bg-slate-800 hover:text-white"><svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg><span x-show="sidebarOpen">Dashboard</span></a>
-            <a href="pagos.html" x-show="['admin','cajero'].includes(userRole)" class="flex items-center px-4 py-3 bg-amber-500/10 text-amber-500 border-r-2 border-amber-500"><svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path></svg><span x-show="sidebarOpen">Pagos</span></a>
-            <a href="dashboard.html" class="flex items-center px-4 py-3 text-slate-400 hover:bg-slate-800 hover:text-white"><svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg><span x-show="sidebarOpen">Volver</span></a>
+
+        <nav class="flex-1 overflow-y-auto py-4 space-y-1 px-2" id="sidebar-nav">
+            <a href="dashboard.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-700/50 hover:text-white transition-colors">
+                <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                <span x-show="sidebarOpen" class="ml-3 font-medium text-sm whitespace-nowrap">Dashboard</span>
+            </a>
+            <a href="ordenes.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-700/50 hover:text-white transition-colors">
+                <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
+                <span x-show="sidebarOpen" class="ml-3 font-medium text-sm whitespace-nowrap">Órdenes</span>
+            </a>
+            <a href="pagos.html" class="flex items-center px-3 py-2.5 rounded-lg bg-amber-500/10 text-amber-500 border border-amber-500/30">
+                <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                <span x-show="sidebarOpen" class="ml-3 font-medium text-sm whitespace-nowrap">Pagos</span>
+            </a>
+            <a href="inventario.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-700/50 hover:text-white transition-colors nav-cajero nav-admin" style="display:none">
+                <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+                <span x-show="sidebarOpen" class="ml-3 font-medium text-sm whitespace-nowrap">Inventario</span>
+            </a>
+            <a href="stock-alertas.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-700/50 hover:text-white transition-colors nav-cajero nav-admin" style="display:none">
+                <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                <span x-show="sidebarOpen" class="ml-3 font-medium text-sm whitespace-nowrap">Alertas Stock</span>
+            </a>
+            <a href="reportes.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-700/50 hover:text-white transition-colors nav-cajero nav-admin" style="display:none">
+                <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                <span x-show="sidebarOpen" class="ml-3 font-medium text-sm whitespace-nowrap">Reportes</span>
+            </a>
+
+            <div class="nav-admin border-t border-slate-700 my-2" style="display:none"></div>
+
+            <a href="usuarios.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-700/50 hover:text-white transition-colors nav-admin" style="display:none">
+                <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+                <span x-show="sidebarOpen" class="ml-3 font-medium text-sm whitespace-nowrap">Usuarios</span>
+            </a>
+            <a href="sedes.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-700/50 hover:text-white transition-colors nav-admin" style="display:none">
+                <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                <span x-show="sidebarOpen" class="ml-3 font-medium text-sm whitespace-nowrap">Sedes</span>
+            </a>
+            <a href="parametros.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-700/50 hover:text-white transition-colors nav-admin" style="display:none">
+                <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                <span x-show="sidebarOpen" class="ml-3 font-medium text-sm whitespace-nowrap">Parámetros</span>
+            </a>
         </nav>
     </aside>
 
-    <div class="flex-1 flex flex-col h-screen overflow-hidden">
-        <header class="h-16 bg-slate-800 border-b border-slate-700 flex items-center justify-between px-4 z-10">
-            <h1 class="text-xl font-semibold text-white ml-4">Módulo de Pagos</h1>
+    <!-- Main Content -->
+    <div class="flex-1 flex flex-col h-screen overflow-hidden min-w-0" x-data="pagosPage()" x-init="init()">
+        <!-- Topbar -->
+        <header class="h-16 bg-slate-800 border-b border-slate-700 flex items-center justify-between px-4 sm:px-6 z-10 flex-shrink-0">
+            <div class="flex items-center gap-4">
+                <button @click="sidebarOpen = !sidebarOpen" class="text-slate-400 hover:text-white hidden md:block">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                </button>
+                <h1 class="text-xl font-semibold text-white">Módulo de Caja y Pagos</h1>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <!-- Sede Selector para Admin / Sede Fija para Cajero -->
+                <div class="flex items-center bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 gap-2">
+                    <span class="text-amber-400 text-xs font-bold">📍 Sede:</span>
+                    
+                    <!-- Admin: Dropdown de selección libre -->
+                    <template x-if="isAdmin">
+                        <select x-model="selectedSedeId" @change="onSedeChange()" class="bg-transparent text-white text-xs font-semibold focus:outline-none cursor-pointer">
+                            <template x-for="s in sedes" :key="s.id">
+                                <option :value="s.id" class="bg-slate-800 text-white" x-text="s.nombre"></option>
+                            </template>
+                        </select>
+                    </template>
+                    
+                    <!-- Cajero/Mesero: Badge de Sede asignada -->
+                    <template x-if="!isAdmin">
+                        <span class="text-white text-xs font-semibold" x-text="currentSedeName"></span>
+                    </template>
+                </div>
+
+                <div class="text-right hidden sm:block">
+                    <p id="user-name" class="text-sm font-medium text-white"></p>
+                    <p id="user-rol" class="text-xs text-slate-400 capitalize"></p>
+                </div>
+                <button onclick="window.auth.logout()" title="Cerrar sesión" class="p-2 text-slate-400 hover:text-red-400 transition-colors rounded-lg hover:bg-red-400/10">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+                </button>
+            </div>
         </header>
 
-        <main class="flex-1 flex overflow-hidden" x-data="pagosPage()">
-            <!-- Left: Orders -->
-            <div class="w-2/5 border-r border-slate-700 bg-slate-900 overflow-y-auto p-4 flex flex-col">
-                <h2 class="text-sm font-semibold text-slate-400 mb-4 uppercase tracking-wider">Órdenes Pendientes</h2>
+        <main class="flex-1 flex overflow-hidden">
+            <!-- Left: Órdenes Pendientes -->
+            <div class="w-96 border-r border-slate-700 bg-slate-900 overflow-y-auto p-4 flex flex-col flex-shrink-0">
+                <div class="flex justify-between items-center mb-4">
+                    <div>
+                        <h2 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Órdenes a Cobrar</h2>
+                        <p class="text-[11px] text-amber-400 font-medium" x-text="currentSedeName"></p>
+                    </div>
+                    <button @click="fetchOrders()" title="Refrescar" class="text-xs text-amber-500 hover:text-amber-400 flex items-center gap-1">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                        <span>Refrescar</span>
+                    </button>
+                </div>
+
                 <div class="space-y-3 flex-1">
                     <template x-for="orden in ordenes" :key="orden.id">
                         <div @click="selectOrder(orden)" 
-                            :class="selectedOrder && selectedOrder.id === orden.id ? 'bg-amber-500/10 border-amber-500' : 'bg-slate-800 border-slate-700 hover:border-slate-500'"
-                            class="border rounded-xl p-4 cursor-pointer transition-colors shadow-sm relative overflow-hidden group">
+                            :class="selectedOrder?.id === orden.id ? 'bg-amber-500/10 border-amber-500 ring-2 ring-amber-500' : 'bg-slate-800 border-slate-700 hover:border-slate-500'"
+                            class="border rounded-xl p-4 cursor-pointer transition-all shadow-sm relative overflow-hidden">
                             
-                            <div class="absolute top-0 left-0 w-1 h-full" :class="orden.estado === 'lista' ? 'bg-green-500' : 'bg-blue-500'"></div>
-                            
-                            <div class="flex justify-between items-start pl-2">
+                            <div class="flex justify-between items-start">
                                 <div>
-                                    <h3 class="text-lg font-bold text-white mb-1">Mesa <span x-text="orden.mesa_numero"></span></h3>
-                                    <p class="text-sm text-slate-400">Orden #<span x-text="orden.id"></span></p>
+                                    <h3 class="text-base font-bold text-white flex items-center gap-2">
+                                        <span x-text="'Mesa ' + orden.mesa"></span>
+                                        <span class="text-xs text-slate-400 font-normal" x-text="`#${orden.numero_orden || orden.id.slice(0,6)}`"></span>
+                                    </h3>
+                                    <p class="text-xs text-slate-400 mt-1" x-text="`Mesero: ${orden.mesero_nombre || 'N/A'}`"></p>
                                 </div>
                                 <div class="text-right">
-                                    <p class="text-lg font-bold text-amber-500" x-text="formatCurrency(orden.total)"></p>
-                                    <span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider mt-1 inline-block" 
-                                        :class="orden.estado === 'lista' ? 'bg-green-500/20 text-green-500' : 'bg-blue-500/20 text-blue-500'" 
-                                        x-text="orden.estado"></span>
+                                    <p class="text-base font-bold text-amber-400" x-text="formatCurrency(orden.total)"></p>
+                                    <span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider mt-1 inline-block"
+                                        :class="orden.estado === 'lista' ? 'bg-green-500/20 text-green-300' : 'bg-blue-500/20 text-blue-300'"
+                                        x-text="orden.estado.replace('_', ' ')"></span>
                                 </div>
                             </div>
                         </div>
                     </template>
-                    <div x-show="ordenes.length === 0" class="text-center text-slate-500 py-12">No hay órdenes pendientes de pago.</div>
-                </div>
-            </div>
-
-            <!-- Right: Terminal -->
-            <div class="w-3/5 bg-slate-800 flex flex-col">
-                <template x-if="!selectedOrder">
-                    <div class="flex-1 flex items-center justify-center text-slate-500">Seleccione una orden para procesar el pago</div>
-                </template>
-                <template x-if="selectedOrder">
-                    <div class="flex flex-col h-full">
-                        <div class="p-6 border-b border-slate-700 flex justify-between items-center bg-slate-900/50">
-                            <h2 class="text-2xl font-bold">Cobrar Mesa <span x-text="selectedOrder.mesa_numero"></span></h2>
-                        </div>
-                        
-                        <!-- Order Items List -->
-                        <div class="flex-1 overflow-y-auto p-6 bg-slate-900/30">
-                            <table class="w-full text-sm">
-                                <tbody class="divide-y divide-slate-700/50">
-                                    <template x-for="item in selectedOrder.items" :key="item.id">
-                                        <tr>
-                                            <td class="py-2 text-slate-300"><span x-text="item.cantidad"></span>x <span class="font-medium text-white ml-2" x-text="item.producto_nombre"></span></td>
-                                            <td class="py-2 text-right font-medium" x-text="formatCurrency(item.subtotal)"></td>
-                                        </tr>
-                                    </template>
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <!-- Totals & Payment form -->
-                        <div class="p-6 border-t border-slate-700 bg-slate-800">
-                            <div class="flex justify-between items-center mb-2 text-slate-400"><span>Subtotal</span><span x-text="formatCurrency(subtotal)"></span></div>
-                            <div class="flex justify-between items-center mb-4 text-slate-400"><span>Propina (Opcional)</span>
-                                <div class="flex items-center">
-                                    <span class="mr-2 text-white">$</span>
-                                    <input type="number" x-model.number="propina" class="bg-slate-700 border border-slate-600 rounded px-2 py-1 text-right w-24 text-white">
-                                </div>
-                            </div>
-                            <div class="flex justify-between items-center mb-6 text-xl font-bold">
-                                <span class="text-white">TOTAL A COBRAR</span>
-                                <span class="text-amber-500 text-3xl" x-text="formatCurrency(totalAcobrar)"></span>
-                            </div>
-
-                            <div class="mb-6">
-                                <p class="text-sm font-medium text-slate-300 mb-3">Método de Pago</p>
-                                <div class="grid grid-cols-3 gap-4">
-                                    <button @click="metodoPago = 'efectivo'" :class="metodoPago === 'efectivo' ? 'bg-amber-500/20 border-amber-500 text-amber-500 ring-1 ring-amber-500' : 'bg-slate-700 border-slate-600 text-slate-300 hover:bg-slate-600'" class="border rounded-xl py-3 flex flex-col items-center justify-center transition-all">
-                                        <span class="text-2xl mb-1">💵</span> <span class="font-medium text-sm">Efectivo</span>
-                                    </button>
-                                    <button @click="metodoPago = 'tarjeta'" :class="metodoPago === 'tarjeta' ? 'bg-amber-500/20 border-amber-500 text-amber-500 ring-1 ring-amber-500' : 'bg-slate-700 border-slate-600 text-slate-300 hover:bg-slate-600'" class="border rounded-xl py-3 flex flex-col items-center justify-center transition-all">
-                                        <span class="text-2xl mb-1">💳</span> <span class="font-medium text-sm">Tarjeta</span>
-                                    </button>
-                                    <button @click="metodoPago = 'transferencia'" :class="metodoPago === 'transferencia' ? 'bg-amber-500/20 border-amber-500 text-amber-500 ring-1 ring-amber-500' : 'bg-slate-700 border-slate-600 text-slate-300 hover:bg-slate-600'" class="border rounded-xl py-3 flex flex-col items-center justify-center transition-all">
-                                        <span class="text-2xl mb-1">🔄</span> <span class="font-medium text-sm">Transf.</span>
-                                    </button>
-                                </div>
-                            </div>
-
-                            <div x-show="metodoPago === 'efectivo'" x-collapse class="mb-6 bg-slate-900/50 p-4 rounded-xl border border-slate-700">
-                                <label class="block text-sm font-medium text-slate-300 mb-2">Monto Recibido</label>
-                                <input type="number" x-model.number="montoRecibido" class="w-full bg-slate-700 border border-slate-600 rounded-lg px-4 py-3 text-lg font-bold text-white text-right focus:ring-amber-500">
-                                <div class="flex justify-between items-center mt-3 text-lg" :class="cambio >= 0 ? 'text-green-400 font-bold' : 'text-red-400'">
-                                    <span>Cambio:</span>
-                                    <span x-text="formatCurrency(Math.max(0, cambio))"></span>
-                                </div>
-                            </div>
-
-                            <button @click="confirmarPago()" :disabled="!canSubmit" 
-                                :class="!canSubmit ? 'opacity-50 cursor-not-allowed bg-slate-600 text-slate-400' : 'bg-amber-500 hover:bg-amber-600 text-white shadow-lg'" 
-                                class="w-full py-4 rounded-xl font-bold text-lg transition-all flex justify-center items-center">
-                                Confirmar Pago
-                            </button>
-                        </div>
-                    </div>
-                </template>
-            </div>
-
-            <!-- Receipt Modal -->
-            <div x-show="showReceipt" class="fixed inset-0 z-50 flex items-center justify-center p-4">
-                <div class="fixed inset-0 bg-slate-900/90" @click="showReceipt = false"></div>
-                <div class="bg-white text-black w-full max-w-sm p-6 rounded-none relative z-10 font-mono shadow-2xl" id="print-area">
-                    <div class="text-center mb-6">
-                        <h2 class="text-2xl font-bold">BAR MUNE</h2>
-                        <p class="text-xs mt-1">NIT: 900.123.456-7</p>
-                        <p class="text-xs">COMPROBANTE DE PAGO</p>
-                    </div>
-                    <div class="text-sm mb-4 border-b border-black pb-2 border-dashed">
-                        <p>Orden: #<span x-text="lastReceipt?.orden_id"></span></p>
-                        <p>Mesa: <span x-text="lastReceipt?.mesa"></span></p>
-                        <p>Fecha: <span x-text="lastReceipt?.fecha"></span></p>
-                    </div>
-                    <table class="w-full text-sm mb-4 border-b border-black pb-2 border-dashed">
-                        <tbody>
-                            <template x-for="item in lastReceipt?.items" :key="item.id">
-                                <tr>
-                                    <td class="py-1"><span x-text="item.cantidad"></span>x <span x-text="item.producto_nombre"></span></td>
-                                    <td class="py-1 text-right" x-text="formatCurrency(item.subtotal)"></td>
-                                </tr>
-                            </template>
-                        </tbody>
-                    </table>
-                    <div class="text-sm border-b border-black pb-2 border-dashed">
-                        <div class="flex justify-between"><span>Subtotal</span><span x-text="formatCurrency(lastReceipt?.subtotal)"></span></div>
-                        <div class="flex justify-between"><span>Propina</span><span x-text="formatCurrency(lastReceipt?.propina)"></span></div>
-                        <div class="flex justify-between font-bold text-base mt-2"><span>TOTAL</span><span x-text="formatCurrency(lastReceipt?.total)"></span></div>
-                    </div>
-                    <div class="text-sm pt-2 text-center mt-2">
-                        <p>Método: <span class="uppercase" x-text="lastReceipt?.metodo_pago"></span></p>
-                        <p class="mt-4 font-bold">¡GRACIAS POR SU VISITA!</p>
-                    </div>
                     
-                    <div class="absolute -top-12 right-0 flex space-x-2 print:hidden">
-                        <button @click="window.print()" class="bg-white text-black px-4 py-2 rounded shadow font-sans font-bold flex items-center">🖨️ Imprimir</button>
-                        <button @click="closeReceipt()" class="bg-slate-700 text-white px-4 py-2 rounded shadow font-sans font-bold">Cerrar</button>
+                    <div x-show="ordenes.length === 0" class="text-center text-slate-500 py-16 px-4">
+                        <svg class="w-12 h-12 mx-auto text-slate-700 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        <p class="text-sm font-medium">No hay órdenes pendientes de cobro en <span class="text-amber-400" x-text="currentSedeName"></span>.</p>
+                        <a href="ordenes.html" class="mt-3 inline-block text-xs text-amber-400 hover:underline">Ir a Órdenes a despachar mesas →</a>
                     </div>
                 </div>
             </div>
-            
-            <div x-show="toast.show" x-transition class="fixed top-4 right-4 z-50 rounded-lg p-4 shadow-lg border bg-green-500/10 border-green-500/50 text-green-400" style="display: none;">
-                <p x-text="toast.message" class="text-sm font-medium"></p>
+
+            <!-- Right: Terminal de Pago -->
+            <div class="flex-1 bg-slate-900/50 overflow-y-auto p-6 flex flex-col justify-between">
+                <template x-if="!selectedOrder">
+                    <div class="h-full flex flex-col items-center justify-center text-slate-500">
+                        <svg class="w-16 h-16 text-slate-700 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                        <p class="text-base font-medium text-slate-400">Selecciona una orden de la lista para registrar el cobro</p>
+                    </div>
+                </template>
+
+                <template x-if="selectedOrder">
+                    <div class="max-w-2xl mx-auto w-full flex flex-col space-y-6">
+                        <!-- Order Summary Card -->
+                        <div class="bg-slate-800 rounded-xl border border-slate-700 p-6 shadow-sm">
+                            <div class="flex justify-between items-start border-b border-slate-700/60 pb-4 mb-4">
+                                <div>
+                                    <h2 class="text-xl font-bold text-white flex items-center gap-2">
+                                        <span x-text="`Cobro Mesa ${selectedOrder.mesa}`"></span>
+                                        <span class="text-xs px-2.5 py-0.5 rounded-full uppercase font-bold tracking-wider"
+                                            :class="selectedOrder.estado === 'lista' ? 'bg-green-500/20 text-green-300' : 'bg-blue-500/20 text-blue-300'"
+                                            x-text="selectedOrder.estado.replace('_', ' ')"></span>
+                                    </h2>
+                                    <p class="text-xs text-slate-400 mt-1" x-text="`Orden #${selectedOrder.numero_orden || selectedOrder.id.slice(0,6)} • Sede: ${selectedOrder.sede_nombre || currentSedeName} • Mesero: ${selectedOrder.mesero_nombre || 'N/A'}`"></p>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-xs text-slate-400">Subtotal: <span x-text="formatCurrency(selectedOrder.subtotal)"></span></p>
+                                    <p class="text-xs text-slate-400">IVA: <span x-text="formatCurrency(selectedOrder.impuesto)"></span></p>
+                                    <p class="text-2xl font-bold text-amber-400 mt-1" x-text="formatCurrency(selectedOrder.total)"></p>
+                                </div>
+                            </div>
+
+                            <!-- Listado de items de la orden -->
+                            <div x-show="selectedOrder.items && selectedOrder.items.length > 0" class="mb-5 border-b border-slate-700/40 pb-4">
+                                <p class="text-xs font-semibold text-slate-400 uppercase mb-2">Detalle de Productos</p>
+                                <div class="space-y-1.5 max-h-40 overflow-y-auto pr-1">
+                                    <template x-for="item in selectedOrder.items" :key="item.id">
+                                        <div class="flex justify-between text-xs py-1 px-2 rounded bg-slate-900/40">
+                                            <span class="text-white font-medium" x-text="`${item.cantidad}x ${item.producto_nombre}`"></span>
+                                            <span class="text-slate-300 font-mono" x-text="formatCurrency(item.subtotal)"></span>
+                                        </div>
+                                    </template>
+                                </div>
+                            </div>
+
+                            <!-- Payment Form -->
+                            <div class="space-y-4">
+                                <!-- Métodos de pago -->
+                                <div>
+                                    <label class="block text-xs font-medium text-slate-300 mb-2">Método de Pago</label>
+                                    <div class="grid grid-cols-3 gap-3">
+                                        <button type="button" @click="metodoPago = 'efectivo'"
+                                            :class="metodoPago === 'efectivo' ? 'bg-amber-500/20 border-amber-500 text-amber-400 font-bold' : 'bg-slate-700 border-slate-600 text-slate-300'"
+                                            class="py-2.5 px-3 rounded-lg border text-sm flex items-center justify-center gap-2 transition-all">
+                                            💵 Efectivo
+                                        </button>
+                                        <button type="button" @click="metodoPago = 'tarjeta'"
+                                            :class="metodoPago === 'tarjeta' ? 'bg-amber-500/20 border-amber-500 text-amber-400 font-bold' : 'bg-slate-700 border-slate-600 text-slate-300'"
+                                            class="py-2.5 px-3 rounded-lg border text-sm flex items-center justify-center gap-2 transition-all">
+                                            💳 Tarjeta
+                                        </button>
+                                        <button type="button" @click="metodoPago = 'transferencia'"
+                                            :class="metodoPago === 'transferencia' ? 'bg-amber-500/20 border-amber-500 text-amber-400 font-bold' : 'bg-slate-700 border-slate-600 text-slate-300'"
+                                            class="py-2.5 px-3 rounded-lg border text-sm flex items-center justify-center gap-2 transition-all">
+                                            📱 Transferencia
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Propina opcional y monto recibido -->
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-xs font-medium text-slate-300 mb-1">Propina Voluntaria ($)</label>
+                                        <input type="number" x-model.number="propina" min="0" step="500" class="w-full border border-slate-600 rounded-lg bg-slate-700 text-white px-3 py-2 text-sm focus:border-amber-500 outline-none">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-medium text-slate-300 mb-1">Monto Recibido ($)</label>
+                                        <input type="number" x-model.number="montoRecibido" min="0" step="500" class="w-full border border-slate-600 rounded-lg bg-slate-700 text-white px-3 py-2 text-sm focus:border-amber-500 outline-none font-bold">
+                                    </div>
+                                </div>
+
+                                <!-- Resumen de cambio -->
+                                <div class="bg-slate-900/60 rounded-lg p-4 border border-slate-700/60 space-y-1">
+                                    <div class="flex justify-between text-sm">
+                                        <span class="text-slate-400">Total con propina:</span>
+                                        <span class="font-bold text-white" x-text="formatCurrency(totalACobrar)"></span>
+                                    </div>
+                                    <div x-show="metodoPago === 'efectivo'" class="flex justify-between text-sm pt-1 border-t border-slate-700/40">
+                                        <span class="text-slate-400">Cambio a devolver:</span>
+                                        <span class="font-bold" :class="cambio >= 0 ? 'text-green-400' : 'text-red-400'" x-text="formatCurrency(Math.max(0, cambio))"></span>
+                                    </div>
+                                </div>
+
+                                <button type="button" @click="confirmarPago()" :disabled="submitting || (metodoPago === 'efectivo' && montoRecibido < totalACobrar)"
+                                    class="w-full py-3.5 bg-amber-500 hover:bg-amber-600 disabled:opacity-50 text-white font-bold rounded-xl transition-colors shadow-sm flex items-center justify-center gap-2">
+                                    <svg x-show="submitting" class="animate-spin h-5 w-5 text-white" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                                    <span>Confirmar Pago y Generar Comprobante</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+
+            <!-- Modal Comprobante Recibo Imprimible -->
+            <div x-show="showReceipt" class="fixed inset-0 z-50 overflow-y-auto" style="display: none;">
+                <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:p-0">
+                    <div class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm" @click="showReceipt = false"></div>
+                    <div class="inline-block bg-white text-slate-900 rounded-xl text-left overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:max-w-sm sm:w-full z-10 p-6 font-mono text-xs">
+                        <div class="text-center border-b border-dashed border-slate-300 pb-4 mb-4">
+                            <h3 class="text-base font-bold uppercase tracking-wider">Bar Mune</h3>
+                            <p class="text-[10px] text-slate-500">NIT: 900.123.456-7</p>
+                            <p class="text-[10px] text-slate-500" x-text="'Comprobante: ' + (lastReceipt?.numero_comprobante || 'N/A')"></p>
+                            <p class="text-[10px] text-slate-500" x-text="lastReceipt?.fecha"></p>
+                        </div>
+
+                        <div class="space-y-1 mb-4 border-b border-dashed border-slate-300 pb-3">
+                            <p><strong>Sede:</strong> <span x-text="lastReceipt?.sede"></span></p>
+                            <p><strong>Mesa:</strong> <span x-text="lastReceipt?.mesa"></span></p>
+                            <p><strong>Método:</strong> <span class="uppercase" x-text="lastReceipt?.metodo_pago"></span></p>
+                        </div>
+
+                        <div class="space-y-1 mb-4 border-b border-dashed border-slate-300 pb-3">
+                            <div class="flex justify-between">
+                                <span>Subtotal:</span>
+                                <span x-text="formatCurrency(lastReceipt?.subtotal)"></span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Propina:</span>
+                                <span x-text="formatCurrency(lastReceipt?.propina)"></span>
+                            </div>
+                            <div class="flex justify-between font-bold text-sm pt-1">
+                                <span>TOTAL PAGADO:</span>
+                                <span x-text="formatCurrency(lastReceipt?.total)"></span>
+                            </div>
+                        </div>
+
+                        <p class="text-center text-[10px] text-slate-500 mb-4">¡Gracias por su visita!</p>
+
+                        <div class="flex gap-2">
+                            <button type="button" onclick="window.print()" class="w-full py-2 bg-slate-900 text-white rounded font-bold text-xs">Imprimir</button>
+                            <button type="button" @click="showReceipt = false" class="w-full py-2 bg-slate-200 text-slate-800 rounded font-bold text-xs">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Toast -->
+            <div x-show="toast.show" x-transition class="fixed top-4 right-4 z-50 rounded-lg px-4 py-3 shadow-lg border text-sm font-medium bg-green-900/90 border-green-500 text-green-200" style="display: none;">
+                <p x-text="toast.message"></p>
             </div>
         </main>
     </div>
 
-    <script src="../assets/js/config.js"></script>
-    <script src="../assets/js/api.js"></script>
-    <script src="../assets/js/auth.js"></script>
+    <script src="../assets/js/config.js?v=3"></script>
+    <script src="../assets/js/api.js?v=3"></script>
+    <script src="../assets/js/auth.js?v=3"></script>
     <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const user = window.auth.getUser();
+            if (!user) { window.location.href = '../index.html'; return; }
+            if (!window.auth.hasRole('admin', 'cajero')) { window.location.href = 'dashboard.html'; return; }
+
+            const rolNombre = user.rol_nombre || user.rol || '';
+            document.getElementById('user-name').textContent = `${user.nombre} ${user.apellido || ''}`.trim();
+            document.getElementById('user-rol').textContent = rolNombre;
+
+            const rol = rolNombre.toLowerCase();
+            if (rol === 'admin' || rol === 'cajero') {
+                document.querySelectorAll('.nav-cajero, .nav-admin').forEach(el => el.style.display = 'flex');
+            }
+            if (rol === 'admin') {
+                document.querySelectorAll('.nav-admin').forEach(el => el.style.display = 'flex');
+                document.querySelectorAll('div.nav-admin').forEach(el => el.style.display = 'block');
+            }
+        });
+
         document.addEventListener('alpine:init', () => {
             Alpine.data('pagosPage', () => ({
+                sedes: [],
+                selectedSedeId: '',
                 ordenes: [],
                 selectedOrder: null,
                 propina: 0,
                 metodoPago: 'efectivo',
                 montoRecibido: 0,
+                submitting: false,
                 showReceipt: false,
                 lastReceipt: null,
                 toast: { show: false, message: '' },
 
-                async init() { await this.fetchOrders(); },
+                get isAdmin() {
+                    return window.auth.hasRole('admin');
+                },
+
+                get currentSedeName() {
+                    const s = this.sedes.find(item => String(item.id) === String(this.selectedSedeId));
+                    return s ? s.nombre : 'Sede Principal';
+                },
+
+                async init() {
+                    await this.fetchSedes();
+                    await this.fetchOrders();
+                },
+
+                async fetchSedes() {
+                    try {
+                        const res = await window.api.get('/api/sedes');
+                        this.sedes = res?.data || [];
+                        const user = window.auth.getUser();
+                        
+                        // Si no es admin y tiene sede asignada, fijar su sede
+                        if (!this.isAdmin && user?.sede_id) {
+                            this.selectedSedeId = user.sede_id;
+                        } else if (user?.sede_id && this.sedes.some(s => String(s.id) === String(user.sede_id))) {
+                            this.selectedSedeId = user.sede_id;
+                        } else if (this.sedes.length > 0) {
+                            this.selectedSedeId = this.sedes[0].id;
+                        }
+                    } catch(e) {
+                        this.sedes = [];
+                    }
+                },
+
+                async onSedeChange() {
+                    this.selectedOrder = null;
+                    await this.fetchOrders();
+                },
 
                 async fetchOrders() {
-                    const all = await window.api.get('/api/ordenes').catch(()=>[
-                        { id: 101, mesa_numero: 5, estado: 'lista', total: 45000, items: [{id:1, cantidad:2, producto_nombre:'Cerveza Corona', subtotal:16000}, {id:2, cantidad:1, producto_nombre:'Nachos', subtotal:29000}] },
-                        { id: 102, mesa_numero: 2, estado: 'en_proceso', total: 150000, items: [{id:3, cantidad:1, producto_nombre:'Tequila', subtotal:150000}] }
-                    ]);
-                    this.ordenes = all.filter(o => ['lista', 'en_proceso', 'abierta'].includes(o.estado));
+                    try {
+                        let url = '/api/ordenes?estado=lista,en_proceso';
+                        if (this.selectedSedeId) {
+                            url += `&sede_id=${this.selectedSedeId}`;
+                        }
+                        const res = await window.api.get(url);
+                        this.ordenes = res?.data || [];
+
+                        // Si había una orden seleccionada, refrescar sus datos
+                        if (this.selectedOrder) {
+                            const updated = this.ordenes.find(o => o.id === this.selectedOrder.id);
+                            if (updated) {
+                                await this.selectOrder(updated);
+                            } else {
+                                this.selectedOrder = null;
+                            }
+                        }
+                    } catch (e) {
+                        this.ordenes = [];
+                    }
                 },
 
-                selectOrder(orden) {
-                    this.selectedOrder = orden;
+                async selectOrder(orden) {
+                    try {
+                        // Obtener detalle completo de la orden con items
+                        const res = await window.api.get(`/api/ordenes/${orden.id}`);
+                        this.selectedOrder = res?.data || orden;
+                    } catch (e) {
+                        this.selectedOrder = orden;
+                    }
                     this.propina = 0;
                     this.metodoPago = 'efectivo';
-                    this.montoRecibido = 0;
+                    this.montoRecibido = parseFloat(this.selectedOrder.total || 0);
                 },
 
-                get subtotal() { return this.selectedOrder ? this.selectedOrder.total : 0; },
-                get totalAcobrar() { return this.subtotal + (Number(this.propina) || 0); },
-                get cambio() { return this.montoRecibido - this.totalAcobrar; },
-                get canSubmit() { 
-                    if (!this.selectedOrder) return false;
-                    if (this.metodoPago === 'efectivo' && this.montoRecibido < this.totalAcobrar) return false;
-                    return true;
+                get totalACobrar() {
+                    const sub = parseFloat(this.selectedOrder?.total || 0);
+                    const prop = parseFloat(this.propina || 0);
+                    return sub + prop;
+                },
+
+                get cambio() {
+                    const rec = parseFloat(this.montoRecibido || 0);
+                    return rec - this.totalACobrar;
                 },
 
                 async confirmarPago() {
-                    if (!this.canSubmit) return;
+                    if (!this.selectedOrder) return;
+                    this.submitting = true;
                     try {
+                        const user = window.auth.getUser();
                         const payload = {
                             orden_id: this.selectedOrder.id,
                             metodo_pago: this.metodoPago,
+                            cajero_id: user?.id || null,
                             monto_recibido: this.montoRecibido,
-                            propina: this.propina,
-                            total: this.totalAcobrar
+                            propina: this.propina
                         };
-                        // await window.api.post('/api/pagos', payload);
-                        
+                        const res = await window.api.post('/api/pagos', payload);
+                        const pagoData = res?.data || {};
+
                         this.lastReceipt = {
-                            orden_id: this.selectedOrder.id,
-                            mesa: this.selectedOrder.mesa_numero,
+                            numero_comprobante: pagoData.numero_comprobante || 'BM-PAGO',
+                            sede: this.selectedOrder.sede_nombre || this.currentSedeName,
+                            mesa: this.selectedOrder.mesa,
                             fecha: new Date().toLocaleString(),
-                            items: this.selectedOrder.items,
-                            subtotal: this.subtotal,
+                            subtotal: this.selectedOrder.total,
                             propina: this.propina,
-                            total: this.totalAcobrar,
+                            total: this.totalACobrar,
                             metodo_pago: this.metodoPago
                         };
-                        
+
                         this.showReceipt = true;
-                        this.toast.show = true; this.toast.message = 'Pago registrado exitosamente';
-                        setTimeout(() => this.toast.show = false, 3000);
-                        
-                        // Remove from list
-                        this.ordenes = this.ordenes.filter(o => o.id !== this.selectedOrder.id);
+                        this.showToast('Pago registrado exitosamente');
                         this.selectedOrder = null;
-                        
-                    } catch(e) {}
+                        await this.fetchOrders();
+                    } catch (e) {
+                        alert(e.message || 'Error al procesar el pago');
+                    } finally {
+                        this.submitting = false;
+                    }
                 },
 
-                closeReceipt() {
-                    this.showReceipt = false;
+                formatCurrency(val) {
+                    const num = parseFloat(val) || 0;
+                    return new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 }).format(num);
                 },
 
-                formatCurrency(val) { return new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 }).format(val); }
+                showToast(message) {
+                    this.toast = { show: true, message };
+                    setTimeout(() => { this.toast.show = false; }, 4000);
+                }
             }));
         });
     </script>

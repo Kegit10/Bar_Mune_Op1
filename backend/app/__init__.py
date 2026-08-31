@@ -18,6 +18,7 @@ def create_app(config_class=Config):
     from app.routes.ordenes import ordenes_bp
     from app.routes.pagos import pagos_bp
     from app.routes.reportes import reportes_bp
+    from app.routes.dashboard import dashboard_bp
 
     app.register_blueprint(auth_bp, url_prefix='/api/auth')
     app.register_blueprint(usuarios_bp, url_prefix='/api/usuarios')
@@ -27,6 +28,7 @@ def create_app(config_class=Config):
     app.register_blueprint(ordenes_bp, url_prefix='/api/ordenes')
     app.register_blueprint(pagos_bp, url_prefix='/api/pagos')
     app.register_blueprint(reportes_bp, url_prefix='/api/reportes')
+    app.register_blueprint(dashboard_bp, url_prefix='/api/dashboard')
 
     @app.route('/health', methods=['GET'])
     def health_check():
