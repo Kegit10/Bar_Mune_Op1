@@ -1,35 +1,67 @@
-/* Bar Mune - Estilos Custom */
-/* Tailwind CDN maneja las clases utilitarias. Este archivo sólo agrega estilos custom. */
+/* Bar Mune / LUNÉ Design System */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
-/* Fuente base */
 * {
     font-family: 'Inter', sans-serif;
 }
 
-/* Scrollbar personalizado */
+body {
+    background-color: #0B0F19;
+    color: #FFFFFF;
+}
+
+/* Scrollbar personalizado LUNÉ */
 ::-webkit-scrollbar {
     width: 6px;
     height: 6px;
 }
 ::-webkit-scrollbar-track {
-    background: #0F172A;
+    background: #0B0F19;
 }
 ::-webkit-scrollbar-thumb {
-    background: #334155;
+    background: #26334D;
     border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-    background: #475569;
+    background: #7C3AED;
 }
 
-/* Alpine.js — ocultar elementos con x-cloak hasta que Alpine inicialice */
+/* Alpine.js */
 [x-cloak] {
     display: none !important;
 }
 
-/* Transición suave del sidebar */
+/* Transición sidebar */
 .sidebar-transition {
-    transition: width 0.2s ease, transform 0.2s ease;
+    transition: width 0.25s cubic-bezier(0.4, 0, 0.2, 1), transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Utilidades LUNÉ */
+.bg-lune-gradient {
+    background: linear-gradient(135deg, #2A40FF 0%, #7C3AED 100%);
+}
+
+.bg-lune-gradient-hover:hover {
+    background: linear-gradient(135deg, #3B52FF 0%, #8B5CF6 100%);
+}
+
+.text-lune-gradient {
+    background: linear-gradient(135deg, #C4B5FD 0%, #A855F7 50%, #2A40FF 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.glow-blue {
+    box-shadow: 0 0 20px rgba(42, 64, 255, 0.35);
+}
+
+.glow-purple {
+    box-shadow: 0 0 20px rgba(124, 58, 237, 0.35);
+}
+
+.border-lune-glow {
+    border-color: rgba(124, 58, 237, 0.4);
+    box-shadow: 0 0 15px rgba(124, 58, 237, 0.15);
 }
 
 /* Toast notifications */
@@ -46,15 +78,15 @@
 .toast {
     pointer-events: all;
     padding: 0.75rem 1rem;
-    border-radius: 0.5rem;
+    border-radius: 0.75rem;
     font-size: 0.875rem;
     font-weight: 500;
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3);
-    animation: slideIn 0.2s ease;
-    max-width: 20rem;
+    box-shadow: 0 10px 25px -5px rgba(0,0,0,0.5);
+    animation: slideIn 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    max-width: 22rem;
 }
 .toast-success {
     background: #064e3b;
@@ -67,14 +99,14 @@
     color: #fca5a5;
 }
 .toast-warning {
-    background: #78350f;
-    border: 1px solid #f59e0b;
-    color: #fde68a;
+    background: #4c1d95;
+    border: 1px solid #a855f7;
+    color: #e9d5ff;
 }
 .toast-info {
-    background: #1e3a5f;
-    border: 1px solid #3b82f6;
-    color: #93c5fd;
+    background: #1e1b4b;
+    border: 1px solid #6366f1;
+    color: #c7d2fe;
 }
 
 @keyframes slideIn {
@@ -86,7 +118,8 @@
 .modal-backdrop {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.7);
+    background: rgba(11, 15, 25, 0.85);
+    backdrop-filter: blur(4px);
     z-index: 50;
     display: flex;
     align-items: center;

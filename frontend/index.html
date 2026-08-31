@@ -6,7 +6,7 @@
     <title>Bar Mune - Iniciar Sesión</title>
     
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -19,12 +19,27 @@
                     },
                     colors: {
                         slate: {
-                            900: '#0F172A',
-                            800: '#1E293B',
-                            700: '#334155',
+                            900: '#0B0F19',
+                            800: '#141C2E',
+                            700: '#222E46',
+                            600: '#334466',
+                            400: '#94A3B8',
+                            300: '#CBD5E1'
                         },
                         amber: {
-                            500: '#F59E0B',
+                            500: '#7C3AED',
+                            600: '#6D28D9',
+                            400: '#A855F7',
+                            300: '#C4B5FD'
+                        },
+                        lune: {
+                            bg: '#0B0F19',
+                            card: '#141C2E',
+                            border: '#222E46',
+                            blue: '#2A40FF',
+                            purple: '#7C3AED',
+                            violet: '#A855F7',
+                            lavender: '#C4B5FD'
                         }
                     }
                 }
@@ -38,62 +53,62 @@
     <!-- Alpine.js CDN -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
-<body class="bg-slate-900 min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8 bg-gradient-to-br from-slate-900 to-slate-800">
+<body class="bg-[#0B0F19] min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8 relative overflow-hidden">
     
-    <div class="sm:mx-auto sm:w-full sm:max-w-md text-center">
-        <img src="./assets/Logos/Horizontal_Fondo_Transparente_Positivo.png" alt="Bar Mune" class="h-14 mx-auto object-contain mb-3" />
-        <h2 class="text-center text-sm font-medium text-slate-400">Sistema de Gestión y Punto de Venta</h2>
+    <!-- Glows de fondo ambiente LUNÉ -->
+    <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-gradient-to-tr from-[#2A40FF]/15 via-[#7C3AED]/20 to-transparent blur-[100px] pointer-events-none rounded-full"></div>
+    <div class="absolute bottom-10 right-10 w-96 h-96 bg-[#7C3AED]/10 blur-[120px] pointer-events-none rounded-full"></div>
+
+    <div class="sm:mx-auto sm:w-full sm:max-w-md text-center relative z-10">
+        <img src="./assets/Logos/Horizontal_Fondo_Transparente_Negativo.png" alt="Bar Mune" class="h-16 mx-auto object-contain mb-2 drop-shadow-[0_0_20px_rgba(42,64,255,0.4)]" />
+        <h2 class="text-center text-xs font-semibold text-[#C4B5FD] tracking-widest uppercase mt-1">Desarrollo que ilumina tus procesos</h2>
     </div>
 
-    <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div class="bg-slate-800 py-8 px-4 shadow-xl sm:rounded-xl border border-slate-700 sm:px-10" x-data="loginForm()">
+    <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md relative z-10 px-4">
+        <div class="bg-[#141C2E]/90 backdrop-blur-md py-8 px-6 shadow-2xl sm:rounded-2xl border border-[#222E46] sm:px-10 shadow-[0_0_50px_rgba(11,15,25,0.9)]" x-data="loginForm()">
             
-            <div x-show="error" x-cloak class="mb-4 bg-red-500/10 border border-red-500/50 rounded-lg p-4">
-                <div class="flex">
-                    <div class="flex-shrink-0">
-                        <svg class="h-5 w-5 text-red-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
-                        </svg>
-                    </div>
-                    <div class="ml-3">
-                        <h3 class="text-sm font-medium text-red-400" x-text="error"></h3>
-                    </div>
+            <div x-show="error" x-cloak class="mb-4 bg-red-500/10 border border-red-500/40 rounded-xl p-3.5">
+                <div class="flex items-center gap-2">
+                    <svg class="h-5 w-5 text-red-400 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                    </svg>
+                    <h3 class="text-xs font-semibold text-red-300" x-text="error"></h3>
                 </div>
             </div>
 
-            <form class="space-y-6" @submit.prevent="submitForm">
+            <form class="space-y-5" @submit.prevent="submitForm">
                 <div>
-                    <label for="email" class="block text-sm font-medium text-slate-300">Correo Electrónico</label>
-                    <div class="mt-1 relative rounded-md shadow-sm">
-                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <svg class="h-5 w-5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <label for="email" class="block text-xs font-semibold text-[#CBD5E1] uppercase tracking-wider mb-1.5">Correo Electrónico</label>
+                    <div class="relative rounded-xl">
+                        <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
                             </svg>
                         </div>
                         <input x-model="email" id="email" name="email" type="email" autocomplete="email" required 
-                            class="block w-full pl-10 pr-3 py-2 border border-slate-600 rounded-md leading-5 bg-slate-700 text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-amber-500 focus:border-amber-500 sm:text-sm transition duration-150 ease-in-out" 
+                            class="block w-full pl-10 pr-4 py-2.5 border border-[#222E46] rounded-xl bg-[#0B0F19] text-white placeholder-slate-500 focus:outline-none focus:border-[#7C3AED] focus:ring-1 focus:ring-[#7C3AED] text-sm transition-all" 
                             placeholder="usuario@barmune.com">
                     </div>
                 </div>
 
                 <div>
-                    <label for="password" class="block text-sm font-medium text-slate-300">Contraseña</label>
-                    <div class="mt-1 relative rounded-md shadow-sm">
-                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <svg class="h-5 w-5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <label for="password" class="block text-xs font-semibold text-[#CBD5E1] uppercase tracking-wider mb-1.5">Contraseña</label>
+                    <div class="relative rounded-xl">
+                        <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                             </svg>
                         </div>
                         <input x-model="password" id="password" name="password" type="password" autocomplete="current-password" required 
-                            class="block w-full pl-10 pr-3 py-2 border border-slate-600 rounded-md leading-5 bg-slate-700 text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-amber-500 focus:border-amber-500 sm:text-sm transition duration-150 ease-in-out" 
+                            class="block w-full pl-10 pr-4 py-2.5 border border-[#222E46] rounded-xl bg-[#0B0F19] text-white placeholder-slate-500 focus:outline-none focus:border-[#7C3AED] focus:ring-1 focus:ring-[#7C3AED] text-sm transition-all" 
                             placeholder="••••••••">
                     </div>
                 </div>
 
-                <div>
+                <div class="pt-2">
                     <button type="submit" :disabled="loading" 
-                        class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500 disabled:opacity-50 disabled:cursor-not-allowed transition duration-150 ease-in-out">
-                        <span x-show="!loading">Iniciar Sesión</span>
+                        class="w-full flex justify-center items-center py-3 px-4 rounded-xl text-sm font-bold text-white bg-gradient-to-r from-[#2A40FF] to-[#7C3AED] hover:from-[#3B52FF] hover:to-[#8B5CF6] shadow-[0_0_20px_rgba(42,64,255,0.35)] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#7C3AED] disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200">
+                        <span x-show="!loading">Ingresar al Sistema</span>
                         <svg x-show="loading" class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" style="display: none;">
                             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                             <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
@@ -127,16 +142,16 @@
                 async submitForm() {
                     this.error = '';
                     this.loading = true;
-                    
+
                     try {
-                        const success = await window.auth.login(this.email, this.password);
-                        if (success) {
+                        const result = await window.auth.login(this.email, this.password);
+                        if (result.success) {
                             window.location.href = './pages/dashboard.html';
                         } else {
-                            this.error = 'Credenciales inválidas.';
+                            this.error = result.message || 'Credenciales inválidas. Por favor intenta de nuevo.';
                         }
                     } catch (err) {
-                        this.error = err.message || 'Error al iniciar sesión.';
+                        this.error = err.message || 'Error de conexión con el servidor. Intenta de nuevo.';
                     } finally {
                         this.loading = false;
                     }
