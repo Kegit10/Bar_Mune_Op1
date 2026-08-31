@@ -1,0 +1,110 @@
+/* Bar Mune - Estilos Custom */
+/* Tailwind CDN maneja las clases utilitarias. Este archivo sólo agrega estilos custom. */
+
+/* Fuente base */
+* {
+    font-family: 'Inter', sans-serif;
+}
+
+/* Scrollbar personalizado */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-track {
+    background: #0F172A;
+}
+::-webkit-scrollbar-thumb {
+    background: #334155;
+    border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #475569;
+}
+
+/* Alpine.js — ocultar elementos con x-cloak hasta que Alpine inicialice */
+[x-cloak] {
+    display: none !important;
+}
+
+/* Transición suave del sidebar */
+.sidebar-transition {
+    transition: width 0.2s ease, transform 0.2s ease;
+}
+
+/* Toast notifications */
+.toast-container {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    pointer-events: none;
+}
+.toast {
+    pointer-events: all;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3);
+    animation: slideIn 0.2s ease;
+    max-width: 20rem;
+}
+.toast-success {
+    background: #064e3b;
+    border: 1px solid #10b981;
+    color: #6ee7b7;
+}
+.toast-error {
+    background: #7f1d1d;
+    border: 1px solid #ef4444;
+    color: #fca5a5;
+}
+.toast-warning {
+    background: #78350f;
+    border: 1px solid #f59e0b;
+    color: #fde68a;
+}
+.toast-info {
+    background: #1e3a5f;
+    border: 1px solid #3b82f6;
+    color: #93c5fd;
+}
+
+@keyframes slideIn {
+    from { transform: translateX(100%); opacity: 0; }
+    to   { transform: translateX(0);    opacity: 1; }
+}
+
+/* Modal backdrop */
+.modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+/* Print: comprobante */
+@media print {
+    body > *:not(#print-area) {
+        display: none !important;
+    }
+    #print-area {
+        display: block !important;
+        background: white;
+        color: black;
+        padding: 2rem;
+        position: fixed;
+        inset: 0;
+    }
+}

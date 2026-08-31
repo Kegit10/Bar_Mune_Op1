@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Bar Mune</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        slate: { 900: '#0F172A', 800: '#1E293B', 700: '#334155', 600: '#475569', 400: '#94A3B8' },
+                        amber: { 500: '#F59E0B', 600: '#D97706' }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="../assets/css/app.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body class="bg-slate-900 text-white flex h-screen overflow-hidden" x-data="{ sidebarOpen: true }">
+
+    <!-- Sidebar -->
+    <aside :class="sidebarOpen ? 'w-64' : 'w-20'" class="bg-[#0D1526] border-r border-slate-700 transition-all duration-300 flex flex-col h-full z-20 hidden md:flex flex-shrink-0">
+        <!-- Logo -->
+        <div class="h-16 flex items-center px-4 border-b border-slate-700 gap-3">
+            <svg class="w-8 h-8 text-amber-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 15.546c-.523 0-1.046.151-1.5.454a2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.701 2.701 0 00-1.5-.454M9 6v2m3-2v2m3-2v2M9 3h.01M12 3h.01M15 3h.01M21 21v-7a2 2 0 00-2-2H5a2 2 0 00-2 2v7h18zm-3-9v-2a2 2 0 00-2-2H8a2 2 0 00-2 2v2h12z"/>
+            </svg>
+            <span x-show="sidebarOpen" class="font-bold text-xl tracking-wide whitespace-nowrap">Bar Mune</span>
+        </div>
+
+        <!-- Nav -->
+        <nav class="flex-1 overflow-y-auto py-4 space-y-1 px-2" id="sidebar-nav">
+            <!-- Dashboard (todos) -->
+            <a href="dashboard.html" class="flex items-center px-3 py-2.5 rounded-lg bg-amber-500/10 text-amber-500 border border-amber-500/30 group">
+                <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                <span x-show="sidebarOpen" class="ml-3 font-medium text-sm whitespace-nowrap">Dashboard</span>
+            </a>
+
+            <!-- Órdenes (todos) -->
+            <a href="ordenes.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-700/50 hover:text-white transition-colors nav-item">
+                <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
+                <span x-show="sidebarOpen" class="ml-3 font-medium text-sm whitespace-nowrap">Órdenes</span>
+            </a>
+
+            <!-- Pagos (cajero, admin) -->
+            <a href="pagos.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-700/50 hover:text-white transition-colors nav-item nav-cajero nav-admin" style="display:none">
+                <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                <span x-show="sidebarOpen" class="ml-3 font-medium text-sm whitespace-nowrap">Pagos</span>
+            </a>
+
+            <!-- Inventario (cajero, admin) -->
+            <a href="inventario.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-700/50 hover:text-white transition-colors nav-item nav-cajero nav-admin" style="display:none">
+                <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+                <span x-show="sidebarOpen" class="ml-3 font-medium text-sm whitespace-nowrap">Inventario</span>
+            </a>
+
+            <!-- Stock Alertas (cajero, admin) -->
+            <a href="stock-alertas.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-700/50 hover:text-white transition-colors nav-item nav-cajero nav-admin" style="display:none">
+                <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                <span x-show="sidebarOpen" class="ml-3 font-medium text-sm whitespace-nowrap">Alertas Stock</span>
+            </a>
+
+            <!-- Reportes (cajero, admin) -->
+            <a href="reportes.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-700/50 hover:text-white transition-colors nav-item nav-cajero nav-admin" style="display:none">
+                <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                <span x-show="sidebarOpen" class="ml-3 font-medium text-sm whitespace-nowrap">Reportes</span>
+            </a>
+
+            <!-- Divider admin -->
+            <div class="nav-admin border-t border-slate-700 my-2" style="display:none"></div>
+
+            <!-- Usuarios (admin) -->
+            <a href="usuarios.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-700/50 hover:text-white transition-colors nav-item nav-admin" style="display:none">
+                <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+                <span x-show="sidebarOpen" class="ml-3 font-medium text-sm whitespace-nowrap">Usuarios</span>
+            </a>
+
+            <!-- Sedes (admin) -->
+            <a href="sedes.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-700/50 hover:text-white transition-colors nav-item nav-admin" style="display:none">
+                <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                <span x-show="sidebarOpen" class="ml-3 font-medium text-sm whitespace-nowrap">Sedes</span>
+            </a>
+
+            <!-- Parámetros (admin) -->
+            <a href="parametros.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-700/50 hover:text-white transition-colors nav-item nav-admin" style="display:none">
+                <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                <span x-show="sidebarOpen" class="ml-3 font-medium text-sm whitespace-nowrap">Parámetros</span>
+            </a>
+        </nav>
+    </aside>
+
+    <!-- Main -->
+    <div class="flex-1 flex flex-col h-screen overflow-hidden min-w-0">
+        <!-- Topbar -->
+        <header class="h-16 bg-slate-800 border-b border-slate-700 flex items-center justify-between px-4 sm:px-6 z-10 flex-shrink-0">
+            <div class="flex items-center gap-4">
+                <button @click="sidebarOpen = !sidebarOpen" class="text-slate-400 hover:text-white hidden md:block">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                </button>
+                <h1 class="text-xl font-semibold text-white">Dashboard</h1>
+            </div>
+            <div class="flex items-center gap-3">
+                <div class="text-right hidden sm:block">
+                    <p id="user-name" class="text-sm font-medium text-white"></p>
+                    <p id="user-rol" class="text-xs text-slate-400 capitalize"></p>
+                </div>
+                <button onclick="window.auth.logout()" title="Cerrar sesión" class="p-2 text-slate-400 hover:text-red-400 transition-colors rounded-lg hover:bg-red-400/10">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+                </button>
+            </div>
+        </header>
+
+        <!-- Content -->
+        <main class="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8" x-data="dashboardData()" x-init="init()">
+
+            <!-- KPIs -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
+                <div class="bg-slate-800 rounded-xl p-5 border border-slate-700">
+                    <div class="flex items-center gap-4">
+                        <div class="p-3 rounded-lg bg-green-500/10 text-green-400">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        </div>
+                        <div>
+                            <p class="text-xs text-slate-400 font-medium">Ventas Hoy</p>
+                            <p class="text-2xl font-bold text-white" x-text="'$' + stats.ventasHoy.toLocaleString()">$0</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-slate-800 rounded-xl p-5 border border-slate-700">
+                    <div class="flex items-center gap-4">
+                        <div class="p-3 rounded-lg bg-amber-500/10 text-amber-400">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+                        </div>
+                        <div>
+                            <p class="text-xs text-slate-400 font-medium">Órdenes Activas</p>
+                            <p class="text-2xl font-bold text-white" x-text="stats.ordenesActivas">0</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-slate-800 rounded-xl p-5 border border-slate-700">
+                    <div class="flex items-center gap-4">
+                        <div class="p-3 rounded-lg bg-red-500/10 text-red-400">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                        </div>
+                        <div>
+                            <p class="text-xs text-slate-400 font-medium">Alertas Stock</p>
+                            <p class="text-2xl font-bold text-white" x-text="stats.alertasStock">0</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-slate-800 rounded-xl p-5 border border-slate-700">
+                    <div class="flex items-center gap-4">
+                        <div class="p-3 rounded-lg bg-blue-500/10 text-blue-400">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+                        </div>
+                        <div>
+                            <p class="text-xs text-slate-400 font-medium">Total Productos</p>
+                            <p class="text-2xl font-bold text-white" x-text="stats.totalProductos">0</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Info -->
+            <div class="bg-slate-800 rounded-xl border border-slate-700 p-6">
+                <h2 class="text-lg font-semibold text-white mb-1">Bienvenido a Bar Mune</h2>
+                <p class="text-slate-400 text-sm">Usa el menú lateral para navegar entre los módulos del sistema.</p>
+            </div>
+        </main>
+    </div>
+
+    <script src="../assets/js/config.js"></script>
+    <script src="../assets/js/api.js"></script>
+    <script src="../assets/js/auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const user = window.auth.getUser();
+            if (!user) { window.location.href = '../index.html'; return; }
+
+            // Mostrar nombre y rol
+            const rolNombre = user.rol_nombre || user.rol || '';
+            document.getElementById('user-name').textContent = `${user.nombre} ${user.apellido || ''}`.trim();
+            document.getElementById('user-rol').textContent = rolNombre;
+
+            // Mostrar nav items según rol
+            const rol = rolNombre.toLowerCase();
+            if (rol === 'admin' || rol === 'cajero') {
+                document.querySelectorAll('.nav-cajero, .nav-admin').forEach(el => el.style.display = 'flex');
+            }
+            if (rol === 'admin') {
+                document.querySelectorAll('.nav-admin').forEach(el => el.style.display = 'flex');
+            }
+            // El separador es un div, no un a
+            if (rol === 'admin') {
+                document.querySelectorAll('div.nav-admin').forEach(el => el.style.display = 'block');
+            }
+        });
+
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('dashboardData', () => ({
+                stats: { ventasHoy: 0, ordenesActivas: 0, alertasStock: 0, totalProductos: 0 },
+                async init() {
+                    try {
+                        // Órdenes activas
+                        const ordenes = await window.api.get('/api/ordenes?estado=abierta,en_proceso,lista');
+                        if (ordenes?.data) this.stats.ordenesActivas = ordenes.data.length;
+                    } catch(e) {}
+                    try {
+                        // Alertas stock
+                        const alertas = await window.api.get('/api/productos/alertas');
+                        if (alertas?.data) this.stats.alertasStock = alertas.data.length;
+                    } catch(e) {}
+                    try {
+                        // Total productos activos
+                        const prods = await window.api.get('/api/productos?estado=activo&limit=1000');
+                        if (prods?.data) this.stats.totalProductos = prods.data.length;
+                    } catch(e) {}
+                    try {
+                        // Ventas hoy
+                        const hoy = new Date().toISOString().slice(0, 10);
+                        const ventas = await window.api.get(`/api/reportes/ventas/preview?desde=${hoy}&hasta=${hoy}`);
+                        if (ventas?.data) {
+                            const total = ventas.data.reduce((s, p) => s + (parseFloat(p.total) || 0), 0);
+                            this.stats.ventasHoy = Math.round(total);
+                        }
+                    } catch(e) {}
+                }
+            }));
+        });
+    </script>
+</body>
+</html>
