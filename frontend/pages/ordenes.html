@@ -89,7 +89,7 @@
             <div class="flex items-center gap-4">
                 <!-- Sede Badge/Selector in Topbar -->
                 <div class="flex items-center bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 gap-2">
-                    <span class="text-amber-400 text-xs font-bold">📍 Sede:</span>
+                    <span class="text-amber-400 text-xs font-bold">Sede:</span>
                     <template x-if="isAdmin">
                         <select x-model="selectedSedeId" @change="onSedeChange()" class="bg-transparent text-white text-xs font-semibold focus:outline-none cursor-pointer">
                             <template x-for="s in sedes" :key="s.id">
