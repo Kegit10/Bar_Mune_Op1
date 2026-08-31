@@ -1,6 +1,11 @@
 class Api {
-    constructor() {
-        this.baseUrl = window.API_BASE || 'http://localhost:5000';
+    get baseUrl() {
+        if (typeof window.API_BASE === 'string') {
+            return window.API_BASE;
+        }
+        const isLocalStatic = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') && 
+            (window.location.port === '3000' || window.location.port === '5500');
+        return isLocalStatic ? 'http://localhost:5000' : '';
     }
 
     async request(path, options = {}) {
