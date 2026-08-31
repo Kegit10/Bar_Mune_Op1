@@ -64,6 +64,8 @@ def get_ordenes():
         sql = """
             SELECT o.id, o.numero_orden, o.mesa, o.sede_id, o.mesero_id, o.estado,
                    o.subtotal, o.impuesto, o.total, o.notas, o.created_at, o.updated_at,
+                   COALESCE(o.cliente_nombre, 'Consumidor Final') as cliente_nombre,
+                   COALESCE(o.cliente_documento, '222222222222') as cliente_documento,
                    s.nombre as sede_nombre,
                    u.nombre || ' ' || COALESCE(u.apellido, '') as mesero_nombre
             FROM public.ordenes o
@@ -108,6 +110,8 @@ def get_orden(id):
         orden = query_one(
             """SELECT o.id, o.numero_orden, o.mesa, o.sede_id, o.mesero_id, o.estado,
                       o.subtotal, o.impuesto, o.total, o.notas, o.created_at, o.updated_at,
+                      COALESCE(o.cliente_nombre, 'Consumidor Final') as cliente_nombre,
+                      COALESCE(o.cliente_documento, '222222222222') as cliente_documento,
                       s.nombre as sede_nombre,
                       u.nombre || ' ' || COALESCE(u.apellido, '') as mesero_nombre
                FROM public.ordenes o
@@ -152,6 +156,8 @@ def create_orden():
         sede_id = data.get('sede_id')
         mesero_id = data.get('mesero_id')
         notas = data.get('notas', '')
+        cliente_nombre = (data.get('cliente_nombre') or 'Consumidor Final').strip()
+        cliente_documento = (data.get('cliente_documento') or '222222222222').strip()
 
         if not mesa:
             return jsonify({"success": False, "message": "El número o identificador de mesa es requerido", "data": None}), 400
@@ -162,11 +168,11 @@ def create_orden():
             sede_id = first_sede['id'] if first_sede else None
 
         sql = """
-            INSERT INTO public.ordenes (mesa, sede_id, mesero_id, notas, estado, subtotal, impuesto, total)
-            VALUES (%s, %s, %s, %s, 'abierta', 0, 0, 0)
+            INSERT INTO public.ordenes (mesa, sede_id, mesero_id, notas, estado, subtotal, impuesto, total, cliente_nombre, cliente_documento)
+            VALUES (%s, %s, %s, %s, 'abierta', 0, 0, 0, %s, %s)
             RETURNING *
         """
-        row = execute_one(sql, (mesa, sede_id, mesero_id, notas))
+        row = execute_one(sql, (mesa, sede_id, mesero_id, notas, cliente_nombre, cliente_documento))
         return jsonify({"success": True, "message": "Orden creada exitosamente", "data": serialize(row)}), 201
     except Exception as e:
         return jsonify({"success": False, "message": str(e), "data": None}), 500
@@ -192,6 +198,12 @@ def update_orden(id):
         if 'notas' in data:
             updates.append("notas = %s")
             params.append(data['notas'])
+        if 'cliente_nombre' in data:
+            updates.append("cliente_nombre = %s")
+            params.append(data['cliente_nombre'])
+        if 'cliente_documento' in data:
+            updates.append("cliente_documento = %s")
+            params.append(data['cliente_documento'])
 
         if not updates:
             return jsonify({"success": False, "message": "Sin datos para actualizar", "data": None}), 400

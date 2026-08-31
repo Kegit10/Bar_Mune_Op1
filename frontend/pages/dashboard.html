@@ -216,7 +216,12 @@
                         <tbody class="divide-y divide-slate-700/50">
                             <template x-for="v in stats.ultimas_ventas" :key="v.id">
                                 <tr class="hover:bg-slate-700/20 transition-colors">
-                                    <td class="px-6 py-3.5 font-mono text-amber-500 font-semibold" x-text="v.numero_comprobante || ('#' + v.id.slice(0,8))"></td>
+                                    <td class="px-6 py-3.5">
+                                        <button @click="window.openFacturaModal(v.numero_comprobante || v.id)" class="px-2 py-1 bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 rounded-md font-mono text-xs font-bold hover:underline transition-colors flex items-center gap-1.5" title="Ver / Descargar Factura Electrónica en PDF">
+                                            <svg class="w-3.5 h-3.5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                                            <span x-text="v.numero_comprobante || ('#' + v.id.slice(0,8))"></span>
+                                        </button>
+                                    </td>
                                     <td class="px-6 py-3.5 text-slate-300" x-text="v.sede_nombre || 'Principal'"></td>
                                     <td class="px-6 py-3.5 font-medium text-white" x-text="'Mesa ' + v.mesa"></td>
                                     <td class="px-6 py-3.5 text-slate-400" x-text="v.cajero_nombre"></td>
@@ -237,6 +242,7 @@
     <script src="../assets/js/config.js?v=3"></script>
     <script src="../assets/js/api.js?v=3"></script>
     <script src="../assets/js/auth.js?v=3"></script>
+    <script src="../assets/js/factura.js?v=3"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const user = window.auth.getUser();

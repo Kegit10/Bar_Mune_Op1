@@ -94,17 +94,30 @@
     padding: 1rem;
 }
 
-/* Print: comprobante */
+/* Print: Factura y Comprobante */
 @media print {
-    body > *:not(#print-area) {
+    body > *:not(#factura-modal-overlay) {
         display: none !important;
     }
-    #print-area {
+    #factura-modal-overlay {
+        position: static !important;
+        background: transparent !important;
+        padding: 0 !important;
         display: block !important;
-        background: white;
-        color: black;
-        padding: 2rem;
-        position: fixed;
-        inset: 0;
+    }
+    #factura-modal-overlay > div {
+        max-width: 100% !important;
+        box-shadow: none !important;
+        border: none !important;
+    }
+    .no-print {
+        display: none !important;
+    }
+    #factura-print-area {
+        display: block !important;
+        background: white !important;
+        color: black !important;
+        padding: 1cm !important;
+        margin: 0 auto !important;
     }
 }

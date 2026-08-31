@@ -34,7 +34,9 @@ def get_ventas_data(desde=None, hasta=None, sede_id=None):
     sql = """
         SELECT o.id, o.numero_orden, o.mesa, o.estado,
                o.subtotal, o.impuesto, o.total, o.created_at,
-               s.nombre as sede,
+               s.nombre as sede, s.direccion as sede_direccion, s.ciudad as sede_ciudad, s.telefono as sede_telefono,
+               COALESCE(p.cliente_nombre, o.cliente_nombre, 'Consumidor Final') as cliente_nombre,
+               COALESCE(p.cliente_documento, o.cliente_documento, '222222222222') as cliente_documento,
                COALESCE(u.nombre || ' ' || COALESCE(u.apellido, ''), 'Sin mesero') as mesero,
                COALESCE(p.metodo_pago, 'efectivo') as metodo_pago,
                COALESCE(p.propina, 0) as propina,
