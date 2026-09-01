@@ -23,54 +23,139 @@
     <link rel="stylesheet" href="../assets/css/app.css">
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
-<body class="bg-slate-900 text-white flex h-screen overflow-hidden" x-data="{ sidebarOpen: true }">
+<body class="bg-slate-900 text-white flex h-screen overflow-hidden" x-data="{ sidebarOpen: true, mobileMenuOpen: false }">
 
-    <!-- Sidebar -->
-    <aside :class="sidebarOpen ? 'w-64' : 'w-20'" class="bg-[#0D1526] border-r border-slate-700 transition-all duration-300 flex flex-col h-full z-20 hidden md:flex flex-shrink-0">
-        <div class="h-16 flex items-center px-4 border-b border-slate-700 gap-3 overflow-hidden">
-            <!-- <img src="../assets/Logos/Isotipo.png" alt="Bar Mune" class="h-8 w-8 object-contain flex-shrink-0" /> -->
-            <img x-show="sidebarOpen" src="../assets/Logos/Horizontal_Fondo_Transparente_Positivo.png" alt="Bar Mune" class="h-6 w-auto object-contain" />
+    <!-- Mobile Drawer Backdrop & Panel -->
+    <div x-show="mobileMenuOpen" x-cloak class="fixed inset-0 z-50 md:hidden" style="display: none;">
+        <!-- Backdrop -->
+        <div x-show="mobileMenuOpen" 
+             x-transition:enter="transition-opacity ease-linear duration-200"
+             x-transition:enter-start="opacity-0"
+             x-transition:enter-end="opacity-100"
+             x-transition:leave="transition-opacity ease-linear duration-200"
+             x-transition:leave-start="opacity-100"
+             x-transition:leave-end="opacity-0"
+             @click="mobileMenuOpen = false" 
+             class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm"></div>
+
+        <!-- Drawer Panel -->
+        <div x-show="mobileMenuOpen"
+             x-transition:enter="transition ease-out duration-250 transform"
+             x-transition:enter-start="-translate-x-full"
+             x-transition:enter-end="translate-x-0"
+             x-transition:leave="transition ease-in duration-200 transform"
+             x-transition:leave-start="translate-x-0"
+             x-transition:leave-end="-translate-x-full"
+             class="relative flex flex-col w-72 max-w-[80vw] h-full bg-[#070A12] border-r border-[#222E46] p-4 shadow-2xl z-10">
+             
+             <!-- Header -->
+             <div class="h-14 flex items-center justify-between border-b border-[#222E46] pb-3 mb-2">
+                 <img src="../assets/Logos/Horizontal_Fondo_Transparente_Negativo.png" alt="Bar Mune" class="h-7 w-auto object-contain" />
+                 <button @click="mobileMenuOpen = false" class="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800" title="Cerrar menú">
+                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                 </button>
+             </div>
+
+             <!-- Nav Links -->
+             <nav class="flex-1 overflow-y-auto space-y-1.5 py-2">
+                 <a href="dashboard.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition-colors font-medium text-sm">
+                     <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                     <span class="ml-3">Dashboard</span>
+                 </a>
+                 <a href="ordenes.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition-colors font-medium text-sm">
+                     <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
+                     <span class="ml-3">Órdenes</span>
+                 </a>
+                 <a href="pagos.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition-colors font-medium text-sm nav-cajero nav-admin" style="display:none">
+                     <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                     <span class="ml-3">Pagos</span>
+                 </a>
+                 <a href="inventario.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition-colors font-medium text-sm nav-cajero nav-admin" style="display:none">
+                     <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+                     <span class="ml-3">Inventario</span>
+                 </a>
+                 <a href="stock-alertas.html" class="flex items-center px-3 py-2.5 rounded-lg bg-amber-500/15 text-amber-400 border border-amber-500/30 font-medium text-sm nav-cajero nav-admin" style="display:none">
+                     <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                     <span class="ml-3">Alertas Stock</span>
+                 </a>
+                 <a href="reportes.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition-colors font-medium text-sm nav-cajero nav-admin" style="display:none">
+                     <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                     <span class="ml-3">Reportes</span>
+                 </a>
+                 <div class="nav-admin border-t border-[#222E46] my-2" style="display:none"></div>
+                 <a href="usuarios.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition-colors font-medium text-sm nav-admin" style="display:none">
+                     <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+                     <span class="ml-3">Usuarios</span>
+                 </a>
+                 <a href="sedes.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition-colors font-medium text-sm nav-admin" style="display:none">
+                     <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                     <span class="ml-3">Sedes</span>
+                 </a>
+                 <a href="parametros.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition-colors font-medium text-sm nav-admin" style="display:none">
+                     <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                     <span class="ml-3">Parámetros</span>
+                 </a>
+             </nav>
+
+             <!-- User Footer -->
+             <div class="border-t border-[#222E46] pt-3 mt-auto flex items-center justify-between">
+                 <div class="truncate pr-2">
+                     <p class="user-display-name text-xs font-bold text-white truncate"></p>
+                     <p class="user-display-rol text-[10px] text-[#C4B5FD] capitalize"></p>
+                 </div>
+                 <button onclick="window.auth.logout()" class="p-2 text-slate-400 hover:text-red-400 rounded-lg hover:bg-red-500/10" title="Cerrar sesión">
+                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+                 </button>
+             </div>
+        </div>
+    </div>
+
+    <!-- Desktop Sidebar -->
+    <aside :class="sidebarOpen ? 'w-64' : 'w-20'" class="bg-[#070A12] border-r border-[#222E46] transition-all duration-300 flex flex-col h-full z-20 hidden md:flex flex-shrink-0">
+        <div class="h-16 flex items-center px-4 border-b border-[#222E46] gap-3 overflow-hidden">
+            <img src="../assets/Logos/Isotipo.png" alt="Bar Mune" class="h-8 w-8 object-contain flex-shrink-0" />
+            <img x-show="sidebarOpen" src="../assets/Logos/Horizontal_Fondo_Transparente_Negativo.png" alt="Bar Mune" class="h-6 w-auto object-contain" />
         </div>
 
         <nav class="flex-1 overflow-y-auto py-4 space-y-1 px-2" id="sidebar-nav">
-            <a href="dashboard.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-700/50 hover:text-white transition-colors">
+            <a href="dashboard.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white transition-colors font-medium text-sm">
                 <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
-                <span x-show="sidebarOpen" class="ml-3 font-medium text-sm whitespace-nowrap">Dashboard</span>
+                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Dashboard</span>
             </a>
-            <a href="ordenes.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-700/50 hover:text-white transition-colors">
+            <a href="ordenes.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white transition-colors font-medium text-sm">
                 <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
-                <span x-show="sidebarOpen" class="ml-3 font-medium text-sm whitespace-nowrap">Órdenes</span>
+                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Órdenes</span>
             </a>
-            <a href="pagos.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-700/50 hover:text-white transition-colors nav-cajero nav-admin" style="display:none">
+            <a href="pagos.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white transition-colors nav-item nav-cajero nav-admin font-medium text-sm" style="display:none">
                 <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
-                <span x-show="sidebarOpen" class="ml-3 font-medium text-sm whitespace-nowrap">Pagos</span>
+                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Pagos</span>
             </a>
-            <a href="inventario.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-700/50 hover:text-white transition-colors nav-cajero nav-admin" style="display:none">
+            <a href="inventario.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white transition-colors nav-item nav-cajero nav-admin font-medium text-sm" style="display:none">
                 <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
-                <span x-show="sidebarOpen" class="ml-3 font-medium text-sm whitespace-nowrap">Inventario</span>
+                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Inventario</span>
             </a>
-            <a href="stock-alertas.html" class="flex items-center px-3 py-2.5 rounded-lg bg-amber-500/10 text-amber-500 border border-amber-500/30 nav-cajero nav-admin" style="display:none">
+            <a href="stock-alertas.html" class="flex items-center px-3 py-2.5 rounded-lg bg-amber-500/10 text-amber-400 border border-amber-500/30 font-medium text-sm nav-item nav-cajero nav-admin" style="display:none">
                 <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
-                <span x-show="sidebarOpen" class="ml-3 font-medium text-sm whitespace-nowrap">Alertas Stock</span>
+                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Alertas Stock</span>
             </a>
-            <a href="reportes.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-700/50 hover:text-white transition-colors nav-cajero nav-admin" style="display:none">
+            <a href="reportes.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white transition-colors nav-item nav-cajero nav-admin font-medium text-sm" style="display:none">
                 <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                <span x-show="sidebarOpen" class="ml-3 font-medium text-sm whitespace-nowrap">Reportes</span>
+                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Reportes</span>
             </a>
 
-            <div class="nav-admin border-t border-slate-700 my-2" style="display:none"></div>
+            <div class="nav-admin border-t border-[#222E46] my-2" style="display:none"></div>
 
-            <a href="usuarios.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-700/50 hover:text-white transition-colors nav-admin" style="display:none">
+            <a href="usuarios.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white transition-colors nav-item nav-admin font-medium text-sm" style="display:none">
                 <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
-                <span x-show="sidebarOpen" class="ml-3 font-medium text-sm whitespace-nowrap">Usuarios</span>
+                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Usuarios</span>
             </a>
-            <a href="sedes.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-700/50 hover:text-white transition-colors nav-admin" style="display:none">
+            <a href="sedes.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white transition-colors nav-item nav-admin font-medium text-sm" style="display:none">
                 <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
-                <span x-show="sidebarOpen" class="ml-3 font-medium text-sm whitespace-nowrap">Sedes</span>
+                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Sedes</span>
             </a>
-            <a href="parametros.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-700/50 hover:text-white transition-colors nav-admin" style="display:none">
+            <a href="parametros.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white transition-colors nav-item nav-admin font-medium text-sm" style="display:none">
                 <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                <span x-show="sidebarOpen" class="ml-3 font-medium text-sm whitespace-nowrap">Parámetros</span>
+                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Parámetros</span>
             </a>
         </nav>
     </aside>
@@ -78,19 +163,26 @@
     <!-- Main Content -->
     <div class="flex-1 flex flex-col h-screen overflow-hidden min-w-0">
         <!-- Topbar -->
-        <header class="h-16 bg-slate-800 border-b border-slate-700 flex items-center justify-between px-4 sm:px-6 z-10 flex-shrink-0">
-            <div class="flex items-center gap-4">
-                <button @click="sidebarOpen = !sidebarOpen" class="text-slate-400 hover:text-white hidden md:block">
+        <header class="h-16 bg-[#141C2E] border-b border-[#222E46] flex items-center justify-between px-3 sm:px-6 z-10 flex-shrink-0">
+            <div class="flex items-center gap-2 sm:gap-4 min-w-0">
+                <!-- Hamburger Button Mobile -->
+                <button @click="mobileMenuOpen = true" class="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 md:hidden flex-shrink-0" title="Abrir Menú">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
                 </button>
-                <h1 class="text-xl font-semibold text-white">Alertas de Stock</h1>
+                
+                <!-- Desktop Sidebar Toggle -->
+                <button @click="sidebarOpen = !sidebarOpen" class="text-slate-400 hover:text-white hidden md:block flex-shrink-0" title="Contraer/Expandir">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                </button>
+
+                <h1 class="text-base sm:text-xl font-semibold text-white truncate">Alertas de Stock</h1>
             </div>
-            <div class="flex items-center gap-3">
+            <div class="flex items-center gap-2 sm:gap-3">
                 <div class="text-right hidden sm:block">
-                    <p id="user-name" class="text-sm font-medium text-white"></p>
-                    <p id="user-rol" class="text-xs text-slate-400 capitalize"></p>
+                    <p class="user-display-name text-sm font-medium text-white"></p>
+                    <p class="user-display-rol text-xs text-slate-400 capitalize"></p>
                 </div>
-                <button onclick="window.auth.logout()" title="Cerrar sesión" class="p-2 text-slate-400 hover:text-red-400 transition-colors rounded-lg hover:bg-red-400/10">
+                <button onclick="window.auth.logout()" title="Cerrar sesión" class="p-2 text-slate-400 hover:text-red-400 transition-colors rounded-lg hover:bg-red-400/10 flex-shrink-0">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
                 </button>
             </div>
@@ -195,8 +287,9 @@
             if (!window.auth.hasRole('admin', 'cajero')) { window.location.href = 'dashboard.html'; return; }
 
             const rolNombre = user.rol_nombre || user.rol || '';
-            document.getElementById('user-name').textContent = `${user.nombre} ${user.apellido || ''}`.trim();
-            document.getElementById('user-rol').textContent = rolNombre;
+            const fullName = `${user.nombre} ${user.apellido || ''}`.trim();
+            document.querySelectorAll('#user-name, .user-display-name').forEach(el => el.textContent = fullName);
+            document.querySelectorAll('#user-rol, .user-display-rol').forEach(el => el.textContent = rolNombre);
 
             const rol = rolNombre.toLowerCase();
             if (rol === 'admin' || rol === 'cajero') {
