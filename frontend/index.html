@@ -145,10 +145,10 @@
 
                     try {
                         const result = await window.auth.login(this.email, this.password);
-                        if (result.success) {
+                        if (result === true || result?.success) {
                             window.location.href = './pages/dashboard.html';
                         } else {
-                            this.error = result.message || 'Credenciales inválidas. Por favor intenta de nuevo.';
+                            this.error = result?.message || 'Credenciales inválidas. Por favor intenta de nuevo.';
                         }
                     } catch (err) {
                         this.error = err.message || 'Error de conexión con el servidor. Intenta de nuevo.';

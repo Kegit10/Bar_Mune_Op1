@@ -8,7 +8,7 @@ const auth = {
             user.rol = user.rol_nombre || user.rol || '';
             localStorage.setItem('barmune_token', response.data.access_token);
             localStorage.setItem('barmune_user', JSON.stringify(user));
-            return true;
+            return { success: true, user, token: response.data.access_token };
         }
         const msg = response?.message || 'Credenciales inválidas';
         throw new Error(msg);
