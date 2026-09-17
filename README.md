@@ -1,8 +1,8 @@
-# Bar Mune 🍺 — Sistema de Gestión de Bar
+# Bar Mune  — Sistema de Gestión de Bar
 
 Sistema de gestión integral para bares con backend Flask (Python) y frontend HTML/CSS/JS, respaldado por Supabase.
 
-## 📁 Estructura
+##  Estructura
 
 ```
 Bar_Mune/
@@ -11,7 +11,7 @@ Bar_Mune/
 └── database/         # Scripts SQL
 ```
 
-## 🗄️ 1. Configurar Base de Datos (Supabase)
+##  1. Configurar Base de Datos (Supabase)
 
 1. Ir a [supabase.com](https://supabase.com) → tu proyecto
 2. Abrir **SQL Editor**
@@ -19,11 +19,11 @@ Bar_Mune/
 
 **Credenciales iniciales:**
 - Email: `admin@barmune.com`
-- Password: `Admin123!`
+- Password: `*****`
 
-> ⚠️ **Cambia la contraseña del admin después del primer login**
+>  **Cambia la contraseña del admin después del primer login**
 
-## ⚙️ 2. Configurar Backend
+##  2. Configurar Backend
 
 ```bash
 cd backend
@@ -53,7 +53,7 @@ El backend corre en `http://localhost:5000`
 | `SUPABASE_SERVICE_ROLE_KEY` | Clave de servicio (Settings → API) |
 | `JWT_SECRET_KEY` | Clave secreta para JWT (cualquier string seguro) |
 
-## 🎨 3. Ejecutar Frontend
+##  3. Ejecutar Frontend
 
 El frontend es HTML/CSS/JS puro — no requiere build tools.
 
@@ -68,7 +68,7 @@ python -m http.server 8080
 # Abrir http://localhost:8080
 ```
 
-## 🔑 Roles y Permisos
+##  Roles y Permisos
 
 | Rol | Acceso |
 |-----|--------|
@@ -91,17 +91,17 @@ python -m http.server 8080
 | Pagos | `GET/POST /api/pagos` |
 | Reportes | `GET /api/reportes/ventas` |
 
-## 🚀 Historias de Usuario Implementadas
+##  Historias de Usuario Implementadas
 
-- **HU-01** Modificación de Usuarios ✅
-- **HU-02** Visualización de Usuarios ✅
-- **HU-03** Creación de Sedes ✅
-- **HU-04** Parametrización del Sistema ✅
-- **HU-05** Edición de Productos en Inventario ✅
-- **HU-06** Generación de Reporte de Inventario (XLS/CSV) ✅
-- **HU-07** Control de Stock y Alertas ✅
-- **HU-08** Registro de Productos ✅
-- **HU-09** Crear una Orden ✅
-- **HU-10** Registrar un Pago ✅
-- **HU-11** Generar Reporte de Ventas ✅
-- **HU-12** Agregar Productos a una Orden ✅
+- **HU-01** Modificación de Usuarios
+- **HU-02** Visualización de Usuarios 
+- **HU-03** Creación de Sedes 
+- **HU-04** Parametrización del Sistema 
+- **HU-05** Edición de Productos en Inventario 
+- **HU-06** Generación de Reporte de Inventario (XLS/CSV) 
+- **HU-07** Control de Stock y Alertas 
+- **HU-08** Registro de Productos 
+- **HU-09** Crear una Orden 
+- **HU-10** Registrar un Pago 
+- **HU-11** Generar Reporte de Ventas 
+- **HU-12** Agregar Productos a una Orden 
