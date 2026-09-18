@@ -190,8 +190,13 @@ def update_orden(id):
         updates = []
         params = []
         if 'estado' in data:
+            nuevo_estado = data['estado']
+            if nuevo_estado == 'lista':
+                items_count = query_one("SELECT COUNT(*) as count FROM public.orden_items WHERE orden_id = %s", (id,))
+                if not items_count or int(items_count['count']) == 0:
+                    return jsonify({"success": False, "message": "No se puede marcar lista para cobro una orden sin productos", "data": None}), 400
             updates.append("estado = %s")
-            params.append(data['estado'])
+            params.append(nuevo_estado)
         if 'mesa' in data:
             updates.append("mesa = %s")
             params.append(str(data['mesa']))

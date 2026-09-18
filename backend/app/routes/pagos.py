@@ -177,6 +177,11 @@ def create_pago():
         if orden['estado'] == 'cancelada':
             return jsonify({"success": False, "message": "No se puede pagar una orden cancelada", "data": None}), 400
 
+        # Validar que la orden tenga al menos un producto
+        items_count = query_one("SELECT COUNT(*) as count FROM public.orden_items WHERE orden_id = %s", (orden_id,))
+        if not items_count or int(items_count['count']) == 0:
+            return jsonify({"success": False, "message": "No se puede registrar el pago de una orden sin productos", "data": None}), 400
+
         total_con_propina = round(float(orden['total']) + propina, 2)
         monto_recibido = float(data.get('monto_recibido') or total_con_propina)
         cambio = max(0.0, round(monto_recibido - total_con_propina, 2))

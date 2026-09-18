@@ -330,12 +330,21 @@
                         <div x-show="currentOrder" class="bg-slate-800 rounded-xl border border-slate-700 p-5">
                             <div class="flex flex-wrap justify-between items-center gap-4">
                                 <!-- Status changers -->
-                                <div class="flex gap-2">
+                                <div class="flex items-center gap-2">
                                     <button @click="changeStatus('en_proceso')" :class="currentOrder?.estado === 'en_proceso' ? 'bg-blue-600 text-white' : 'bg-slate-700 text-slate-300 hover:bg-slate-600'" class="px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors">
                                         En Proceso
                                     </button>
-                                    <button @click="changeStatus('lista')" :class="currentOrder?.estado === 'lista' ? 'bg-green-600 text-white' : 'bg-slate-700 text-slate-300 hover:bg-slate-600'" class="px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors">
-                                        Lista para Cobro
+                                    <button @click="changeStatus('lista')" 
+                                        :disabled="!hasItems"
+                                        :class="{
+                                            'bg-green-600 text-white cursor-pointer': currentOrder?.estado === 'lista',
+                                            'bg-slate-700 text-slate-300 hover:bg-slate-600 cursor-pointer': currentOrder?.estado !== 'lista' && hasItems,
+                                            'bg-slate-800/60 text-slate-500 border border-slate-700/50 cursor-not-allowed opacity-50': !hasItems
+                                        }"
+                                        :title="!hasItems ? 'Debes agregar al menos un producto a la mesa para habilitar el cobro' : 'Marcar lista para cobro'"
+                                        class="px-3 py-1.5 rounded-lg text-xs font-semibold transition-all flex items-center gap-1.5">
+                                        <svg x-show="!hasItems" class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                                        <span>Lista para Cobro</span>
                                     </button>
                                 </div>
 
@@ -468,6 +477,10 @@
 
                 get totalItemsSelected() {
                     return Object.values(this.itemSelections).reduce((sum, qty) => sum + (qty || 0), 0);
+                },
+
+                get hasItems() {
+                    return Boolean(this.currentOrder && this.currentOrder.items && this.currentOrder.items.length > 0);
                 },
 
                 get filteredProducts() {
@@ -641,6 +654,10 @@
 
                 async changeStatus(newStatus) {
                     if (!this.currentOrder) return;
+                    if (newStatus === 'lista' && !this.hasItems) {
+                        this.showToast('Debes agregar al menos un producto a la mesa antes de marcarla lista para cobro');
+                        return;
+                    }
                     try {
                         await window.api.put(`/api/ordenes/${this.currentOrder.id}`, { estado: newStatus });
                         this.showToast(`Estado actualizado a: ${newStatus.replace('_', ' ')}`);
