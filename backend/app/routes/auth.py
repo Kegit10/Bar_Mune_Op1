@@ -37,6 +37,8 @@ def login():
             "email":       user['email'],
             "nombre":      user['nombre'],
             "apellido":    user['apellido'],
+            "telefono":    user.get('telefono') or '',
+            "estado":      user.get('estado') or 'activo',
             "rol_id":      str(user['rol_id']),
             "rol_nombre":  user['rol_nombre'],
             "sede_id":     str(user['sede_id']) if user['sede_id'] else None,
@@ -58,6 +60,7 @@ def login():
 def me():
     try:
         identity = get_jwt_identity()
+        user_id = identity['id'] if isinstance(identity, dict) else identity
         user = query_one(
             """SELECT u.id, u.email, u.nombre, u.apellido, u.telefono, u.estado,
                       r.nombre AS rol_nombre, s.nombre AS sede_nombre, u.rol_id, u.sede_id
@@ -65,7 +68,7 @@ def me():
                JOIN public.roles r ON u.rol_id = r.id
                LEFT JOIN public.sedes s ON u.sede_id = s.id
                WHERE u.id = %s""",
-            (identity['id'],)
+            (user_id,)
         )
         if user:
             user['id'] = str(user['id'])
