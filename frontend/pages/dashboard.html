@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en" class="theme-light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,14 +20,13 @@
             }
         }
     </script>
-    <link rel="stylesheet" href="../assets/css/app.css">
+    <link rel="stylesheet" href="../assets/css/app.css?v=5">
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 <body class="bg-slate-900 text-white flex h-screen overflow-hidden" x-data="{ sidebarOpen: true, mobileMenuOpen: false }">
 
     <!-- Mobile Drawer Backdrop & Panel -->
     <div x-show="mobileMenuOpen" x-cloak class="fixed inset-0 z-50 md:hidden" style="display: none;">
-        <!-- Backdrop -->
         <div x-show="mobileMenuOpen" 
              x-transition:enter="transition-opacity ease-linear duration-200"
              x-transition:enter-start="opacity-0"
@@ -36,9 +35,8 @@
              x-transition:leave-start="opacity-100"
              x-transition:leave-end="opacity-0"
              @click="mobileMenuOpen = false" 
-             class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm"></div>
+             class="fixed inset-0 bg-slate-950/75 backdrop-blur-sm"></div>
 
-        <!-- Drawer Panel -->
         <div x-show="mobileMenuOpen"
              x-transition:enter="transition ease-out duration-250 transform"
              x-transition:enter-start="-translate-x-full"
@@ -48,15 +46,13 @@
              x-transition:leave-end="-translate-x-full"
              class="relative flex flex-col w-72 max-w-[80vw] h-full bg-[#070A12] border-r border-[#222E46] p-4 shadow-2xl z-10">
              
-             <!-- Header -->
              <div class="h-14 flex items-center justify-between border-b border-[#222E46] pb-3 mb-2">
                  <img src="../assets/Logos/Horizontal_Fondo_Transparente_Negativo.png" alt="Bar Mune" class="h-7 w-auto object-contain" />
-                 <button @click="mobileMenuOpen = false" class="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800" title="Cerrar menú">
+                 <button @click="mobileMenuOpen = false" class="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800" title="Close menu">
                      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
                  </button>
              </div>
 
-             <!-- Nav Links -->
              <nav class="flex-1 overflow-y-auto space-y-1.5 py-2">
                  <a href="dashboard.html" class="flex items-center px-3 py-2.5 rounded-lg bg-amber-500/15 text-amber-400 border border-amber-500/30 font-medium text-sm">
                      <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
@@ -64,46 +60,45 @@
                  </a>
                  <a href="ordenes.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition-colors font-medium text-sm">
                      <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
-                     <span class="ml-3">Órdenes</span>
+                     <span class="ml-3">Orders</span>
                  </a>
                  <a href="pagos.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition-colors font-medium text-sm nav-cajero nav-admin" style="display:none">
                      <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
-                     <span class="ml-3">Pagos</span>
+                     <span class="ml-3">Payments</span>
                  </a>
                  <a href="inventario.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition-colors font-medium text-sm nav-cajero nav-admin" style="display:none">
                      <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
-                     <span class="ml-3">Inventario</span>
+                     <span class="ml-3">Inventory</span>
                  </a>
                  <a href="stock-alertas.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition-colors font-medium text-sm nav-cajero nav-admin" style="display:none">
                      <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
-                     <span class="ml-3">Alertas Stock</span>
+                     <span class="ml-3">Stock Alerts</span>
                  </a>
                  <a href="reportes.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition-colors font-medium text-sm nav-cajero nav-admin" style="display:none">
                      <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                     <span class="ml-3">Reportes</span>
+                     <span class="ml-3">Reports</span>
                  </a>
                  <div class="nav-admin border-t border-[#222E46] my-2" style="display:none"></div>
                  <a href="usuarios.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition-colors font-medium text-sm nav-admin" style="display:none">
                      <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
-                     <span class="ml-3">Usuarios</span>
+                     <span class="ml-3">Users</span>
                  </a>
                  <a href="sedes.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition-colors font-medium text-sm nav-admin" style="display:none">
                      <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
-                     <span class="ml-3">Sedes</span>
+                     <span class="ml-3">Branches</span>
                  </a>
                  <a href="parametros.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition-colors font-medium text-sm nav-admin" style="display:none">
                      <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                     <span class="ml-3">Parámetros</span>
+                     <span class="ml-3">Settings</span>
                  </a>
              </nav>
 
-             <!-- User Footer -->
              <div class="border-t border-[#222E46] pt-3 mt-auto flex items-center justify-between">
-                 <button onclick="window.openPerfilModal()" class="truncate pr-2 text-left hover:opacity-80 transition-opacity cursor-pointer" title="Ver mi perfil">
+                 <button onclick="window.openPerfilModal()" class="truncate pr-2 text-left hover:opacity-80 transition-opacity cursor-pointer" title="View my profile">
                      <p class="user-display-name text-xs font-bold text-white truncate"></p>
                      <p class="user-display-rol text-[10px] text-[#C4B5FD] capitalize"></p>
                  </button>
-                 <button onclick="window.auth.logout()" class="p-2 text-slate-400 hover:text-red-400 rounded-lg hover:bg-red-500/10" title="Cerrar sesión">
+                 <button onclick="window.auth.logout()" class="p-2 text-slate-400 hover:text-red-400 rounded-lg hover:bg-red-500/10" title="Sign out">
                      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
                  </button>
              </div>
@@ -112,69 +107,56 @@
 
     <!-- Desktop Sidebar -->
     <aside :class="sidebarOpen ? 'w-64' : 'w-20'" class="bg-[#070A12] border-r border-[#222E46] transition-all duration-300 flex flex-col h-full z-20 hidden md:flex flex-shrink-0">
-        <!-- Logo -->
         <div class="h-16 flex items-center px-4 border-b border-[#222E46] gap-3 overflow-hidden">
-            <!--<img src="../assets/Logos/Isotipo.png" alt="Bar Mune" class="h-8 w-8 object-contain flex-shrink-0" />-->
-            <img x-show="sidebarOpen" src="../assets/Logos/Horizontal_Fondo_Transparente_Positivo.png" alt="Bar Mune" class="h-6 w-auto object-contain" />
+            <img x-show="sidebarOpen" src="../assets/Logos/Horizontal_Fondo_Transparente_Negativo.png" alt="Bar Mune" class="h-6 w-auto object-contain" />
         </div>
 
-        <!-- Nav -->
         <nav class="flex-1 overflow-y-auto py-4 space-y-1 px-2" id="sidebar-nav">
-            <!-- Dashboard (todos) -->
             <a href="dashboard.html" class="flex items-center px-3 py-2.5 rounded-lg bg-amber-500/10 text-amber-400 border border-amber-500/30 group font-medium text-sm">
                 <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
                 <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Dashboard</span>
             </a>
 
-            <!-- Órdenes (todos) -->
             <a href="ordenes.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white transition-colors nav-item font-medium text-sm">
                 <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
-                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Órdenes</span>
+                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Orders</span>
             </a>
 
-            <!-- Pagos (cajero, admin) -->
             <a href="pagos.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white transition-colors nav-item nav-cajero nav-admin font-medium text-sm" style="display:none">
                 <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
-                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Pagos</span>
+                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Payments</span>
             </a>
 
-            <!-- Inventario (cajero, admin) -->
             <a href="inventario.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white transition-colors nav-item nav-cajero nav-admin font-medium text-sm" style="display:none">
                 <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
-                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Inventario</span>
+                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Inventory</span>
             </a>
 
-            <!-- Stock Alertas (cajero, admin) -->
             <a href="stock-alertas.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white transition-colors nav-item nav-cajero nav-admin font-medium text-sm" style="display:none">
                 <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
-                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Alertas Stock</span>
+                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Stock Alerts</span>
             </a>
 
-            <!-- Reportes (cajero, admin) -->
             <a href="reportes.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white transition-colors nav-item nav-cajero nav-admin font-medium text-sm" style="display:none">
                 <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Reportes</span>
+                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Reports</span>
             </a>
 
-            <!-- Divider admin -->
             <div class="nav-admin border-t border-[#222E46] my-2" style="display:none"></div>
 
-            <!-- Usuarios (admin) -->
             <a href="usuarios.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white transition-colors nav-item nav-admin font-medium text-sm" style="display:none">
                 <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
-                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Usuarios</span>
+                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Users</span>
             </a>
 
-            <!-- Sedes (admin) -->
             <a href="sedes.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white transition-colors nav-item nav-admin font-medium text-sm" style="display:none">
                 <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
-                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Sedes</span>
+                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Branches</span>
             </a>
 
-            <!-- Parámetros (admin) -->
             <a href="parametros.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white transition-colors nav-item nav-admin font-medium text-sm" style="display:none">
                 <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Parámetros</span>
+                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Settings</span>
             </a>
         </nav>
     </aside>
@@ -184,26 +166,24 @@
         <!-- Topbar -->
         <header class="h-16 bg-[#141C2E] border-b border-[#222E46] flex items-center justify-between px-3 sm:px-6 z-10 flex-shrink-0">
             <div class="flex items-center gap-2 sm:gap-4 min-w-0">
-                <!-- Hamburger Button Mobile -->
-                <button @click="mobileMenuOpen = true" class="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 md:hidden flex-shrink-0" title="Abrir Menú">
+                <button @click="mobileMenuOpen = true" class="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 md:hidden flex-shrink-0" title="Open Menu">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
                 </button>
                 
-                <!-- Desktop Sidebar Toggle -->
-                <button @click="sidebarOpen = !sidebarOpen" class="text-slate-400 hover:text-white hidden md:block flex-shrink-0" title="Contraer/Expandir">
+                <button @click="sidebarOpen = !sidebarOpen" class="text-slate-400 hover:text-white hidden md:block flex-shrink-0" title="Collapse/Expand">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
                 </button>
 
-                <h1 class="text-base sm:text-xl font-semibold text-white truncate">Dashboard Principal</h1>
+                <h1 class="text-base sm:text-xl font-semibold text-white truncate">Main Dashboard</h1>
             </div>
 
-            <div class="flex items-center gap-2 sm:gap-4">
-                <!-- Sede Filter in Topbar -->
+            <div class="flex items-center gap-2 sm:gap-3">
+                <!-- Branch Filter in Topbar -->
                 <div class="flex items-center bg-[#0B0F19] border border-[#222E46] rounded-lg px-2.5 sm:px-3 py-1.5 gap-1.5 sm:gap-2 max-w-[150px] sm:max-w-none">
-                    <span class="text-amber-400 text-xs font-bold whitespace-nowrap">📍 Sede:</span>
+                    <span class="text-amber-400 text-xs font-bold whitespace-nowrap">📍 Branch:</span>
                     <template x-if="isAdmin">
                         <select x-model="selectedSedeId" @change="fetchStats()" class="bg-transparent text-white text-xs font-semibold focus:outline-none cursor-pointer truncate">
-                            <option value="" class="bg-[#141C2E] text-white">Todas las Sedes</option>
+                            <option value="" class="bg-[#141C2E] text-white">All Branches</option>
                             <template x-for="s in sedes" :key="s.id">
                                 <option :value="s.id" class="bg-[#141C2E] text-white" x-text="s.nombre"></option>
                             </template>
@@ -214,11 +194,16 @@
                     </template>
                 </div>
 
-                <button onclick="window.openPerfilModal()" class="text-right hidden sm:block p-1.5 rounded-xl hover:bg-slate-800/80 transition-all cursor-pointer group" title="Ver mi perfil">
-                    <p class="user-display-name text-sm font-medium text-white"></p>
+                <!-- Theme Toggle -->
+                <button type="button" onclick="window.toggleTheme()" class="theme-toggle-btn" title="Switch Theme">
+                    <span>Theme</span>
+                </button>
+
+                <button onclick="window.openPerfilModal()" class="text-right hidden sm:block p-1.5 rounded-xl hover:bg-slate-800/80 transition-all cursor-pointer group" title="View my profile">
+                    <p class="user-display-name text-sm font-semibold text-white"></p>
                     <p class="user-display-rol text-xs text-slate-400 capitalize"></p>
                 </button>
-                <button onclick="window.auth.logout()" title="Cerrar sesión" class="p-2 text-slate-400 hover:text-red-400 transition-colors rounded-lg hover:bg-red-400/10 flex-shrink-0">
+                <button onclick="window.auth.logout()" title="Sign out" class="p-2 text-slate-400 hover:text-red-400 transition-colors rounded-lg hover:bg-red-400/10 flex-shrink-0">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
                 </button>
             </div>
@@ -229,99 +214,99 @@
 
             <!-- KPIs -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 mb-6 sm:mb-8">
-                <!-- Ventas Hoy -->
+                <!-- Today's Sales -->
                 <div class="bg-[#141C2E] rounded-xl p-5 border border-[#222E46] shadow-sm">
                     <div class="flex items-center gap-4">
                         <div class="p-3 rounded-lg bg-green-500/10 text-green-400 flex-shrink-0">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                         </div>
                         <div>
-                            <p class="text-xs text-slate-400 font-medium">Ventas Hoy</p>
+                            <p class="text-xs text-slate-400 font-semibold">Today's Sales</p>
                             <p class="text-2xl font-bold text-white mt-0.5" x-text="formatCurrency(stats.ventas_hoy)">$ 0</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- Órdenes Activas -->
+                <!-- Active Orders -->
                 <div class="bg-[#141C2E] rounded-xl p-5 border border-[#222E46] shadow-sm">
                     <div class="flex items-center gap-4">
                         <div class="p-3 rounded-lg bg-amber-500/10 text-amber-400 flex-shrink-0">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
                         </div>
                         <div>
-                            <p class="text-xs text-slate-400 font-medium">Órdenes Activas</p>
+                            <p class="text-xs text-slate-400 font-semibold">Active Orders</p>
                             <p class="text-2xl font-bold text-white mt-0.5" x-text="stats.ordenes_activas">0</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- Alertas Stock -->
+                <!-- Stock Alerts -->
                 <div class="bg-[#141C2E] rounded-xl p-5 border border-[#222E46] shadow-sm">
                     <div class="flex items-center gap-4">
                         <div class="p-3 rounded-lg bg-red-500/10 text-red-400 flex-shrink-0">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
                         </div>
                         <div>
-                            <p class="text-xs text-slate-400 font-medium">Alertas Stock</p>
+                            <p class="text-xs text-slate-400 font-semibold">Stock Alerts</p>
                             <p class="text-2xl font-bold" :class="stats.alertas_stock > 0 ? 'text-red-400' : 'text-white'" x-text="stats.alertas_stock">0</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- Total Productos -->
+                <!-- Total Products -->
                 <div class="bg-[#141C2E] rounded-xl p-5 border border-[#222E46] shadow-sm">
                     <div class="flex items-center gap-4">
                         <div class="p-3 rounded-lg bg-blue-500/10 text-blue-400 flex-shrink-0">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
                         </div>
                         <div>
-                            <p class="text-xs text-slate-400 font-medium">Total Productos</p>
+                            <p class="text-xs text-slate-400 font-semibold">Total Products</p>
                             <p class="text-2xl font-bold text-white mt-0.5" x-text="stats.total_productos">0</p>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Tabla de Últimas Ventas Registradas -->
+            <!-- Recent Recorded Sales Table -->
             <div class="bg-[#141C2E] rounded-xl border border-[#222E46] overflow-hidden shadow-sm mb-6">
                 <div class="p-4 sm:p-5 border-b border-[#222E46] flex flex-wrap justify-between items-center gap-2">
                     <div>
-                        <h2 class="text-sm sm:text-base font-bold text-white">Últimas Ventas Registradas</h2>
-                        <p class="text-[11px] sm:text-xs text-slate-400 mt-0.5">Pagos confirmados en caja en tiempo real</p>
+                        <h2 class="text-sm sm:text-base font-bold text-white">Recent Recorded Sales</h2>
+                        <p class="text-[11px] sm:text-xs text-slate-400 mt-0.5">Real-time confirmed payments at checkout</p>
                     </div>
-                    <a href="reportes.html" class="text-xs text-amber-400 hover:underline">Ver Reporte Completo →</a>
+                    <a href="reportes.html" class="text-xs font-semibold text-amber-400 hover:underline">View Full Report →</a>
                 </div>
 
                 <div class="overflow-x-auto">
                     <table class="w-full text-left text-xs sm:text-sm whitespace-nowrap">
                         <thead class="bg-[#0B0F19]/60 text-slate-400">
                             <tr>
-                                <th class="px-4 sm:px-6 py-3 font-semibold">Comprobante</th>
-                                <th class="px-4 sm:px-6 py-3 font-semibold">Sede</th>
-                                <th class="px-4 sm:px-6 py-3 font-semibold">Mesa</th>
-                                <th class="px-4 sm:px-6 py-3 font-semibold">Cajero</th>
-                                <th class="px-4 sm:px-6 py-3 font-semibold">Método</th>
-                                <th class="px-4 sm:px-6 py-3 font-semibold text-right">Total Pagado</th>
+                                <th class="px-4 sm:px-6 py-3 font-semibold">Invoice #</th>
+                                <th class="px-4 sm:px-6 py-3 font-semibold">Branch</th>
+                                <th class="px-4 sm:px-6 py-3 font-semibold">Table</th>
+                                <th class="px-4 sm:px-6 py-3 font-semibold">Cashier</th>
+                                <th class="px-4 sm:px-6 py-3 font-semibold">Method</th>
+                                <th class="px-4 sm:px-6 py-3 font-semibold text-right">Total Paid</th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-[#222E46]">
                             <template x-for="v in stats.ultimas_ventas" :key="v.id">
                                 <tr class="hover:bg-slate-800/40 transition-colors">
                                     <td class="px-4 sm:px-6 py-3.5">
-                                        <button @click="window.openFacturaModal(v.numero_comprobante || v.id)" class="px-2 py-1 bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 rounded-md font-mono text-xs font-bold hover:underline transition-colors flex items-center gap-1.5" title="Ver / Descargar Factura Electrónica en PDF">
+                                        <button @click="window.openFacturaModal(v.numero_comprobante || v.id)" class="px-2 py-1 bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 border border-amber-500/30 rounded-md font-mono text-xs font-bold hover:underline transition-colors flex items-center gap-1.5" title="View / Download Electronic PDF Invoice">
                                             <svg class="w-3.5 h-3.5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                                             <span x-text="v.numero_comprobante || ('#' + v.id.slice(0,8))"></span>
                                         </button>
                                     </td>
-                                    <td class="px-4 sm:px-6 py-3.5 text-slate-300" x-text="v.sede_nombre || 'Principal'"></td>
-                                    <td class="px-4 sm:px-6 py-3.5 font-medium text-white" x-text="'Mesa ' + v.mesa"></td>
+                                    <td class="px-4 sm:px-6 py-3.5 text-slate-300" x-text="v.sede_nombre || 'Main'"></td>
+                                    <td class="px-4 sm:px-6 py-3.5 font-semibold text-white" x-text="'Table ' + v.mesa"></td>
                                     <td class="px-4 sm:px-6 py-3.5 text-slate-400" x-text="v.cajero_nombre"></td>
-                                    <td class="px-4 sm:px-6 py-3.5 uppercase text-[11px] text-slate-300" x-text="v.metodo_pago"></td>
+                                    <td class="px-4 sm:px-6 py-3.5 uppercase text-[11px] font-semibold text-slate-300" x-text="window.tMethod ? window.tMethod(v.metodo_pago) : v.metodo_pago"></td>
                                     <td class="px-4 sm:px-6 py-3.5 text-right font-bold text-green-400" x-text="formatCurrency(v.monto_total)"></td>
                                 </tr>
                             </template>
                             <tr x-show="!stats.ultimas_ventas || stats.ultimas_ventas.length === 0">
-                                <td colspan="6" class="px-6 py-8 text-center text-slate-500">No se han registrado ventas hoy.</td>
+                                <td colspan="6" class="px-6 py-8 text-center text-slate-500">No sales have been recorded today.</td>
                             </tr>
                         </tbody>
                     </table>
@@ -330,23 +315,21 @@
         </main>
     </div>
 
-    <script src="../assets/js/config.js?v=4"></script>
-    <script src="../assets/js/api.js?v=4"></script>
-    <script src="../assets/js/auth.js?v=4"></script>
-    <script src="../assets/js/perfil.js?v=1"></script>
-    <script src="../assets/js/factura.js?v=4"></script>
+    <script src="../assets/js/config.js?v=5"></script>
+    <script src="../assets/js/api.js?v=5"></script>
+    <script src="../assets/js/auth.js?v=5"></script>
+    <script src="../assets/js/perfil.js?v=5"></script>
+    <script src="../assets/js/factura.js?v=5"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const user = window.auth.getUser();
             if (!user) { window.location.href = '../index.html'; return; }
 
-            // Mostrar nombre y rol
             const rolNombre = user.rol_nombre || user.rol || '';
             const fullName = `${user.nombre} ${user.apellido || ''}`.trim();
             document.querySelectorAll('#user-name, .user-display-name').forEach(el => el.textContent = fullName);
-            document.querySelectorAll('#user-rol, .user-display-rol').forEach(el => el.textContent = rolNombre);
+            document.querySelectorAll('#user-rol, .user-display-rol').forEach(el => el.textContent = window.tRole ? window.tRole(rolNombre) : rolNombre);
 
-            // Mostrar nav items según rol
             const rol = rolNombre.toLowerCase();
             if (rol === 'admin' || rol === 'cajero') {
                 document.querySelectorAll('.nav-cajero, .nav-admin').forEach(el => el.style.display = 'flex');
@@ -369,7 +352,7 @@
 
                 get currentSedeName() {
                     const s = this.sedes.find(item => String(item.id) === String(this.selectedSedeId));
-                    return s ? s.nombre : 'Sede Principal';
+                    return s ? s.nombre : 'Main Branch';
                 },
 
                 async init() {
@@ -401,7 +384,7 @@
                             this.stats = res.data;
                         }
                     } catch(e) {
-                        console.error('Error cargando stats del dashboard:', e);
+                        console.error('Error loading dashboard stats:', e);
                     }
                 },
 

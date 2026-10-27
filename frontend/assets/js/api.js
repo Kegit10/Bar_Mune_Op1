@@ -64,7 +64,7 @@ class Api {
         return this.request(path, { method: 'DELETE' });
     }
 
-    async download(path, fallbackFilename = 'reporte') {
+    async download(path, fallbackFilename = 'report') {
         const token = localStorage.getItem('barmune_token');
         const headers = {
             ...(token ? { 'Authorization': `Bearer ${token}` } : {})
@@ -83,10 +83,9 @@ class Api {
 
             if (!response.ok) {
                 const errData = await response.json().catch(() => null);
-                throw new Error(errData?.message || `Error en la descarga (${response.status})`);
+                throw new Error(errData?.message || `Download error (${response.status})`);
             }
 
-            // Extraer nombre de archivo si viene en content-disposition
             let filename = fallbackFilename;
             const disposition = response.headers.get('Content-Disposition');
             if (disposition && disposition.includes('filename=')) {

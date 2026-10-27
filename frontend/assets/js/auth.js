@@ -1,16 +1,14 @@
 const auth = {
     async login(email, password) {
         const response = await window.api.post('/api/auth/login', { email, password });
-        // La API devuelve: { success: true, data: { access_token, user } }
         if (response && response.success && response.data && response.data.access_token) {
             const user = response.data.user || {};
-            // Normalizar rol
             user.rol = user.rol_nombre || user.rol || '';
             localStorage.setItem('barmune_token', response.data.access_token);
             localStorage.setItem('barmune_user', JSON.stringify(user));
             return { success: true, user, token: response.data.access_token };
         }
-        const msg = response?.message || 'Credenciales inválidas';
+        const msg = response?.message || 'Invalid credentials';
         throw new Error(msg);
     },
 
@@ -70,7 +68,6 @@ const auth = {
 
 window.auth = auth;
 
-// Guard: en páginas que NO son el login, verificar autenticación
 document.addEventListener('DOMContentLoaded', () => {
     const onLoginPage = window.location.pathname.endsWith('index.html')
         || window.location.pathname === '/'

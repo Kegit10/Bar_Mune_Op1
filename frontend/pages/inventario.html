@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en" class="theme-light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inventario - Bar Mune</title>
+    <title>Inventory - Bar Mune</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -20,14 +20,13 @@
             }
         }
     </script>
-    <link rel="stylesheet" href="../assets/css/app.css">
+    <link rel="stylesheet" href="../assets/css/app.css?v=5">
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 <body class="bg-slate-900 text-white flex h-screen overflow-hidden" x-data="{ sidebarOpen: true, mobileMenuOpen: false }">
 
     <!-- Mobile Drawer Backdrop & Panel -->
     <div x-show="mobileMenuOpen" x-cloak class="fixed inset-0 z-50 md:hidden" style="display: none;">
-        <!-- Backdrop -->
         <div x-show="mobileMenuOpen" 
              x-transition:enter="transition-opacity ease-linear duration-200"
              x-transition:enter-start="opacity-0"
@@ -36,9 +35,8 @@
              x-transition:leave-start="opacity-100"
              x-transition:leave-end="opacity-0"
              @click="mobileMenuOpen = false" 
-             class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm"></div>
+             class="fixed inset-0 bg-slate-950/75 backdrop-blur-sm"></div>
 
-        <!-- Drawer Panel -->
         <div x-show="mobileMenuOpen"
              x-transition:enter="transition ease-out duration-250 transform"
              x-transition:enter-start="-translate-x-full"
@@ -48,15 +46,13 @@
              x-transition:leave-end="-translate-x-full"
              class="relative flex flex-col w-72 max-w-[80vw] h-full bg-[#070A12] border-r border-[#222E46] p-4 shadow-2xl z-10">
              
-             <!-- Header -->
              <div class="h-14 flex items-center justify-between border-b border-[#222E46] pb-3 mb-2">
                  <img src="../assets/Logos/Horizontal_Fondo_Transparente_Negativo.png" alt="Bar Mune" class="h-7 w-auto object-contain" />
-                 <button @click="mobileMenuOpen = false" class="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800" title="Cerrar menú">
+                 <button @click="mobileMenuOpen = false" class="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800" title="Close menu">
                      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
                  </button>
              </div>
 
-             <!-- Nav Links -->
              <nav class="flex-1 overflow-y-auto space-y-1.5 py-2">
                  <a href="dashboard.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition-colors font-medium text-sm">
                      <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
@@ -64,46 +60,45 @@
                  </a>
                  <a href="ordenes.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition-colors font-medium text-sm">
                      <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
-                     <span class="ml-3">Órdenes</span>
+                     <span class="ml-3">Orders</span>
                  </a>
                  <a href="pagos.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition-colors font-medium text-sm nav-cajero nav-admin" style="display:none">
                      <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
-                     <span class="ml-3">Pagos</span>
+                     <span class="ml-3">Payments</span>
                  </a>
                  <a href="inventario.html" class="flex items-center px-3 py-2.5 rounded-lg bg-amber-500/15 text-amber-400 border border-amber-500/30 font-medium text-sm nav-cajero nav-admin" style="display:none">
                      <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
-                     <span class="ml-3">Inventario</span>
+                     <span class="ml-3">Inventory</span>
                  </a>
                  <a href="stock-alertas.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition-colors font-medium text-sm nav-cajero nav-admin" style="display:none">
                      <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
-                     <span class="ml-3">Alertas Stock</span>
+                     <span class="ml-3">Stock Alerts</span>
                  </a>
                  <a href="reportes.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition-colors font-medium text-sm nav-cajero nav-admin" style="display:none">
                      <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                     <span class="ml-3">Reportes</span>
+                     <span class="ml-3">Reports</span>
                  </a>
                  <div class="nav-admin border-t border-[#222E46] my-2" style="display:none"></div>
                  <a href="usuarios.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition-colors font-medium text-sm nav-admin" style="display:none">
                      <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
-                     <span class="ml-3">Usuarios</span>
+                     <span class="ml-3">Users</span>
                  </a>
                  <a href="sedes.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition-colors font-medium text-sm nav-admin" style="display:none">
                      <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
-                     <span class="ml-3">Sedes</span>
+                     <span class="ml-3">Branches</span>
                  </a>
                  <a href="parametros.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition-colors font-medium text-sm nav-admin" style="display:none">
                      <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                     <span class="ml-3">Parámetros</span>
+                     <span class="ml-3">Settings</span>
                  </a>
              </nav>
 
-             <!-- User Footer -->
              <div class="border-t border-[#222E46] pt-3 mt-auto flex items-center justify-between">
-                 <button onclick="window.openPerfilModal()" class="truncate pr-2 text-left hover:opacity-80 transition-opacity cursor-pointer" title="Ver mi perfil">
+                 <button onclick="window.openPerfilModal()" class="truncate pr-2 text-left hover:opacity-80 transition-opacity cursor-pointer" title="View my profile">
                      <p class="user-display-name text-xs font-bold text-white truncate"></p>
                      <p class="user-display-rol text-[10px] text-[#C4B5FD] capitalize"></p>
                  </button>
-                 <button onclick="window.auth.logout()" class="p-2 text-slate-400 hover:text-red-400 rounded-lg hover:bg-red-500/10" title="Cerrar sesión">
+                 <button onclick="window.auth.logout()" class="p-2 text-slate-400 hover:text-red-400 rounded-lg hover:bg-red-500/10" title="Sign out">
                      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
                  </button>
              </div>
@@ -113,8 +108,7 @@
     <!-- Desktop Sidebar -->
     <aside :class="sidebarOpen ? 'w-64' : 'w-20'" class="bg-[#070A12] border-r border-[#222E46] transition-all duration-300 flex flex-col h-full z-20 hidden md:flex flex-shrink-0">
         <div class="h-16 flex items-center px-4 border-b border-[#222E46] gap-3 overflow-hidden">
-            <!--<img src="../assets/Logos/Isotipo.png" alt="Bar Mune" class="h-8 w-8 object-contain flex-shrink-0" />-->
-            <img x-show="sidebarOpen" src="../assets/Logos/Horizontal_Fondo_Transparente_Positivo.png" alt="Bar Mune" class="h-6 w-auto object-contain" />
+            <img x-show="sidebarOpen" src="../assets/Logos/Horizontal_Fondo_Transparente_Negativo.png" alt="Bar Mune" class="h-6 w-auto object-contain" />
         </div>
 
         <nav class="flex-1 overflow-y-auto py-4 space-y-1 px-2" id="sidebar-nav">
@@ -124,38 +118,38 @@
             </a>
             <a href="ordenes.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white transition-colors font-medium text-sm">
                 <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
-                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Órdenes</span>
+                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Orders</span>
             </a>
             <a href="pagos.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white transition-colors nav-item nav-cajero nav-admin font-medium text-sm" style="display:none">
                 <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
-                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Pagos</span>
+                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Payments</span>
             </a>
             <a href="inventario.html" class="flex items-center px-3 py-2.5 rounded-lg bg-amber-500/10 text-amber-400 border border-amber-500/30 font-medium text-sm nav-item nav-cajero nav-admin" style="display:none">
                 <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
-                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Inventario</span>
+                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Inventory</span>
             </a>
             <a href="stock-alertas.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white transition-colors nav-item nav-cajero nav-admin font-medium text-sm" style="display:none">
                 <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
-                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Alertas Stock</span>
+                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Stock Alerts</span>
             </a>
             <a href="reportes.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white transition-colors nav-item nav-cajero nav-admin font-medium text-sm" style="display:none">
                 <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Reportes</span>
+                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Reports</span>
             </a>
 
             <div class="nav-admin border-t border-[#222E46] my-2" style="display:none"></div>
 
             <a href="usuarios.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white transition-colors nav-item nav-admin font-medium text-sm" style="display:none">
                 <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
-                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Usuarios</span>
+                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Users</span>
             </a>
             <a href="sedes.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white transition-colors nav-item nav-admin font-medium text-sm" style="display:none">
                 <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
-                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Sedes</span>
+                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Branches</span>
             </a>
             <a href="parametros.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white transition-colors nav-item nav-admin font-medium text-sm" style="display:none">
                 <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Parámetros</span>
+                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Settings</span>
             </a>
         </nav>
     </aside>
@@ -165,24 +159,27 @@
         <!-- Topbar -->
         <header class="h-16 bg-[#141C2E] border-b border-[#222E46] flex items-center justify-between px-3 sm:px-6 z-10 flex-shrink-0">
             <div class="flex items-center gap-2 sm:gap-4 min-w-0">
-                <!-- Hamburger Button Mobile -->
-                <button @click="mobileMenuOpen = true" class="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 md:hidden flex-shrink-0" title="Abrir Menú">
+                <button @click="mobileMenuOpen = true" class="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 md:hidden flex-shrink-0" title="Open Menu">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
                 </button>
                 
-                <!-- Desktop Sidebar Toggle -->
-                <button @click="sidebarOpen = !sidebarOpen" class="text-slate-400 hover:text-white hidden md:block flex-shrink-0" title="Contraer/Expandir">
+                <button @click="sidebarOpen = !sidebarOpen" class="text-slate-400 hover:text-white hidden md:block flex-shrink-0" title="Collapse/Expand">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
                 </button>
 
-                <h1 class="text-base sm:text-xl font-semibold text-white truncate">Inventario de Productos</h1>
+                <h1 class="text-base sm:text-xl font-semibold text-white truncate">Product Inventory</h1>
             </div>
             <div class="flex items-center gap-2 sm:gap-3">
-                <button onclick="window.openPerfilModal()" class="text-right hidden sm:block p-1.5 rounded-xl hover:bg-slate-800/80 transition-all cursor-pointer group" title="Ver mi perfil">
-                    <p class="user-display-name text-sm font-medium text-white"></p>
+                <!-- Theme Toggle -->
+                <button type="button" onclick="window.toggleTheme()" class="theme-toggle-btn" title="Switch Theme">
+                    <span>Theme</span>
+                </button>
+
+                <button onclick="window.openPerfilModal()" class="text-right hidden sm:block p-1.5 rounded-xl hover:bg-slate-800/80 transition-all cursor-pointer group" title="View my profile">
+                    <p class="user-display-name text-sm font-semibold text-white"></p>
                     <p class="user-display-rol text-xs text-slate-400 capitalize"></p>
                 </button>
-                <button onclick="window.auth.logout()" title="Cerrar sesión" class="p-2 text-slate-400 hover:text-red-400 transition-colors rounded-lg hover:bg-red-400/10 flex-shrink-0">
+                <button onclick="window.auth.logout()" title="Sign out" class="p-2 text-slate-400 hover:text-red-400 transition-colors rounded-lg hover:bg-red-400/10 flex-shrink-0">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
                 </button>
             </div>
@@ -192,26 +189,24 @@
             <!-- Toolbar -->
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
                 <div class="flex flex-wrap items-center gap-3">
-                    <input type="text" x-model="searchQuery" placeholder="Buscar por código o nombre..." class="bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:border-amber-500 w-64">
+                    <input type="text" x-model="searchQuery" placeholder="Search by code or name..." class="bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:border-amber-500 w-64">
                     
-                    <!-- Filter Categoria -->
                     <select x-model="filterCategoria" id="filter-cat-select" class="bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-amber-500">
-                        <option value="" class="bg-slate-800 text-white">Todas las Categorías</option>
+                        <option value="" class="bg-slate-800 text-white">All Categories</option>
                     </select>
 
-                    <!-- Filter Sede -->
                     <select x-model="filterSede" id="filter-sede-select" class="bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-amber-500">
-                        <option value="" class="bg-slate-800 text-white">Todas las Sedes</option>
+                        <option value="" class="bg-slate-800 text-white">All Branches</option>
                     </select>
                 </div>
                 
                 <div class="flex gap-2">
                     <button @click="openCatModal()" class="bg-slate-700 hover:bg-slate-600 text-slate-200 px-3 py-2 rounded-lg text-sm font-medium transition-colors border border-slate-600 flex items-center">
-                        + Nueva Categoría
+                        + New Category
                     </button>
-                    <button @click="openModal()" class="bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center shadow-sm">
+                    <button @click="openModal()" class="bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-colors flex items-center shadow-sm">
                         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-                        Nuevo Producto
+                        New Product
                     </button>
                 </div>
             </div>
@@ -222,15 +217,15 @@
                     <table class="w-full text-left text-sm whitespace-nowrap">
                         <thead class="bg-slate-900/50 text-slate-400">
                             <tr>
-                                <th class="px-6 py-4 font-semibold">Código</th>
-                                <th class="px-6 py-4 font-semibold">Producto</th>
-                                <th class="px-6 py-4 font-semibold">Categoría</th>
-                                <th class="px-6 py-4 font-semibold">Sede</th>
-                                <th class="px-6 py-4 font-semibold text-right">Precio Costo</th>
-                                <th class="px-6 py-4 font-semibold text-right">Precio Venta</th>
-                                <th class="px-6 py-4 font-semibold text-right">Stock Actual</th>
-                                <th class="px-6 py-4 font-semibold">Estado</th>
-                                <th class="px-6 py-4 font-semibold text-right">Acciones</th>
+                                <th class="px-6 py-4 font-semibold">Code</th>
+                                <th class="px-6 py-4 font-semibold">Product</th>
+                                <th class="px-6 py-4 font-semibold">Category</th>
+                                <th class="px-6 py-4 font-semibold">Branch</th>
+                                <th class="px-6 py-4 font-semibold text-right">Cost Price</th>
+                                <th class="px-6 py-4 font-semibold text-right">Sale Price</th>
+                                <th class="px-6 py-4 font-semibold text-right">Current Stock</th>
+                                <th class="px-6 py-4 font-semibold">Status</th>
+                                <th class="px-6 py-4 font-semibold text-right">Actions</th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-slate-700/50">
@@ -238,13 +233,13 @@
                                 <tr class="hover:bg-slate-700/20 transition-colors">
                                     <td class="px-6 py-4 font-mono font-semibold text-amber-500" x-text="prod.codigo"></td>
                                     <td class="px-6 py-4">
-                                        <p class="font-medium text-white" x-text="prod.nombre"></p>
+                                        <p class="font-semibold text-white" x-text="prod.nombre"></p>
                                         <p class="text-xs text-slate-400" x-text="prod.descripcion || ''"></p>
                                     </td>
                                     <td class="px-6 py-4 text-slate-300" x-text="prod.categoria_nombre || getCategoriaName(prod.categoria_id)"></td>
                                     <td class="px-6 py-4 text-slate-300" x-text="prod.sede_nombre || getSedeName(prod.sede_id)"></td>
                                     <td class="px-6 py-4 text-right text-slate-400" x-text="formatCurrency(prod.precio_costo || prod.costo)"></td>
-                                    <td class="px-6 py-4 text-right font-semibold text-white" x-text="formatCurrency(prod.precio_venta || prod.precio)"></td>
+                                    <td class="px-6 py-4 text-right font-bold text-white" x-text="formatCurrency(prod.precio_venta || prod.precio)"></td>
                                     <td class="px-6 py-4 text-right">
                                         <span class="inline-flex items-center gap-1.5 font-bold" :class="(prod.stock_actual || prod.stock) <= prod.stock_minimo ? 'text-red-400' : 'text-green-400'">
                                             <span x-text="prod.stock_actual || prod.stock || 0"></span>
@@ -252,127 +247,127 @@
                                         </span>
                                     </td>
                                     <td class="px-6 py-4">
-                                        <span class="px-2.5 py-0.5 rounded-full text-xs font-medium uppercase"
-                                            :class="prod.estado === 'activo' ? 'bg-green-500/20 text-green-300 border border-green-500/30' : 'bg-red-500/20 text-red-300 border border-red-500/30'"
-                                            x-text="prod.estado"></span>
+                                        <span class="px-2.5 py-0.5 rounded-full text-xs font-bold uppercase border"
+                                            :class="prod.estado === 'activo' ? 'bg-green-500/20 text-green-300 border-green-500/30' : 'bg-red-500/20 text-red-300 border-red-500/30'"
+                                            x-text="window.tStatus ? window.tStatus(prod.estado) : prod.estado"></span>
                                     </td>
                                     <td class="px-6 py-4 text-right">
-                                        <button @click="openModal(prod)" title="Editar" class="text-slate-400 hover:text-amber-400 transition-colors mr-3 p-1 rounded hover:bg-slate-700">
+                                        <button @click="openModal(prod)" title="Edit" class="text-slate-400 hover:text-amber-400 transition-colors mr-3 p-1 rounded hover:bg-slate-700">
                                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
                                         </button>
-                                        <button @click="confirmDelete(prod)" title="Desactivar" class="text-slate-400 hover:text-red-400 transition-colors p-1 rounded hover:bg-slate-700">
+                                        <button @click="confirmDelete(prod)" title="Deactivate" class="text-slate-400 hover:text-red-400 transition-colors p-1 rounded hover:bg-slate-700">
                                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
                                         </button>
                                     </td>
                                 </tr>
                             </template>
                             <tr x-show="filteredProductos.length === 0">
-                                <td colspan="9" class="px-6 py-12 text-center text-slate-500">No se encontraron productos registrados.</td>
+                                <td colspan="9" class="px-6 py-12 text-center text-slate-500">No registered products found.</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
 
-            <!-- Modal Producto -->
+            <!-- Product Modal -->
             <div x-show="showModal" class="fixed inset-0 z-50 overflow-y-auto" style="display: none;">
                 <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:p-0">
-                    <div class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm" @click="closeModal()"></div>
+                    <div class="fixed inset-0 bg-slate-900/75 backdrop-blur-sm" @click="closeModal()"></div>
                     <div class="inline-block bg-slate-800 rounded-xl text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:max-w-xl sm:w-full border border-slate-700 z-10">
                         <form @submit.prevent="saveProducto">
                             <div class="px-6 pt-6 pb-4">
-                                <h3 class="text-lg font-bold text-white mb-4" x-text="form.id ? 'Editar Producto' : 'Nuevo Producto'"></h3>
+                                <h3 class="text-lg font-bold text-white mb-4" x-text="form.id ? 'Edit Product' : 'New Product'"></h3>
                                 <div class="space-y-4">
                                     <div class="grid grid-cols-2 gap-4">
                                         <div>
-                                            <label class="block text-xs font-medium text-slate-300 mb-1">Código *</label>
-                                            <input type="text" x-model="form.codigo" placeholder="Ej: CER-01, LIC-01" required class="w-full border border-slate-600 rounded-lg bg-slate-700 text-white px-3 py-2 text-sm focus:border-amber-500 outline-none font-mono uppercase">
+                                            <label class="block text-xs font-semibold text-slate-300 mb-1">Code *</label>
+                                            <input type="text" x-model="form.codigo" placeholder="e.g. CER-01, LIC-01" required class="w-full border border-slate-600 rounded-lg bg-slate-700 text-white px-3 py-2 text-sm focus:border-amber-500 outline-none font-mono uppercase">
                                         </div>
                                         <div>
-                                            <label class="block text-xs font-medium text-slate-300 mb-1">Nombre *</label>
-                                            <input type="text" x-model="form.nombre" placeholder="Ej: Corona 330ml, Tequila Don Julio" required class="w-full border border-slate-600 rounded-lg bg-slate-700 text-white px-3 py-2 text-sm focus:border-amber-500 outline-none">
+                                            <label class="block text-xs font-semibold text-slate-300 mb-1">Name *</label>
+                                            <input type="text" x-model="form.nombre" placeholder="e.g. Corona 330ml, Don Julio" required class="w-full border border-slate-600 rounded-lg bg-slate-700 text-white px-3 py-2 text-sm focus:border-amber-500 outline-none">
                                         </div>
                                     </div>
                                     <div>
-                                        <label class="block text-xs font-medium text-slate-300 mb-1">Descripción</label>
-                                        <textarea x-model="form.descripcion" rows="2" placeholder="Presentación, características..." class="w-full border border-slate-600 rounded-lg bg-slate-700 text-white px-3 py-2 text-sm focus:border-amber-500 outline-none"></textarea>
+                                        <label class="block text-xs font-semibold text-slate-300 mb-1">Description</label>
+                                        <textarea x-model="form.descripcion" rows="2" placeholder="Size, presentation, details..." class="w-full border border-slate-600 rounded-lg bg-slate-700 text-white px-3 py-2 text-sm focus:border-amber-500 outline-none"></textarea>
                                     </div>
                                     <div class="grid grid-cols-2 gap-4">
                                         <div>
                                             <div class="flex justify-between items-center mb-1">
-                                                <label class="block text-xs font-medium text-slate-300">Categoría *</label>
-                                                <button type="button" @click="openCatModal()" class="text-[11px] text-amber-400 hover:underline">+ Crear</button>
+                                                <label class="block text-xs font-semibold text-slate-300">Category *</label>
+                                                <button type="button" @click="openCatModal()" class="text-[11px] font-semibold text-amber-400 hover:underline">+ Create</button>
                                             </div>
                                             <select x-model="form.categoria_id" id="modal-cat-select" required class="w-full border border-slate-600 rounded-lg bg-slate-700 text-white px-3 py-2 text-sm focus:border-amber-500 outline-none">
-                                                <option value="" class="bg-slate-800 text-white">Seleccione Categoría</option>
+                                                <option value="" class="bg-slate-800 text-white">Select Category</option>
                                             </select>
                                         </div>
                                         <div>
-                                            <label class="block text-xs font-medium text-slate-300 mb-1">Sede *</label>
+                                            <label class="block text-xs font-semibold text-slate-300 mb-1">Branch *</label>
                                             <select x-model="form.sede_id" id="modal-sede-select" required class="w-full border border-slate-600 rounded-lg bg-slate-700 text-white px-3 py-2 text-sm focus:border-amber-500 outline-none">
-                                                <option value="" class="bg-slate-800 text-white">Seleccione Sede</option>
+                                                <option value="" class="bg-slate-800 text-white">Select Branch</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="grid grid-cols-2 gap-4">
                                         <div>
-                                            <label class="block text-xs font-medium text-slate-300 mb-1">Precio Costo ($)</label>
+                                            <label class="block text-xs font-semibold text-slate-300 mb-1">Cost Price ($)</label>
                                             <input type="number" x-model.number="form.precio_costo" min="0" step="100" class="w-full border border-slate-600 rounded-lg bg-slate-700 text-white px-3 py-2 text-sm focus:border-amber-500 outline-none">
                                         </div>
                                         <div>
-                                            <label class="block text-xs font-medium text-slate-300 mb-1">Precio Venta ($) *</label>
+                                            <label class="block text-xs font-semibold text-slate-300 mb-1">Sale Price ($) *</label>
                                             <input type="number" x-model.number="form.precio_venta" required min="0" step="100" class="w-full border border-slate-600 rounded-lg bg-slate-700 text-white px-3 py-2 text-sm focus:border-amber-500 outline-none font-semibold">
                                         </div>
                                     </div>
                                     <div class="grid grid-cols-3 gap-4">
                                         <div>
-                                            <label class="block text-xs font-medium text-slate-300 mb-1">Stock Inicial</label>
+                                            <label class="block text-xs font-semibold text-slate-300 mb-1">Current Stock</label>
                                             <input type="number" x-model.number="form.stock_actual" min="0" class="w-full border border-slate-600 rounded-lg bg-slate-700 text-white px-3 py-2 text-sm focus:border-amber-500 outline-none">
                                         </div>
                                         <div>
-                                            <label class="block text-xs font-medium text-slate-300 mb-1">Stock Mínimo</label>
+                                            <label class="block text-xs font-semibold text-slate-300 mb-1">Min. Stock</label>
                                             <input type="number" x-model.number="form.stock_minimo" min="0" class="w-full border border-slate-600 rounded-lg bg-slate-700 text-white px-3 py-2 text-sm focus:border-amber-500 outline-none">
                                         </div>
                                         <div>
-                                            <label class="block text-xs font-medium text-slate-300 mb-1">Estado</label>
+                                            <label class="block text-xs font-semibold text-slate-300 mb-1">Status</label>
                                             <select x-model="form.estado" class="w-full border border-slate-600 rounded-lg bg-slate-700 text-white px-3 py-2 text-sm focus:border-amber-500 outline-none">
-                                                <option value="activo" class="bg-slate-800 text-white">Activo</option>
-                                                <option value="inactivo" class="bg-slate-800 text-white">Inactivo</option>
-                                                <option value="agotado" class="bg-slate-800 text-white">Agotado</option>
+                                                <option value="activo" class="bg-slate-800 text-white">Active</option>
+                                                <option value="inactivo" class="bg-slate-800 text-white">Inactive</option>
+                                                <option value="agotado" class="bg-slate-800 text-white">Out of Stock</option>
                                             </select>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="bg-slate-900/60 px-6 py-4 flex flex-row-reverse gap-3 border-t border-slate-700">
-                                <button type="submit" class="px-4 py-2 bg-amber-500 text-white rounded-lg text-sm font-medium hover:bg-amber-600 transition-colors">Guardar</button>
-                                <button type="button" @click="closeModal()" class="px-4 py-2 bg-slate-700 text-slate-300 rounded-lg text-sm font-medium hover:bg-slate-600 transition-colors">Cancelar</button>
+                                <button type="submit" class="px-4 py-2 bg-amber-500 text-white rounded-lg text-sm font-semibold hover:bg-amber-600 transition-colors">Save</button>
+                                <button type="button" @click="closeModal()" class="px-4 py-2 bg-slate-700 text-slate-300 rounded-lg text-sm font-medium hover:bg-slate-600 transition-colors">Cancel</button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
 
-            <!-- Modal Crear Categoría Rápida -->
+            <!-- Quick Category Modal -->
             <div x-show="showCatModal" class="fixed inset-0 z-50 overflow-y-auto" style="display: none;">
                 <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:p-0">
-                    <div class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm" @click="showCatModal = false"></div>
+                    <div class="fixed inset-0 bg-slate-900/75 backdrop-blur-sm" @click="showCatModal = false"></div>
                     <div class="inline-block bg-slate-800 rounded-xl text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:max-w-md sm:w-full border border-slate-700 z-10 p-6">
-                        <h3 class="text-lg font-bold text-white mb-3">Nueva Categoría</h3>
+                        <h3 class="text-lg font-bold text-white mb-3">New Category</h3>
                         <form @submit.prevent="saveCategoria">
                             <div class="space-y-3 mb-5">
                                 <div>
-                                    <label class="block text-xs font-medium text-slate-300 mb-1">Nombre *</label>
-                                    <input type="text" x-model="catForm.nombre" placeholder="Ej: Cervezas, Licores, Snacks..." required class="w-full border border-slate-600 rounded-lg bg-slate-700 text-white px-3 py-2 text-sm focus:border-amber-500 outline-none">
+                                    <label class="block text-xs font-semibold text-slate-300 mb-1">Name *</label>
+                                    <input type="text" x-model="catForm.nombre" placeholder="e.g. Beers, Spirits, Snacks..." required class="w-full border border-slate-600 rounded-lg bg-slate-700 text-white px-3 py-2 text-sm focus:border-amber-500 outline-none">
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-medium text-slate-300 mb-1">Descripción</label>
-                                    <input type="text" x-model="catForm.descripcion" placeholder="Descripción opcional" class="w-full border border-slate-600 rounded-lg bg-slate-700 text-white px-3 py-2 text-sm focus:border-amber-500 outline-none">
+                                    <label class="block text-xs font-semibold text-slate-300 mb-1">Description</label>
+                                    <input type="text" x-model="catForm.descripcion" placeholder="Optional description" class="w-full border border-slate-600 rounded-lg bg-slate-700 text-white px-3 py-2 text-sm focus:border-amber-500 outline-none">
                                 </div>
                             </div>
                             <div class="flex justify-end gap-3">
-                                <button type="button" @click="showCatModal = false" class="px-4 py-2 bg-slate-700 text-slate-300 rounded-lg text-sm font-medium hover:bg-slate-600">Cancelar</button>
-                                <button type="submit" class="px-4 py-2 bg-amber-500 text-white rounded-lg text-sm font-medium hover:bg-amber-600">Crear Categoría</button>
+                                <button type="button" @click="showCatModal = false" class="px-4 py-2 bg-slate-700 text-slate-300 rounded-lg text-sm font-medium hover:bg-slate-600">Cancel</button>
+                                <button type="submit" class="px-4 py-2 bg-amber-500 text-white rounded-lg text-sm font-semibold hover:bg-amber-600">Create Category</button>
                             </div>
                         </form>
                     </div>
@@ -386,10 +381,10 @@
         </main>
     </div>
 
-    <script src="../assets/js/config.js?v=4"></script>
-    <script src="../assets/js/api.js?v=4"></script>
-    <script src="../assets/js/auth.js?v=4"></script>
-    <script src="../assets/js/perfil.js?v=1"></script>
+    <script src="../assets/js/config.js?v=5"></script>
+    <script src="../assets/js/api.js?v=5"></script>
+    <script src="../assets/js/auth.js?v=5"></script>
+    <script src="../assets/js/perfil.js?v=5"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const user = window.auth.getUser();
@@ -399,7 +394,7 @@
             const rolNombre = user.rol_nombre || user.rol || '';
             const fullName = `${user.nombre} ${user.apellido || ''}`.trim();
             document.querySelectorAll('#user-name, .user-display-name').forEach(el => el.textContent = fullName);
-            document.querySelectorAll('#user-rol, .user-display-rol').forEach(el => el.textContent = rolNombre);
+            document.querySelectorAll('#user-rol, .user-display-rol').forEach(el => el.textContent = window.tRole ? window.tRole(rolNombre) : rolNombre);
 
             const rol = rolNombre.toLowerCase();
             if (rol === 'admin' || rol === 'cajero') {
@@ -428,9 +423,11 @@
                 toast: { show: false, message: '' },
 
                 async init() {
-                    await this.fetchCategorias();
-                    await this.fetchSedes();
-                    await this.fetchProductos();
+                    await Promise.all([
+                        this.fetchCategorias(),
+                        this.fetchSedes(),
+                        this.fetchProductos()
+                    ]);
                     this.populateAllSelects();
                 },
 
@@ -445,32 +442,28 @@
                 },
 
                 populateAllSelects() {
-                    // Populate filter cat
                     const fCat = document.getElementById('filter-cat-select');
                     if (fCat) {
-                        fCat.innerHTML = '<option value="" class="bg-slate-800 text-white">Todas las Categorías</option>' +
+                        fCat.innerHTML = '<option value="" class="bg-slate-800 text-white">All Categories</option>' +
                             this.categorias.map(c => `<option value="${c.id}" class="bg-slate-800 text-white">${c.nombre}</option>`).join('');
                     }
 
-                    // Populate filter sede
                     const fSede = document.getElementById('filter-sede-select');
                     if (fSede) {
-                        fSede.innerHTML = '<option value="" class="bg-slate-800 text-white">Todas las Sedes</option>' +
+                        fSede.innerHTML = '<option value="" class="bg-slate-800 text-white">All Branches</option>' +
                             this.sedes.map(s => `<option value="${s.id}" class="bg-slate-800 text-white">${s.nombre}</option>`).join('');
                     }
 
-                    // Populate modal cat
                     const mCat = document.getElementById('modal-cat-select');
                     if (mCat) {
-                        mCat.innerHTML = '<option value="" class="bg-slate-800 text-white">Seleccione Categoría</option>' +
+                        mCat.innerHTML = '<option value="" class="bg-slate-800 text-white">Select Category</option>' +
                             this.categorias.map(c => `<option value="${c.id}" class="bg-slate-800 text-white">${c.nombre}</option>`).join('');
                         mCat.value = this.form.categoria_id || '';
                     }
 
-                    // Populate modal sede
                     const mSede = document.getElementById('modal-sede-select');
                     if (mSede) {
-                        mSede.innerHTML = '<option value="" class="bg-slate-800 text-white">Seleccione Sede</option>' +
+                        mSede.innerHTML = '<option value="" class="bg-slate-800 text-white">Select Branch</option>' +
                             this.sedes.map(s => `<option value="${s.id}" class="bg-slate-800 text-white">${s.nombre}</option>`).join('');
                         mSede.value = this.form.sede_id || '';
                     }
@@ -515,7 +508,7 @@
 
                 getSedeName(id) {
                     const s = this.sedes.find(item => String(item.id) === String(id));
-                    return s ? s.nombre : 'Sede Principal';
+                    return s ? s.nombre : 'Main Branch';
                 },
 
                 openCatModal() {
@@ -526,7 +519,7 @@
                 async saveCategoria() {
                     try {
                         const res = await window.api.post('/api/categorias', this.catForm);
-                        this.showToast('Categoría creada exitosamente');
+                        this.showToast('Category created successfully');
                         await this.fetchCategorias();
                         this.populateAllSelects();
                         if (res?.data?.id) {
@@ -536,7 +529,7 @@
                         }
                         this.showCatModal = false;
                     } catch (e) {
-                        alert(e.message || 'Error al crear la categoría');
+                        alert(e.message || 'Error creating category');
                     }
                 },
 
@@ -579,44 +572,43 @@
                 closeModal() { this.showModal = false; },
 
                 async saveProducto() {
-                    // Sync values from select if needed
                     const mCat = document.getElementById('modal-cat-select');
                     const mSede = document.getElementById('modal-sede-select');
                     if (mCat && mCat.value) this.form.categoria_id = mCat.value;
                     if (mSede && mSede.value) this.form.sede_id = mSede.value;
 
                     if (!this.form.categoria_id) {
-                        alert('Por favor selecciona una categoría');
+                        alert('Please select a category');
                         return;
                     }
                     if (!this.form.sede_id) {
-                        alert('Por favor selecciona una sede');
+                        alert('Please select a branch');
                         return;
                     }
 
                     try {
                         if (this.form.id) {
                             await window.api.put(`/api/productos/${this.form.id}`, this.form);
-                            this.showToast('Producto actualizado correctamente');
+                            this.showToast('Product updated successfully');
                         } else {
                             await window.api.post('/api/productos', this.form);
-                            this.showToast('Producto creado exitosamente');
+                            this.showToast('Product created successfully');
                         }
                         await this.fetchProductos();
                         this.closeModal();
                     } catch (e) {
-                        alert(e.message || 'Error al guardar el producto');
+                        alert(e.message || 'Error saving product');
                     }
                 },
 
                 async confirmDelete(prod) {
-                    if (!confirm(`¿Desactivar producto "${prod.nombre}"?`)) return;
+                    if (!confirm(`Deactivate product "${prod.nombre}"?`)) return;
                     try {
                         await window.api.delete(`/api/productos/${prod.id}`);
-                        this.showToast('Producto desactivado');
+                        this.showToast('Product deactivated');
                         await this.fetchProductos();
                     } catch (e) {
-                        alert(e.message || 'Error al desactivar');
+                        alert(e.message || 'Error deactivating product');
                     }
                 },
 

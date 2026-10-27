@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en" class="theme-light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reportes - Bar Mune</title>
+    <title>Reports & Analytics - Bar Mune</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -20,14 +20,13 @@
             }
         }
     </script>
-    <link rel="stylesheet" href="../assets/css/app.css">
+    <link rel="stylesheet" href="../assets/css/app.css?v=5">
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 <body class="bg-slate-900 text-white flex h-screen overflow-hidden" x-data="{ sidebarOpen: true, mobileMenuOpen: false }">
 
     <!-- Mobile Drawer Backdrop & Panel -->
     <div x-show="mobileMenuOpen" x-cloak class="fixed inset-0 z-50 md:hidden" style="display: none;">
-        <!-- Backdrop -->
         <div x-show="mobileMenuOpen" 
              x-transition:enter="transition-opacity ease-linear duration-200"
              x-transition:enter-start="opacity-0"
@@ -36,9 +35,8 @@
              x-transition:leave-start="opacity-100"
              x-transition:leave-end="opacity-0"
              @click="mobileMenuOpen = false" 
-             class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm"></div>
+             class="fixed inset-0 bg-slate-950/75 backdrop-blur-sm"></div>
 
-        <!-- Drawer Panel -->
         <div x-show="mobileMenuOpen"
              x-transition:enter="transition ease-out duration-250 transform"
              x-transition:enter-start="-translate-x-full"
@@ -48,15 +46,13 @@
              x-transition:leave-end="-translate-x-full"
              class="relative flex flex-col w-72 max-w-[80vw] h-full bg-[#070A12] border-r border-[#222E46] p-4 shadow-2xl z-10">
              
-             <!-- Header -->
              <div class="h-14 flex items-center justify-between border-b border-[#222E46] pb-3 mb-2">
                  <img src="../assets/Logos/Horizontal_Fondo_Transparente_Negativo.png" alt="Bar Mune" class="h-7 w-auto object-contain" />
-                 <button @click="mobileMenuOpen = false" class="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800" title="Cerrar menú">
+                 <button @click="mobileMenuOpen = false" class="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800" title="Close menu">
                      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
                  </button>
              </div>
 
-             <!-- Nav Links -->
              <nav class="flex-1 overflow-y-auto space-y-1.5 py-2">
                  <a href="dashboard.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition-colors font-medium text-sm">
                      <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
@@ -64,46 +60,45 @@
                  </a>
                  <a href="ordenes.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition-colors font-medium text-sm">
                      <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
-                     <span class="ml-3">Órdenes</span>
+                     <span class="ml-3">Orders</span>
                  </a>
                  <a href="pagos.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition-colors font-medium text-sm nav-cajero nav-admin" style="display:none">
                      <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
-                     <span class="ml-3">Pagos</span>
+                     <span class="ml-3">Payments</span>
                  </a>
                  <a href="inventario.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition-colors font-medium text-sm nav-cajero nav-admin" style="display:none">
                      <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
-                     <span class="ml-3">Inventario</span>
+                     <span class="ml-3">Inventory</span>
                  </a>
                  <a href="stock-alertas.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition-colors font-medium text-sm nav-cajero nav-admin" style="display:none">
                      <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
-                     <span class="ml-3">Alertas Stock</span>
+                     <span class="ml-3">Stock Alerts</span>
                  </a>
                  <a href="reportes.html" class="flex items-center px-3 py-2.5 rounded-lg bg-amber-500/15 text-amber-400 border border-amber-500/30 font-medium text-sm nav-cajero nav-admin" style="display:none">
                      <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                     <span class="ml-3">Reportes</span>
+                     <span class="ml-3">Reports</span>
                  </a>
                  <div class="nav-admin border-t border-[#222E46] my-2" style="display:none"></div>
                  <a href="usuarios.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition-colors font-medium text-sm nav-admin" style="display:none">
                      <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
-                     <span class="ml-3">Usuarios</span>
+                     <span class="ml-3">Users</span>
                  </a>
                  <a href="sedes.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition-colors font-medium text-sm nav-admin" style="display:none">
                      <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
-                     <span class="ml-3">Sedes</span>
+                     <span class="ml-3">Branches</span>
                  </a>
                  <a href="parametros.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition-colors font-medium text-sm nav-admin" style="display:none">
                      <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                     <span class="ml-3">Parámetros</span>
+                     <span class="ml-3">Settings</span>
                  </a>
              </nav>
 
-             <!-- User Footer -->
              <div class="border-t border-[#222E46] pt-3 mt-auto flex items-center justify-between">
-                 <button onclick="window.openPerfilModal()" class="truncate pr-2 text-left hover:opacity-80 transition-opacity cursor-pointer" title="Ver mi perfil">
+                 <button onclick="window.openPerfilModal()" class="truncate pr-2 text-left hover:opacity-80 transition-opacity cursor-pointer" title="View my profile">
                      <p class="user-display-name text-xs font-bold text-white truncate"></p>
                      <p class="user-display-rol text-[10px] text-[#C4B5FD] capitalize"></p>
                  </button>
-                 <button onclick="window.auth.logout()" class="p-2 text-slate-400 hover:text-red-400 rounded-lg hover:bg-red-500/10" title="Cerrar sesión">
+                 <button onclick="window.auth.logout()" class="p-2 text-slate-400 hover:text-red-400 rounded-lg hover:bg-red-500/10" title="Sign out">
                      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
                  </button>
              </div>
@@ -113,8 +108,7 @@
     <!-- Desktop Sidebar -->
     <aside :class="sidebarOpen ? 'w-64' : 'w-20'" class="bg-[#070A12] border-r border-[#222E46] transition-all duration-300 flex flex-col h-full z-20 hidden md:flex flex-shrink-0">
         <div class="h-16 flex items-center px-4 border-b border-[#222E46] gap-3 overflow-hidden">
-            <!--<img src="../assets/Logos/Isotipo.png" alt="Bar Mune" class="h-8 w-8 object-contain flex-shrink-0" />-->
-            <img x-show="sidebarOpen" src="../assets/Logos/Horizontal_Fondo_Transparente_Positivo.png" alt="Bar Mune" class="h-6 w-auto object-contain" />
+            <img x-show="sidebarOpen" src="../assets/Logos/Horizontal_Fondo_Transparente_Negativo.png" alt="Bar Mune" class="h-6 w-auto object-contain" />
         </div>
 
         <nav class="flex-1 overflow-y-auto py-4 space-y-1 px-2" id="sidebar-nav">
@@ -124,38 +118,38 @@
             </a>
             <a href="ordenes.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white transition-colors font-medium text-sm">
                 <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
-                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Órdenes</span>
+                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Orders</span>
             </a>
             <a href="pagos.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white transition-colors nav-item nav-cajero nav-admin font-medium text-sm" style="display:none">
                 <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
-                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Pagos</span>
+                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Payments</span>
             </a>
             <a href="inventario.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white transition-colors nav-item nav-cajero nav-admin font-medium text-sm" style="display:none">
                 <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
-                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Inventario</span>
+                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Inventory</span>
             </a>
             <a href="stock-alertas.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white transition-colors nav-item nav-cajero nav-admin font-medium text-sm" style="display:none">
                 <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
-                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Alertas Stock</span>
+                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Stock Alerts</span>
             </a>
             <a href="reportes.html" class="flex items-center px-3 py-2.5 rounded-lg bg-amber-500/10 text-amber-400 border border-amber-500/30 font-medium text-sm nav-item nav-cajero nav-admin" style="display:none">
                 <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Reportes</span>
+                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Reports</span>
             </a>
 
             <div class="nav-admin border-t border-[#222E46] my-2" style="display:none"></div>
 
             <a href="usuarios.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white transition-colors nav-item nav-admin font-medium text-sm" style="display:none">
                 <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
-                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Usuarios</span>
+                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Users</span>
             </a>
             <a href="sedes.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white transition-colors nav-item nav-admin font-medium text-sm" style="display:none">
                 <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
-                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Sedes</span>
+                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Branches</span>
             </a>
             <a href="parametros.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white transition-colors nav-item nav-admin font-medium text-sm" style="display:none">
                 <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Parámetros</span>
+                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Settings</span>
             </a>
         </nav>
     </aside>
@@ -165,24 +159,27 @@
         <!-- Topbar -->
         <header class="h-16 bg-[#141C2E] border-b border-[#222E46] flex items-center justify-between px-3 sm:px-6 z-10 flex-shrink-0">
             <div class="flex items-center gap-2 sm:gap-4 min-w-0">
-                <!-- Hamburger Button Mobile -->
-                <button @click="mobileMenuOpen = true" class="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 md:hidden flex-shrink-0" title="Abrir Menú">
+                <button @click="mobileMenuOpen = true" class="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 md:hidden flex-shrink-0" title="Open Menu">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
                 </button>
                 
-                <!-- Desktop Sidebar Toggle -->
-                <button @click="sidebarOpen = !sidebarOpen" class="text-slate-400 hover:text-white hidden md:block flex-shrink-0" title="Contraer/Expandir">
+                <button @click="sidebarOpen = !sidebarOpen" class="text-slate-400 hover:text-white hidden md:block flex-shrink-0" title="Collapse/Expand">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
                 </button>
 
-                <h1 class="text-base sm:text-xl font-semibold text-white truncate">Reportes y Estadísticas</h1>
+                <h1 class="text-base sm:text-xl font-semibold text-white truncate">Reports & Analytics</h1>
             </div>
             <div class="flex items-center gap-2 sm:gap-3">
-                <button onclick="window.openPerfilModal()" class="text-right hidden sm:block p-1.5 rounded-xl hover:bg-slate-800/80 transition-all cursor-pointer group" title="Ver mi perfil">
-                    <p class="user-display-name text-sm font-medium text-white"></p>
+                <!-- Theme Toggle -->
+                <button type="button" onclick="window.toggleTheme()" class="theme-toggle-btn" title="Switch Theme">
+                    <span>Theme</span>
+                </button>
+
+                <button onclick="window.openPerfilModal()" class="text-right hidden sm:block p-1.5 rounded-xl hover:bg-slate-800/80 transition-all cursor-pointer group" title="View my profile">
+                    <p class="user-display-name text-sm font-semibold text-white"></p>
                     <p class="user-display-rol text-xs text-slate-400 capitalize"></p>
                 </button>
-                <button onclick="window.auth.logout()" title="Cerrar sesión" class="p-2 text-slate-400 hover:text-red-400 transition-colors rounded-lg hover:bg-red-400/10 flex-shrink-0">
+                <button onclick="window.auth.logout()" title="Sign out" class="p-2 text-slate-400 hover:text-red-400 transition-colors rounded-lg hover:bg-red-400/10 flex-shrink-0">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
                 </button>
             </div>
@@ -194,10 +191,10 @@
             <div class="border-b border-slate-700 mb-6">
                 <nav class="-mb-px flex space-x-8">
                     <button @click="setTab('ventas')" :class="activeTab === 'ventas' ? 'border-amber-500 text-amber-500 font-bold' : 'border-transparent text-slate-400 hover:text-white hover:border-slate-500'" class="whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm transition-colors">
-                        Reporte de Ventas
+                        Sales Report
                     </button>
                     <button @click="setTab('inventario')" :class="activeTab === 'inventario' ? 'border-amber-500 text-amber-500 font-bold' : 'border-transparent text-slate-400 hover:text-white hover:border-slate-500'" class="whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm transition-colors">
-                        Reporte de Inventario
+                        Inventory Report
                     </button>
                 </nav>
             </div>
@@ -205,29 +202,29 @@
             <!-- Filters & Actions -->
             <div class="bg-slate-800 rounded-xl border border-slate-700 p-4 mb-6 flex flex-wrap gap-4 items-end shadow-sm">
                 <div x-show="activeTab === 'ventas'">
-                    <label class="block text-xs font-medium text-slate-400 mb-1">Desde</label>
+                    <label class="block text-xs font-semibold text-slate-400 mb-1">From</label>
                     <input type="date" x-model="filters.desde" class="bg-slate-700 border border-slate-600 rounded-lg px-3 py-2 text-sm text-white focus:ring-1 focus:ring-amber-500 outline-none">
                 </div>
                 <div x-show="activeTab === 'ventas'">
-                    <label class="block text-xs font-medium text-slate-400 mb-1">Hasta</label>
+                    <label class="block text-xs font-semibold text-slate-400 mb-1">To</label>
                     <input type="date" x-model="filters.hasta" class="bg-slate-700 border border-slate-600 rounded-lg px-3 py-2 text-sm text-white focus:ring-1 focus:ring-amber-500 outline-none">
                 </div>
                 <div>
-                    <label class="block text-xs font-medium text-slate-400 mb-1">Sede</label>
+                    <label class="block text-xs font-semibold text-slate-400 mb-1">Branch</label>
                     <select x-model="filters.sede_id" id="reporte-sede-select" class="bg-slate-700 border border-slate-600 rounded-lg px-3 py-2 text-sm text-white focus:ring-1 focus:ring-amber-500 outline-none w-48">
-                        <option value="" class="bg-slate-800 text-white">Todas las Sedes</option>
+                        <option value="" class="bg-slate-800 text-white">All Branches</option>
                     </select>
                 </div>
                 
                 <button @click="generarReporte()" :disabled="loading" class="bg-slate-700 hover:bg-slate-600 text-white font-medium px-4 py-2 rounded-lg transition-colors border border-slate-600 flex items-center gap-2">
                     <svg x-show="loading" class="animate-spin h-4 w-4 text-white" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
-                    <span>Vista Previa</span>
+                    <span>Preview</span>
                 </button>
                 
                 <div class="ml-auto flex gap-2">
-                    <button @click="descargarReporte('xlsx')" :disabled="loading" class="bg-amber-500 hover:bg-amber-600 text-white font-medium px-4 py-2 rounded-lg transition-colors shadow-sm flex items-center gap-2">
+                    <button @click="descargarReporte('xlsx')" :disabled="loading" class="bg-amber-500 hover:bg-amber-600 text-white font-semibold px-4 py-2 rounded-lg transition-colors shadow-sm flex items-center gap-2">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-                        <span>Descargar Excel</span>
+                        <span>Download Excel</span>
                     </button>
                     <button @click="descargarReporte('csv')" :disabled="loading" class="bg-slate-700 hover:bg-slate-600 text-white font-medium px-4 py-2 rounded-lg transition-colors border border-slate-600 flex items-center gap-2">
                         <span>CSV</span>
@@ -239,7 +236,7 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
                 <template x-for="stat in summaryStats" :key="stat.label">
                     <div class="bg-slate-800 rounded-xl p-5 border border-slate-700 shadow-sm flex flex-col justify-center">
-                        <p class="text-xs font-medium text-slate-400 uppercase tracking-wider" x-text="stat.label"></p>
+                        <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider" x-text="stat.label"></p>
                         <p class="text-2xl font-bold text-white mt-1" x-text="stat.value"></p>
                     </div>
                 </template>
@@ -250,48 +247,46 @@
                 <div class="overflow-x-auto max-h-[550px]">
                     <table class="w-full text-left text-sm whitespace-nowrap">
                         <thead class="bg-slate-900/90 text-slate-400 sticky top-0 z-10 backdrop-blur">
-                            <!-- Header Ventas -->
                             <tr x-show="activeTab === 'ventas'">
-                                <th class="px-5 py-3.5 font-semibold">Fecha</th>
-                                <th class="px-5 py-3.5 font-semibold"># Orden</th>
-                                <th class="px-5 py-3.5 font-semibold">Mesa</th>
-                                <th class="px-5 py-3.5 font-semibold">Sede</th>
-                                <th class="px-5 py-3.5 font-semibold">Mesero</th>
+                                <th class="px-5 py-3.5 font-semibold">Date</th>
+                                <th class="px-5 py-3.5 font-semibold">Order #</th>
+                                <th class="px-5 py-3.5 font-semibold">Table</th>
+                                <th class="px-5 py-3.5 font-semibold">Branch</th>
+                                <th class="px-5 py-3.5 font-semibold">Waiter</th>
                                 <th class="px-5 py-3.5 font-semibold text-right">Subtotal</th>
-                                <th class="px-5 py-3.5 font-semibold text-right">Propina</th>
+                                <th class="px-5 py-3.5 font-semibold text-right">Tip</th>
                                 <th class="px-5 py-3.5 font-semibold text-right">Total</th>
-                                <th class="px-5 py-3.5 font-semibold">Método Pago</th>
-                                <th class="px-5 py-3.5 font-semibold">Comprobante</th>
+                                <th class="px-5 py-3.5 font-semibold">Payment Method</th>
+                                <th class="px-5 py-3.5 font-semibold">Invoice #</th>
                             </tr>
-                            <!-- Header Inventario -->
                             <tr x-show="activeTab === 'inventario'">
-                                <th class="px-5 py-3.5 font-semibold">Código</th>
-                                <th class="px-5 py-3.5 font-semibold">Producto</th>
-                                <th class="px-5 py-3.5 font-semibold">Categoría</th>
-                                <th class="px-5 py-3.5 font-semibold">Sede</th>
-                                <th class="px-5 py-3.5 font-semibold text-right">Costo</th>
-                                <th class="px-5 py-3.5 font-semibold text-right">Precio</th>
+                                <th class="px-5 py-3.5 font-semibold">Code</th>
+                                <th class="px-5 py-3.5 font-semibold">Product</th>
+                                <th class="px-5 py-3.5 font-semibold">Category</th>
+                                <th class="px-5 py-3.5 font-semibold">Branch</th>
+                                <th class="px-5 py-3.5 font-semibold text-right">Cost</th>
+                                <th class="px-5 py-3.5 font-semibold text-right">Price</th>
                                 <th class="px-5 py-3.5 font-semibold text-right">Stock</th>
-                                <th class="px-5 py-3.5 font-semibold text-right">Mínimo</th>
-                                <th class="px-5 py-3.5 font-semibold text-right">Valor Total</th>
+                                <th class="px-5 py-3.5 font-semibold text-right">Min. Stock</th>
+                                <th class="px-5 py-3.5 font-semibold text-right">Total Value</th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-slate-700/50">
-                            <!-- Ventas Rows -->
+                            <!-- Sales Rows -->
                             <template x-if="activeTab === 'ventas'">
                                 <template x-for="row in tableData" :key="row.id">
                                     <tr class="hover:bg-slate-700/30 transition-colors">
                                         <td class="px-5 py-3 text-slate-300" x-text="row.fecha"></td>
                                         <td class="px-5 py-3 font-semibold text-white" x-text="'#' + (row.numero_orden || row.id.slice(0,6))"></td>
-                                        <td class="px-5 py-3 text-slate-300" x-text="row.mesa"></td>
+                                        <td class="px-5 py-3 text-slate-300" x-text="'Table ' + row.mesa"></td>
                                         <td class="px-5 py-3 text-slate-400" x-text="row.sede || 'N/A'"></td>
                                         <td class="px-5 py-3 text-slate-300" x-text="row.mesero"></td>
                                         <td class="px-5 py-3 text-right text-slate-300" x-text="formatCurrency(row.subtotal)"></td>
                                         <td class="px-5 py-3 text-right text-slate-300" x-text="formatCurrency(row.propina)"></td>
                                         <td class="px-5 py-3 text-right font-bold text-amber-400" x-text="formatCurrency(row.total)"></td>
-                                        <td class="px-5 py-3 uppercase text-xs font-semibold text-slate-300" x-text="row.metodo_pago"></td>
+                                        <td class="px-5 py-3 uppercase text-xs font-semibold text-slate-300" x-text="window.tMethod ? window.tMethod(row.metodo_pago) : row.metodo_pago"></td>
                                         <td class="px-5 py-3">
-                                            <button @click="window.openFacturaModal(row.numero_comprobante || row.id)" class="px-2 py-1 bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 rounded font-mono text-xs font-bold hover:underline transition-colors flex items-center gap-1.5" title="Ver / Descargar Factura Electrónica">
+                                            <button @click="window.openFacturaModal(row.numero_comprobante || row.id)" class="px-2 py-1 bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 border border-amber-500/30 rounded font-mono text-xs font-bold hover:underline transition-colors flex items-center gap-1.5" title="View / Download Electronic Invoice">
                                                 <svg class="w-3.5 h-3.5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                                                 <span x-text="row.numero_comprobante || ('#' + row.id.slice(0,6))"></span>
                                             </button>
@@ -300,14 +295,14 @@
                                 </template>
                             </template>
 
-                            <!-- Inventario Rows -->
+                            <!-- Inventory Rows -->
                             <template x-if="activeTab === 'inventario'">
                                 <template x-for="row in tableData" :key="row.id">
                                     <tr class="hover:bg-slate-700/30 transition-colors">
                                         <td class="px-5 py-3 font-mono text-amber-500 font-semibold" x-text="row.codigo"></td>
-                                        <td class="px-5 py-3 font-medium text-white" x-text="row.nombre"></td>
-                                        <td class="px-5 py-3 text-slate-300" x-text="row.categoria || 'Sin categoría'"></td>
-                                        <td class="px-5 py-3 text-slate-400" x-text="row.sede || 'Principal'"></td>
+                                        <td class="px-5 py-3 font-semibold text-white" x-text="row.nombre"></td>
+                                        <td class="px-5 py-3 text-slate-300" x-text="row.categoria || 'Uncategorized'"></td>
+                                        <td class="px-5 py-3 text-slate-400" x-text="row.sede || 'Main'"></td>
                                         <td class="px-5 py-3 text-right text-slate-300" x-text="formatCurrency(row.costo)"></td>
                                         <td class="px-5 py-3 text-right text-slate-300" x-text="formatCurrency(row.precio)"></td>
                                         <td class="px-5 py-3 text-right font-bold" :class="row.stock <= row.stock_minimo ? 'text-red-400' : 'text-white'" x-text="row.stock"></td>
@@ -319,12 +314,12 @@
 
                             <tr x-show="!loading && tableData.length === 0">
                                 <td colspan="10" class="px-6 py-12 text-center text-slate-500">
-                                    No se encontraron registros en el período o sede seleccionada.
+                                    No records found for the selected period or branch.
                                 </td>
                             </tr>
                             <tr x-show="loading">
                                 <td colspan="10" class="px-6 py-12 text-center text-slate-400">
-                                    Cargando datos de la base de datos...
+                                    Loading database records...
                                 </td>
                             </tr>
                         </tbody>
@@ -335,11 +330,11 @@
         </main>
     </div>
 
-    <script src="../assets/js/config.js?v=4"></script>
-    <script src="../assets/js/api.js?v=4"></script>
-    <script src="../assets/js/auth.js?v=4"></script>
-    <script src="../assets/js/perfil.js?v=1"></script>
-    <script src="../assets/js/factura.js?v=4"></script>
+    <script src="../assets/js/config.js?v=5"></script>
+    <script src="../assets/js/api.js?v=5"></script>
+    <script src="../assets/js/auth.js?v=5"></script>
+    <script src="../assets/js/perfil.js?v=5"></script>
+    <script src="../assets/js/factura.js?v=5"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const user = window.auth.getUser();
@@ -352,7 +347,7 @@
             const rolNombre = user.rol_nombre || user.rol || '';
             const fullName = `${user.nombre} ${user.apellido || ''}`.trim();
             document.querySelectorAll('#user-name, .user-display-name').forEach(el => el.textContent = fullName);
-            document.querySelectorAll('#user-rol, .user-display-rol').forEach(el => el.textContent = rolNombre);
+            document.querySelectorAll('#user-rol, .user-display-rol').forEach(el => el.textContent = window.tRole ? window.tRole(rolNombre) : rolNombre);
 
             const rol = rolNombre.toLowerCase();
             if (rol === 'admin' || rol === 'cajero') {
@@ -386,7 +381,7 @@
                         this.sedes = resSedes?.data || [];
                         const rSede = document.getElementById('reporte-sede-select');
                         if (rSede) {
-                            rSede.innerHTML = '<option value="" class="bg-slate-800 text-white">Todas las Sedes</option>' +
+                            rSede.innerHTML = '<option value="" class="bg-slate-800 text-white">All Branches</option>' +
                                 this.sedes.map(s => `<option value="${s.id}" class="bg-slate-800 text-white">${s.nombre}</option>`).join('');
                         }
                     } catch(e) {
@@ -412,10 +407,10 @@
                             this.tableData = res?.data || [];
                             const summary = res?.summary || {};
                             this.summaryStats = [
-                                { label: 'Total Ventas', value: this.formatCurrency(summary.total_ventas || 0) },
-                                { label: 'Órdenes Pagadas', value: (summary.num_ordenes || 0).toString() },
-                                { label: 'Promedio / Orden', value: this.formatCurrency(summary.promedio_orden || 0) },
-                                { label: 'Total Propinas', value: this.formatCurrency(summary.total_propinas || 0) }
+                                { label: 'Total Sales', value: this.formatCurrency(summary.total_ventas || 0) },
+                                { label: 'Paid Orders', value: (summary.num_ordenes || 0).toString() },
+                                { label: 'Average / Order', value: this.formatCurrency(summary.promedio_orden || 0) },
+                                { label: 'Total Tips', value: this.formatCurrency(summary.total_propinas || 0) }
                             ];
                         } else {
                             let url = `/api/reportes/inventario/preview`;
@@ -424,13 +419,13 @@
                             this.tableData = res?.data || [];
                             const summary = res?.summary || {};
                             this.summaryStats = [
-                                { label: 'Valor del Inventario', value: this.formatCurrency(summary.valor_total || 0) },
-                                { label: 'Unidades en Stock', value: (summary.stock_total || 0).toString() },
-                                { label: 'Productos Activos', value: (summary.total_productos || 0).toString() }
+                                { label: 'Inventory Value', value: this.formatCurrency(summary.valor_total || 0) },
+                                { label: 'Units in Stock', value: (summary.stock_total || 0).toString() },
+                                { label: 'Active Products', value: (summary.total_productos || 0).toString() }
                             ];
                         }
                     } catch (e) {
-                        console.error("Error cargando reporte:", e);
+                        console.error("Error loading report:", e);
                     } finally {
                         this.loading = false;
                     }
@@ -444,14 +439,13 @@
                         if (this.activeTab === 'ventas') {
                             path = `/api/reportes/ventas?format=${formato}&desde=${this.filters.desde}&hasta=${this.filters.hasta}`;
                             if (this.filters.sede_id) path += `&sede_id=${this.filters.sede_id}`;
-                            filename = `reporte_ventas_${this.filters.desde}_${this.filters.hasta}.${formato}`;
+                            filename = `sales_report_${this.filters.desde}_${this.filters.hasta}.${formato}`;
                         } else {
                             path = `/api/reportes/inventario?format=${formato}`;
                             if (this.filters.sede_id) path += `&sede_id=${this.filters.sede_id}`;
-                            filename = `reporte_inventario.${formato}`;
+                            filename = `inventory_report.${formato}`;
                         }
 
-                        // Si api.download existe, usarlo; si no, hacer fetch directo con Blob
                         if (window.api && typeof window.api.download === 'function') {
                             await window.api.download(path, filename);
                         } else {
@@ -461,7 +455,7 @@
                                 method: 'GET',
                                 headers: { ...(token ? { 'Authorization': `Bearer ${token}` } : {}) }
                             });
-                            if (!response.ok) throw new Error(`Error en el servidor (${response.status})`);
+                            if (!response.ok) throw new Error(`Server error (${response.status})`);
                             const blob = await response.blob();
                             const downloadUrl = window.URL.createObjectURL(blob);
                             const a = document.createElement('a');
@@ -473,7 +467,7 @@
                             window.URL.revokeObjectURL(downloadUrl);
                         }
                     } catch (e) {
-                        alert('Error al descargar el reporte: ' + (e.message || 'Error desconocido'));
+                        alert('Error downloading report: ' + (e.message || 'Unknown error'));
                     } finally {
                         this.loading = false;
                     }

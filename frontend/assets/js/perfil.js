@@ -1,6 +1,7 @@
-﻿/**
- * perfil.js - Visualización de Perfil de Usuario ("Mi Perfil")
- * Permite a cualquier usuario consultar sus datos personales y sede asignada en solo lectura.
+/**
+ * perfil.js - User Profile Modal ("My Profile")
+ * Allows any user to view their personal details and assigned branch in read-only mode.
+ * For administrators, provides a direct shortcut to Users Management to edit accounts.
  */
 
 (function() {
@@ -8,11 +9,11 @@
         if (document.getElementById('perfil-modal-overlay')) return;
 
         const modalHtml = `
-        <div id="perfil-modal-overlay" class="fixed inset-0 z-50 overflow-y-auto bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4" style="display: none;">
-            <div class="relative w-full max-w-md bg-[#0E1526] border border-[#222E46] rounded-2xl shadow-2xl overflow-hidden transition-all">
+        <div id="perfil-modal-overlay" class="fixed inset-0 z-50 overflow-y-auto bg-slate-950/75 backdrop-blur-sm flex items-center justify-center p-4" style="display: none;">
+            <div class="relative w-full max-w-md bg-[#0E1526] border border-[#222E46] rounded-2xl shadow-2xl overflow-hidden transition-all animate-in fade-in zoom-in-95 duration-150">
                 
-                <!-- Encabezado con degradado suave Bar Mune / Luné -->
-                <div class="relative bg-gradient-to-r from-[#141C2E] to-[#1E293B] border-b border-[#222E46] px-6 py-5 flex items-center justify-between">
+                <!-- Header -->
+                <div class="relative bg-[#141C2E] border-b border-[#222E46] px-6 py-5 flex items-center justify-between">
                     <div class="flex items-center gap-3.5">
                         <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-amber-500 to-purple-600 p-0.5 shadow-md flex items-center justify-center">
                             <div class="w-full h-full bg-[#0E1526] rounded-[10px] flex items-center justify-center text-white font-bold text-lg" id="perfil-avatar-initials">
@@ -21,49 +22,49 @@
                         </div>
                         <div>
                             <h3 class="text-lg font-bold text-white tracking-tight flex items-center gap-2">
-                                Mi Perfil
+                                My Profile
                                 <span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-green-500/15 text-green-400 border border-green-500/30" id="perfil-tag-estado">
-                                    Activo
+                                    Active
                                 </span>
                             </h3>
-                            <p class="text-xs text-slate-400">Datos personales y permisos</p>
+                            <p class="text-xs text-slate-400">Personal details & permissions</p>
                         </div>
                     </div>
-                    <button id="btn-cerrar-perfil" class="p-2 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800 transition-colors" title="Cerrar">
+                    <button id="btn-cerrar-perfil" class="p-2 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800 transition-colors" title="Close">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
                     </button>
                 </div>
 
-                <!-- Cuerpo de datos en Solo Lectura -->
+                <!-- Read-Only Body -->
                 <div class="p-6 space-y-3.5 text-sm">
                     
-                    <!-- Nombre Completo -->
+                    <!-- Full Name -->
                     <div class="bg-[#141C2E] border border-[#222E46] rounded-xl p-3">
-                        <span class="block text-[11px] font-semibold text-slate-400 uppercase tracking-wider mb-1">Nombre Completo</span>
-                        <span class="text-white font-medium break-words text-sm" id="perfil-nombre-completo">-</span>
+                        <span class="block text-[11px] font-semibold text-slate-400 uppercase tracking-wider mb-1">Full Name</span>
+                        <span class="text-white font-semibold break-words text-sm" id="perfil-nombre-completo">-</span>
                     </div>
 
-                    <!-- Correo Electrónico -->
+                    <!-- Email Address -->
                     <div class="bg-[#141C2E] border border-[#222E46] rounded-xl p-3">
-                        <span class="block text-[11px] font-semibold text-slate-400 uppercase tracking-wider mb-1">Correo Electrónico</span>
+                        <span class="block text-[11px] font-semibold text-slate-400 uppercase tracking-wider mb-1">Email Address</span>
                         <div class="flex items-center gap-2 text-slate-200 font-medium break-all">
                             <svg class="w-4 h-4 text-amber-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.206"/></svg>
                             <span id="perfil-email">-</span>
                         </div>
                     </div>
 
-                    <!-- Teléfono y Rol -->
+                    <!-- Phone & Role -->
                     <div class="grid grid-cols-2 gap-3">
                         <div class="bg-[#141C2E] border border-[#222E46] rounded-xl p-3">
-                            <span class="block text-[11px] font-semibold text-slate-400 uppercase tracking-wider mb-1">Teléfono</span>
+                            <span class="block text-[11px] font-semibold text-slate-400 uppercase tracking-wider mb-1">Phone</span>
                             <div class="flex items-center gap-1.5 text-white font-medium text-xs sm:text-sm">
                                 <svg class="w-3.5 h-3.5 text-slate-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
-                                <span id="perfil-telefono">No registrado</span>
+                                <span id="perfil-telefono">Not registered</span>
                             </div>
                         </div>
 
                         <div class="bg-[#141C2E] border border-[#222E46] rounded-xl p-3">
-                            <span class="block text-[11px] font-semibold text-slate-400 uppercase tracking-wider mb-1">Rol / Permisos</span>
+                            <span class="block text-[11px] font-semibold text-slate-400 uppercase tracking-wider mb-1">Role / Permissions</span>
                             <div class="flex items-center gap-1.5 text-amber-400 font-bold capitalize text-xs sm:text-sm">
                                 <svg class="w-3.5 h-3.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
                                 <span id="perfil-rol">-</span>
@@ -71,28 +72,41 @@
                         </div>
                     </div>
 
-                    <!-- Sede Asignada -->
+                    <!-- Assigned Branch -->
                     <div class="bg-[#141C2E] border border-[#222E46] rounded-xl p-3">
                         <div class="flex items-center justify-between mb-1">
-                            <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Sede Asignada</span>
+                            <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Assigned Branch</span>
                         </div>
                         <div class="flex items-center gap-2 text-white font-medium">
                             <svg class="w-4 h-4 text-purple-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
-                            <span id="perfil-sede" class="text-purple-300 font-semibold">Sin sede asignada</span>
+                            <span id="perfil-sede" class="text-purple-300 font-semibold">No branch assigned</span>
                         </div>
                     </div>
 
-                    <!-- Nota Informativa Solo Lectura -->
-                    <div class="p-3 rounded-xl bg-slate-800/50 border border-slate-700/50 text-[11px] text-slate-400 flex items-center gap-2">
+                    <!-- Info Note: Standard User -->
+                    <div id="perfil-nota-estandar" class="p-3 rounded-xl bg-slate-800/50 border border-slate-700/50 text-[11px] text-slate-400 flex items-center gap-2">
                         <svg class="w-4 h-4 text-slate-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                        <span>Información de solo lectura. Para cambios, contacta al administrador.</span>
+                        <span>Read-only information. Please contact an administrator for changes.</span>
+                    </div>
+
+                    <!-- Info Note: Administrator -->
+                    <div id="perfil-nota-admin" class="p-3 rounded-xl bg-amber-500/10 border border-amber-500/25 text-[11px] text-amber-300 flex items-center gap-2" style="display: none;">
+                        <svg class="w-4 h-4 text-amber-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                        <span>You have Administrator privileges. You can edit this and other accounts in Users Management.</span>
                     </div>
                 </div>
 
                 <!-- Footer -->
-                <div class="bg-[#141C2E]/90 border-t border-[#222E46] px-6 py-3.5 flex justify-end">
+                <div class="bg-[#141C2E]/90 border-t border-[#222E46] px-6 py-3.5 flex items-center justify-between gap-3">
+                    <div>
+                        <a id="btn-editar-perfil-admin" href="usuarios.html" class="px-4 py-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white rounded-xl text-xs font-semibold transition-all shadow-sm flex items-center gap-2" style="display: none;">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+                            <span>Manage in Users</span>
+                        </a>
+                    </div>
+
                     <button id="btn-entendido-perfil" class="px-5 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-xl text-xs font-semibold transition-colors shadow-sm">
-                        Cerrar
+                        Close
                     </button>
                 </div>
             </div>
@@ -130,14 +144,14 @@
                 }
             }
         } catch (e) {
-            console.warn('Usando datos de sesión local:', e.message);
+            console.warn('Using local session data:', e.message);
         }
     }
 
     function renderUserData(user) {
         const nombre = (user.nombre || '').trim();
         const apellido = (user.apellido || '').trim();
-        const nombreCompleto = `${nombre} ${apellido}`.trim() || 'Usuario';
+        const nombreCompleto = `${nombre} ${apellido}`.trim() || 'User';
         const iniciales = (nombre.charAt(0) + (apellido.charAt(0) || '')).toUpperCase() || 'U';
 
         const elInitials = document.getElementById('perfil-avatar-initials');
@@ -150,25 +164,42 @@
         if (elEmail) elEmail.textContent = user.email || '-';
 
         const elTel = document.getElementById('perfil-telefono');
-        if (elTel) elTel.textContent = user.telefono ? user.telefono : 'No registrado';
+        if (elTel) elTel.textContent = user.telefono ? user.telefono : 'Not registered';
 
+        const rolRaw = user.rol_nombre || user.rol || 'No role';
+        const rolTranslated = window.tRole ? window.tRole(rolRaw) : rolRaw;
         const elRol = document.getElementById('perfil-rol');
-        if (elRol) elRol.textContent = user.rol_nombre || user.rol || 'Sin rol';
+        if (elRol) elRol.textContent = rolTranslated;
 
         const elSede = document.getElementById('perfil-sede');
         if (elSede) {
-            elSede.textContent = (user.sede_nombre && user.sede_nombre.trim()) ? user.sede_nombre : 'Sin sede asignada';
+            elSede.textContent = (user.sede_nombre && user.sede_nombre.trim()) ? user.sede_nombre : 'No branch assigned';
         }
 
         const elEstado = document.getElementById('perfil-tag-estado');
         if (elEstado) {
             const estado = (user.estado || 'activo').toLowerCase();
-            elEstado.textContent = estado.charAt(0).toUpperCase() + estado.slice(1);
+            elEstado.textContent = window.tStatus ? window.tStatus(estado) : (estado === 'activo' ? 'Active' : 'Inactive');
             if (estado === 'activo') {
                 elEstado.className = 'px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-green-500/15 text-green-400 border border-green-500/30';
             } else {
                 elEstado.className = 'px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-amber-500/15 text-amber-400 border border-amber-500/30';
             }
+        }
+
+        const isAdmin = String(rolRaw).toLowerCase() === 'admin' || (window.auth && window.auth.hasRole('admin'));
+        const btnEditarAdmin = document.getElementById('btn-editar-perfil-admin');
+        const notaEstandar = document.getElementById('perfil-nota-estandar');
+        const notaAdmin = document.getElementById('perfil-nota-admin');
+
+        if (isAdmin) {
+            if (btnEditarAdmin) btnEditarAdmin.style.display = 'inline-flex';
+            if (notaAdmin) notaAdmin.style.display = 'flex';
+            if (notaEstandar) notaEstandar.style.display = 'none';
+        } else {
+            if (btnEditarAdmin) btnEditarAdmin.style.display = 'none';
+            if (notaAdmin) notaAdmin.style.display = 'none';
+            if (notaEstandar) notaEstandar.style.display = 'flex';
         }
     }
 
@@ -180,21 +211,7 @@
     window.openPerfilModal = openPerfilModal;
     window.closePerfilModal = closePerfilModal;
 
-    function bindUserClick() {
+    document.addEventListener('DOMContentLoaded', () => {
         injectPerfilModal();
-        document.querySelectorAll('#user-name, .user-display-name, .user-display-container, [data-action="open-profile"]').forEach(el => {
-            el.style.cursor = 'pointer';
-            el.setAttribute('title', 'Ver mi perfil');
-            el.onclick = (e) => {
-                e.preventDefault();
-                openPerfilModal();
-            };
-        });
-    }
-
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', bindUserClick);
-    } else {
-        bindUserClick();
-    }
+    });
 })();

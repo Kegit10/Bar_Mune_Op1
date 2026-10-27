@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en" class="theme-light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestión de Órdenes - Bar Mune</title>
+    <title>Order Management - Bar Mune</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -20,14 +20,13 @@
             }
         }
     </script>
-    <link rel="stylesheet" href="../assets/css/app.css">
+    <link rel="stylesheet" href="../assets/css/app.css?v=5">
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 <body class="bg-slate-900 text-white flex h-screen overflow-hidden" x-data="{ sidebarOpen: true, mobileMenuOpen: false }">
 
     <!-- Mobile Drawer Backdrop & Panel -->
     <div x-show="mobileMenuOpen" x-cloak class="fixed inset-0 z-50 md:hidden" style="display: none;">
-        <!-- Backdrop -->
         <div x-show="mobileMenuOpen" 
              x-transition:enter="transition-opacity ease-linear duration-200"
              x-transition:enter-start="opacity-0"
@@ -36,9 +35,8 @@
              x-transition:leave-start="opacity-100"
              x-transition:leave-end="opacity-0"
              @click="mobileMenuOpen = false" 
-             class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm"></div>
+             class="fixed inset-0 bg-slate-950/75 backdrop-blur-sm"></div>
 
-        <!-- Drawer Panel -->
         <div x-show="mobileMenuOpen"
              x-transition:enter="transition ease-out duration-250 transform"
              x-transition:enter-start="-translate-x-full"
@@ -48,15 +46,13 @@
              x-transition:leave-end="-translate-x-full"
              class="relative flex flex-col w-72 max-w-[80vw] h-full bg-[#070A12] border-r border-[#222E46] p-4 shadow-2xl z-10">
              
-             <!-- Header -->
              <div class="h-14 flex items-center justify-between border-b border-[#222E46] pb-3 mb-2">
                  <img src="../assets/Logos/Horizontal_Fondo_Transparente_Negativo.png" alt="Bar Mune" class="h-7 w-auto object-contain" />
-                 <button @click="mobileMenuOpen = false" class="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800" title="Cerrar menú">
+                 <button @click="mobileMenuOpen = false" class="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800" title="Close menu">
                      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
                  </button>
              </div>
 
-             <!-- Nav Links -->
              <nav class="flex-1 overflow-y-auto space-y-1.5 py-2">
                  <a href="dashboard.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition-colors font-medium text-sm">
                      <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
@@ -64,46 +60,45 @@
                  </a>
                  <a href="ordenes.html" class="flex items-center px-3 py-2.5 rounded-lg bg-amber-500/15 text-amber-400 border border-amber-500/30 font-medium text-sm">
                      <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
-                     <span class="ml-3">Órdenes</span>
+                     <span class="ml-3">Orders</span>
                  </a>
                  <a href="pagos.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition-colors font-medium text-sm nav-cajero nav-admin" style="display:none">
                      <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
-                     <span class="ml-3">Pagos</span>
+                     <span class="ml-3">Payments</span>
                  </a>
                  <a href="inventario.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition-colors font-medium text-sm nav-cajero nav-admin" style="display:none">
                      <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
-                     <span class="ml-3">Inventario</span>
+                     <span class="ml-3">Inventory</span>
                  </a>
                  <a href="stock-alertas.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition-colors font-medium text-sm nav-cajero nav-admin" style="display:none">
                      <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
-                     <span class="ml-3">Alertas Stock</span>
+                     <span class="ml-3">Stock Alerts</span>
                  </a>
                  <a href="reportes.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition-colors font-medium text-sm nav-cajero nav-admin" style="display:none">
                      <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                     <span class="ml-3">Reportes</span>
+                     <span class="ml-3">Reports</span>
                  </a>
                  <div class="nav-admin border-t border-[#222E46] my-2" style="display:none"></div>
                  <a href="usuarios.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition-colors font-medium text-sm nav-admin" style="display:none">
                      <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
-                     <span class="ml-3">Usuarios</span>
+                     <span class="ml-3">Users</span>
                  </a>
                  <a href="sedes.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition-colors font-medium text-sm nav-admin" style="display:none">
                      <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
-                     <span class="ml-3">Sedes</span>
+                     <span class="ml-3">Branches</span>
                  </a>
                  <a href="parametros.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition-colors font-medium text-sm nav-admin" style="display:none">
                      <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                     <span class="ml-3">Parámetros</span>
+                     <span class="ml-3">Settings</span>
                  </a>
              </nav>
 
-             <!-- User Footer -->
              <div class="border-t border-[#222E46] pt-3 mt-auto flex items-center justify-between">
-                 <button onclick="window.openPerfilModal()" class="truncate pr-2 text-left hover:opacity-80 transition-opacity cursor-pointer" title="Ver mi perfil">
+                 <button onclick="window.openPerfilModal()" class="truncate pr-2 text-left hover:opacity-80 transition-opacity cursor-pointer" title="View my profile">
                      <p class="user-display-name text-xs font-bold text-white truncate"></p>
                      <p class="user-display-rol text-[10px] text-[#C4B5FD] capitalize"></p>
                  </button>
-                 <button onclick="window.auth.logout()" class="p-2 text-slate-400 hover:text-red-400 rounded-lg hover:bg-red-500/10" title="Cerrar sesión">
+                 <button onclick="window.auth.logout()" class="p-2 text-slate-400 hover:text-red-400 rounded-lg hover:bg-red-500/10" title="Sign out">
                      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
                  </button>
              </div>
@@ -113,8 +108,7 @@
     <!-- Desktop Sidebar -->
     <aside :class="sidebarOpen ? 'w-64' : 'w-20'" class="bg-[#070A12] border-r border-[#222E46] transition-all duration-300 flex flex-col h-full z-20 hidden md:flex flex-shrink-0">
         <div class="h-16 flex items-center px-4 border-b border-[#222E46] gap-3 overflow-hidden">
-            <!--<img src="../assets/Logos/Isotipo.png" alt="Bar Mune" class="h-8 w-8 object-contain flex-shrink-0" />-->
-            <img x-show="sidebarOpen" src="../assets/Logos/Horizontal_Fondo_Transparente_Positivo.png" alt="Bar Mune" class="h-6 w-auto object-contain" />
+            <img x-show="sidebarOpen" src="../assets/Logos/Horizontal_Fondo_Transparente_Negativo.png" alt="Bar Mune" class="h-6 w-auto object-contain" />
         </div>
 
         <nav class="flex-1 overflow-y-auto py-4 space-y-1 px-2" id="sidebar-nav">
@@ -124,38 +118,38 @@
             </a>
             <a href="ordenes.html" class="flex items-center px-3 py-2.5 rounded-lg bg-amber-500/10 text-amber-400 border border-amber-500/30 font-medium text-sm">
                 <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
-                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Órdenes</span>
+                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Orders</span>
             </a>
             <a href="pagos.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white transition-colors nav-item nav-cajero nav-admin font-medium text-sm" style="display:none">
                 <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
-                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Pagos</span>
+                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Payments</span>
             </a>
             <a href="inventario.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white transition-colors nav-item nav-cajero nav-admin font-medium text-sm" style="display:none">
                 <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
-                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Inventario</span>
+                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Inventory</span>
             </a>
             <a href="stock-alertas.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white transition-colors nav-item nav-cajero nav-admin font-medium text-sm" style="display:none">
                 <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
-                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Alertas Stock</span>
+                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Stock Alerts</span>
             </a>
             <a href="reportes.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white transition-colors nav-item nav-cajero nav-admin font-medium text-sm" style="display:none">
                 <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Reportes</span>
+                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Reports</span>
             </a>
 
             <div class="nav-admin border-t border-[#222E46] my-2" style="display:none"></div>
 
             <a href="usuarios.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white transition-colors nav-item nav-admin font-medium text-sm" style="display:none">
                 <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
-                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Usuarios</span>
+                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Users</span>
             </a>
             <a href="sedes.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white transition-colors nav-item nav-admin font-medium text-sm" style="display:none">
                 <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
-                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Sedes</span>
+                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Branches</span>
             </a>
             <a href="parametros.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white transition-colors nav-item nav-admin font-medium text-sm" style="display:none">
                 <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Parámetros</span>
+                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Settings</span>
             </a>
         </nav>
     </aside>
@@ -165,23 +159,20 @@
         <!-- Topbar -->
         <header class="h-16 bg-[#141C2E] border-b border-[#222E46] flex items-center justify-between px-3 sm:px-6 z-10 flex-shrink-0">
             <div class="flex items-center gap-2 sm:gap-4 min-w-0">
-                <!-- Hamburger Button Mobile -->
-                <button @click="mobileMenuOpen = true" class="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 md:hidden flex-shrink-0" title="Abrir Menú">
+                <button @click="mobileMenuOpen = true" class="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 md:hidden flex-shrink-0" title="Open Menu">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
                 </button>
                 
-                <!-- Desktop Sidebar Toggle -->
-                <button @click="sidebarOpen = !sidebarOpen" class="text-slate-400 hover:text-white hidden md:block flex-shrink-0" title="Contraer/Expandir">
+                <button @click="sidebarOpen = !sidebarOpen" class="text-slate-400 hover:text-white hidden md:block flex-shrink-0" title="Collapse/Expand">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
                 </button>
 
-                <h1 class="text-base sm:text-xl font-semibold text-white truncate">Gestión de Órdenes</h1>
+                <h1 class="text-base sm:text-xl font-semibold text-white truncate">Order Management</h1>
             </div>
             
-            <div class="flex items-center gap-2 sm:gap-4">
-                <!-- Sede Badge/Selector in Topbar -->
+            <div class="flex items-center gap-2 sm:gap-3">
                 <div class="flex items-center bg-[#0B0F19] border border-[#222E46] rounded-lg px-2.5 sm:px-3 py-1.5 gap-1.5 sm:gap-2 max-w-[150px] sm:max-w-none">
-                    <span class="text-amber-400 text-xs font-bold whitespace-nowrap">📍 Sede:</span>
+                    <span class="text-amber-400 text-xs font-bold whitespace-nowrap">📍 Branch:</span>
                     <template x-if="isAdmin">
                         <select x-model="selectedSedeId" @change="onSedeChange()" class="bg-transparent text-white text-xs font-semibold focus:outline-none cursor-pointer truncate">
                             <template x-for="s in sedes" :key="s.id">
@@ -194,11 +185,16 @@
                     </template>
                 </div>
 
-                <button onclick="window.openPerfilModal()" class="text-right hidden sm:block p-1.5 rounded-xl hover:bg-slate-800/80 transition-all cursor-pointer group" title="Ver mi perfil">
-                    <p class="user-display-name text-sm font-medium text-white"></p>
+                <!-- Theme Toggle -->
+                <button type="button" onclick="window.toggleTheme()" class="theme-toggle-btn" title="Switch Theme">
+                    <span>Theme</span>
+                </button>
+
+                <button onclick="window.openPerfilModal()" class="text-right hidden sm:block p-1.5 rounded-xl hover:bg-slate-800/80 transition-all cursor-pointer group" title="View my profile">
+                    <p class="user-display-name text-sm font-semibold text-white"></p>
                     <p class="user-display-rol text-xs text-slate-400 capitalize"></p>
                 </button>
-                <button onclick="window.auth.logout()" title="Cerrar sesión" class="p-2 text-slate-400 hover:text-red-400 transition-colors rounded-lg hover:bg-red-400/10 flex-shrink-0">
+                <button onclick="window.auth.logout()" title="Sign out" class="p-2 text-slate-400 hover:text-red-400 transition-colors rounded-lg hover:bg-red-400/10 flex-shrink-0">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
                 </button>
             </div>
@@ -206,14 +202,14 @@
 
         <!-- Main Body -->
         <main class="flex-1 flex flex-col md:flex-row overflow-hidden">
-            <!-- PANEL IZQUIERDO / SUPERIOR (Móvil): Mesas -->
+            <!-- LEFT / TOP PANEL: Tables -->
             <div class="w-full md:w-80 border-b md:border-b-0 md:border-r border-[#222E46] bg-[#0B0F19] overflow-y-auto p-3 sm:p-4 flex flex-col flex-shrink-0 max-h-56 md:max-h-none">
                 <div class="flex justify-between items-center mb-3">
                     <div>
-                        <h2 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Mesas</h2>
-                        <p class="text-[11px] text-amber-400 font-medium" x-text="currentSedeName"></p>
+                        <h2 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Tables</h2>
+                        <p class="text-[11px] text-amber-400 font-semibold" x-text="currentSedeName"></p>
                     </div>
-                    <button @click="refreshData()" title="Refrescar" class="text-xs text-slate-400 hover:text-white p-1">
+                    <button @click="refreshData()" title="Refresh" class="text-xs text-slate-400 hover:text-white p-1">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
                     </button>
                 </div>
@@ -228,54 +224,54 @@
                                 'bg-amber-900/40 border-amber-600 text-amber-300': selectedMesa?.numero !== m.numero && m.orden && m.orden.estado === 'abierta',
                                 'bg-green-900/40 border-green-600 text-green-300': selectedMesa?.numero !== m.numero && m.orden && m.orden.estado === 'lista'
                             }"
-                            class="p-2.5 sm:p-3.5 rounded-xl border flex flex-col items-center justify-center transition-all relative">
-                            <span class="text-xs sm:text-base font-bold" x-text="'Mesa ' + m.numero"></span>
-                            <span class="text-[9px] sm:text-[10px] mt-0.5 sm:mt-1 uppercase font-semibold truncate max-w-full"
+                            class="p-2.5 sm:p-3.5 rounded-xl border flex flex-col items-center justify-center transition-all relative shadow-sm">
+                            <span class="text-xs sm:text-base font-bold" x-text="'Table ' + m.numero"></span>
+                            <span class="text-[9px] sm:text-[10px] mt-0.5 sm:mt-1 uppercase font-bold truncate max-w-full"
                                 :class="m.orden ? 'text-amber-400' : 'text-slate-500'"
-                                x-text="m.orden ? m.orden.estado.replace('_', ' ') : 'Libre'"></span>
+                                x-text="m.orden ? formatStatus(m.orden.estado) : 'Available'"></span>
                         </button>
                     </template>
                 </div>
             </div>
 
-            <!-- PANEL DERECHO / INFERIOR (Móvil): Detalle de Orden -->
+            <!-- RIGHT / BOTTOM PANEL: Order Detail -->
             <div class="flex-1 bg-[#0B0F19]/50 overflow-y-auto p-4 sm:p-6 flex flex-col justify-between">
                 <template x-if="!selectedMesa">
                     <div class="h-full flex flex-col items-center justify-center text-slate-500">
-                        <svg class="w-16 h-16 text-slate-700 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
-                        <p class="text-base font-medium text-slate-400">Selecciona una mesa para gestionar su orden</p>
+                        <svg class="w-16 h-16 text-slate-400 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+                        <p class="text-base font-semibold text-slate-400">Select a table to manage its order</p>
                     </div>
                 </template>
 
                 <template x-if="selectedMesa">
                     <div class="h-full flex flex-col">
-                        <!-- Header Orden -->
-                        <div class="flex justify-between items-center pb-5 border-b border-slate-700 mb-6">
+                        <!-- Order Header -->
+                        <div class="flex flex-wrap justify-between items-center gap-3 pb-5 border-b border-slate-700 mb-6">
                             <div>
                                 <h2 class="text-2xl font-bold text-white flex items-center gap-3">
-                                    <span x-text="'Mesa ' + selectedMesa.numero"></span>
+                                    <span x-text="'Table ' + selectedMesa.numero"></span>
                                     <span x-show="currentOrder" class="text-xs px-2.5 py-1 rounded-full uppercase font-bold tracking-wider"
                                         :class="{
                                             'bg-amber-500/20 text-amber-400 border border-amber-500/30': currentOrder?.estado === 'abierta',
                                             'bg-blue-500/20 text-blue-400 border border-blue-500/30': currentOrder?.estado === 'en_proceso',
                                             'bg-green-500/20 text-green-400 border border-green-500/30': currentOrder?.estado === 'lista'
                                         }"
-                                        x-text="currentOrder?.estado?.replace('_', ' ')"></span>
+                                        x-text="formatStatus(currentOrder?.estado)"></span>
                                 </h2>
-                                <p x-show="currentOrder" class="text-xs text-slate-400 mt-1" x-text="`Orden #${currentOrder?.numero_orden || currentOrder?.id?.slice(0,6)} • Sede: ${currentSedeName} • Mesero: ${currentOrder?.mesero_nombre || 'N/A'}`"></p>
+                                <p x-show="currentOrder" class="text-xs text-slate-400 mt-1" x-text="`Order #${currentOrder?.numero_orden || currentOrder?.id?.slice(0,6)} • Branch: ${currentSedeName} • Waiter: ${currentOrder?.mesero_nombre || 'N/A'}`"></p>
                             </div>
 
-                            <div class="flex gap-3">
+                            <div class="flex flex-wrap gap-3">
                                 <button x-show="!currentOrder" @click="createOrder()" class="px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white rounded-lg text-sm font-semibold transition-colors flex items-center gap-2 shadow-sm">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-                                    Abrir Orden
+                                    Open Order
                                 </button>
                                 <button x-show="currentOrder" @click="openAddProductsModal()" class="px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white rounded-lg text-sm font-semibold transition-colors flex items-center gap-2 shadow-sm">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-                                    + Agregar Productos
+                                    + Add Products
                                 </button>
-                                <button x-show="currentOrder" @click="cancelOrder()" class="px-3 py-2 bg-red-500/10 hover:bg-red-500/20 text-red-400 rounded-lg text-sm font-medium transition-colors">
-                                    Cancelar Orden
+                                <button x-show="currentOrder" @click="cancelOrder()" class="px-3 py-2 bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/30 rounded-lg text-sm font-semibold transition-colors">
+                                    Cancel Order
                                 </button>
                             </div>
                         </div>
@@ -287,9 +283,9 @@
                                     <table class="w-full text-left text-sm whitespace-nowrap">
                                         <thead class="bg-slate-900/60 text-slate-400">
                                             <tr>
-                                                <th class="px-5 py-3">Producto</th>
-                                                <th class="px-5 py-3 text-center">Cant.</th>
-                                                <th class="px-5 py-3 text-right">Precio Unit.</th>
+                                                <th class="px-5 py-3">Product</th>
+                                                <th class="px-5 py-3 text-center">Qty</th>
+                                                <th class="px-5 py-3 text-right">Unit Price</th>
                                                 <th class="px-5 py-3 text-right">Subtotal</th>
                                                 <th class="px-5 py-3 text-right"></th>
                                             </tr>
@@ -297,12 +293,12 @@
                                         <tbody class="divide-y divide-slate-700/50">
                                             <template x-for="it in currentOrder.items" :key="it.id">
                                                 <tr class="hover:bg-slate-700/20">
-                                                    <td class="px-5 py-3.5 font-medium text-white" x-text="it.producto_nombre"></td>
+                                                    <td class="px-5 py-3.5 font-semibold text-white" x-text="it.producto_nombre"></td>
                                                     <td class="px-5 py-3.5 text-center font-bold text-amber-400" x-text="it.cantidad"></td>
                                                     <td class="px-5 py-3.5 text-right text-slate-400" x-text="formatCurrency(it.precio_unitario)"></td>
-                                                    <td class="px-5 py-3.5 text-right font-semibold text-white" x-text="formatCurrency(it.subtotal)"></td>
+                                                    <td class="px-5 py-3.5 text-right font-bold text-white" x-text="formatCurrency(it.subtotal)"></td>
                                                     <td class="px-5 py-3.5 text-right">
-                                                        <button @click="removeItem(it.id)" class="text-slate-500 hover:text-red-400 p-1 transition-colors">
+                                                        <button @click="removeItem(it.id)" class="text-slate-500 hover:text-red-400 p-1 transition-colors" title="Remove product">
                                                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
                                                         </button>
                                                     </td>
@@ -315,24 +311,23 @@
 
                             <template x-if="!currentOrder">
                                 <div class="bg-slate-800/40 rounded-xl p-8 text-center text-slate-500 border border-dashed border-slate-700">
-                                    Esta mesa está libre. Presiona "Abrir Orden" para iniciar el pedido en <span class="text-amber-400 font-semibold" x-text="currentSedeName"></span>.
+                                    This table is available. Press "Open Order" to start a new order at <span class="text-amber-400 font-bold" x-text="currentSedeName"></span>.
                                 </div>
                             </template>
 
                             <template x-if="currentOrder && (!currentOrder.items || currentOrder.items.length === 0)">
                                 <div class="bg-slate-800/40 rounded-xl p-8 text-center text-slate-500 border border-dashed border-slate-700">
-                                    No hay productos agregados en esta orden. Presiona "+ Agregar Productos" para seleccionar del inventario.
+                                    No products have been added to this order yet. Press "+ Add Products" to select from inventory.
                                 </div>
                             </template>
                         </div>
 
-                        <!-- Totales y Botones de Estado -->
-                        <div x-show="currentOrder" class="bg-slate-800 rounded-xl border border-slate-700 p-5">
+                        <!-- Totals & Status Buttons -->
+                        <div x-show="currentOrder" class="bg-slate-800 rounded-xl border border-slate-700 p-5 shadow-sm">
                             <div class="flex flex-wrap justify-between items-center gap-4">
-                                <!-- Status changers -->
                                 <div class="flex items-center gap-2">
                                     <button @click="changeStatus('en_proceso')" :class="currentOrder?.estado === 'en_proceso' ? 'bg-blue-600 text-white' : 'bg-slate-700 text-slate-300 hover:bg-slate-600'" class="px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors">
-                                        En Proceso
+                                        In Progress
                                     </button>
                                     <button @click="changeStatus('lista')" 
                                         :disabled="!hasItems"
@@ -341,21 +336,20 @@
                                             'bg-slate-700 text-slate-300 hover:bg-slate-600 cursor-pointer': currentOrder?.estado !== 'lista' && hasItems,
                                             'bg-slate-800/60 text-slate-500 border border-slate-700/50 cursor-not-allowed opacity-50': !hasItems
                                         }"
-                                        :title="!hasItems ? 'Debes agregar al menos un producto a la mesa para habilitar el cobro' : 'Marcar lista para cobro'"
+                                        :title="!hasItems ? 'You must add at least one product to the table before marking it ready to pay' : 'Mark ready to pay'"
                                         class="px-3 py-1.5 rounded-lg text-xs font-semibold transition-all flex items-center gap-1.5">
                                         <svg x-show="!hasItems" class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
-                                        <span>Lista para Cobro</span>
+                                        <span>Ready to Pay</span>
                                     </button>
                                 </div>
 
-                                <!-- Totals -->
                                 <div class="flex items-center gap-6">
                                     <div class="text-right">
-                                        <p class="text-xs text-slate-400">Subtotal: <span class="text-slate-200" x-text="formatCurrency(currentOrder?.subtotal || 0)"></span></p>
-                                        <p class="text-xs text-slate-400">IVA: <span class="text-slate-200" x-text="formatCurrency(currentOrder?.impuesto || 0)"></span></p>
+                                        <p class="text-xs text-slate-400">Subtotal: <span class="text-slate-200 font-semibold" x-text="formatCurrency(currentOrder?.subtotal || 0)"></span></p>
+                                        <p class="text-xs text-slate-400">VAT: <span class="text-slate-200 font-semibold" x-text="formatCurrency(currentOrder?.impuesto || 0)"></span></p>
                                     </div>
                                     <div class="text-right pl-4 border-l border-slate-700">
-                                        <p class="text-xs text-slate-400 font-medium">TOTAL A PAGAR</p>
+                                        <p class="text-xs text-slate-400 font-bold">TOTAL TO PAY</p>
                                         <p class="text-2xl font-bold text-amber-400" x-text="formatCurrency(currentOrder?.total || 0)"></p>
                                     </div>
                                 </div>
@@ -365,27 +359,26 @@
                 </template>
             </div>
 
-            <!-- Modal Agregar Productos -->
+            <!-- Add Products Modal -->
             <div x-show="showAddModal" class="fixed inset-0 z-50 overflow-y-auto" style="display: none;">
                 <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:p-0">
-                    <div class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm" @click="showAddModal = false"></div>
+                    <div class="fixed inset-0 bg-slate-900/75 backdrop-blur-sm" @click="showAddModal = false"></div>
                     <div class="inline-block bg-slate-800 rounded-xl text-left overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:max-w-2xl sm:w-full border border-slate-700 z-10 p-6">
-                        <div class="flex justify-between items-center mb-4">
+                        <div class="flex flex-wrap justify-between items-center gap-3 mb-4">
                             <div>
-                                <h3 class="text-lg font-bold text-white">Inventario de <span class="text-amber-400" x-text="currentSedeName"></span></h3>
-                                <p class="text-xs text-slate-400">Selecciona los productos que deseas agregar a la orden</p>
+                                <h3 class="text-lg font-bold text-white">Inventory — <span class="text-amber-400" x-text="currentSedeName"></span></h3>
+                                <p class="text-xs text-slate-400">Select the products you want to add to this order</p>
                             </div>
-                            <input type="text" x-model="prodSearch" placeholder="Buscar producto o código..." class="bg-slate-700 border border-slate-600 rounded-lg px-3 py-1.5 text-sm text-white focus:border-amber-500 outline-none w-64">
+                            <input type="text" x-model="prodSearch" placeholder="Search product or code..." class="bg-slate-700 border border-slate-600 rounded-lg px-3 py-1.5 text-sm text-white focus:border-amber-500 outline-none w-64">
                         </div>
 
-                        <!-- Lista de productos de la sede -->
                         <div class="max-h-80 overflow-y-auto divide-y divide-slate-700/50 mb-6 pr-1">
                             <template x-for="p in filteredProducts" :key="p.id">
                                 <div class="py-3 flex items-center justify-between hover:bg-slate-700/20 px-2 rounded-lg transition-colors">
                                     <div>
                                         <p class="font-semibold text-white text-sm" x-text="p.nombre"></p>
                                         <p class="text-xs text-slate-400 mt-0.5">
-                                            <span class="font-mono text-amber-500" x-text="p.codigo"></span> • 
+                                            <span class="font-mono text-amber-500 font-semibold" x-text="p.codigo"></span> • 
                                             Stock: <span class="font-bold" :class="(p.stock_actual || p.stock || 0) > 0 ? 'text-green-400' : 'text-red-400'" x-text="p.stock_actual || p.stock || 0"></span> • 
                                             <span class="text-white font-bold" x-text="formatCurrency(p.precio_venta || p.precio)"></span>
                                         </p>
@@ -399,17 +392,16 @@
                             </template>
 
                             <div x-show="filteredProducts.length === 0" class="py-12 text-center text-slate-500">
-                                <p>No hay productos activos en el inventario de esta sede.</p>
-                                <a href="inventario.html" class="mt-2 inline-block text-xs text-amber-400 hover:underline">Ir a Inventario a crear productos →</a>
+                                <p>No active products found in this branch's inventory.</p>
+                                <a href="inventario.html" class="mt-2 inline-block text-xs font-semibold text-amber-400 hover:underline">Go to Inventory to create products →</a>
                             </div>
                         </div>
 
-                        <!-- Resumen y footer modal -->
                         <div class="flex justify-between items-center border-t border-slate-700/60 pt-4">
-                            <span class="text-xs text-slate-400 font-medium" x-text="`${totalItemsSelected} items seleccionados`"></span>
+                            <span class="text-xs text-slate-400 font-semibold" x-text="`${totalItemsSelected} items selected`"></span>
                             <div class="flex gap-3">
-                                <button type="button" @click="showAddModal = false" class="px-4 py-2 bg-slate-700 text-slate-300 rounded-lg text-sm font-medium hover:bg-slate-600">Cancelar</button>
-                                <button type="button" @click="confirmAddItems()" :disabled="totalItemsSelected === 0" class="px-4 py-2 bg-amber-500 disabled:opacity-50 text-white rounded-lg text-sm font-semibold hover:bg-amber-600">Confirmar y Agregar</button>
+                                <button type="button" @click="showAddModal = false" class="px-4 py-2 bg-slate-700 text-slate-300 rounded-lg text-sm font-medium hover:bg-slate-600">Cancel</button>
+                                <button type="button" @click="confirmAddItems()" :disabled="totalItemsSelected === 0" class="px-4 py-2 bg-amber-500 disabled:opacity-50 text-white rounded-lg text-sm font-semibold hover:bg-amber-600">Confirm & Add</button>
                             </div>
                         </div>
                     </div>
@@ -423,11 +415,11 @@
         </main>
     </div>
 
-    <script src="../assets/js/config.js?v=4"></script>
-    <script src="../assets/js/api.js?v=4"></script>
-    <script src="../assets/js/auth.js?v=4"></script>
-    <script src="../assets/js/perfil.js?v=1"></script>
-    <script src="../assets/js/factura.js?v=4"></script>
+    <script src="../assets/js/config.js?v=5"></script>
+    <script src="../assets/js/api.js?v=5"></script>
+    <script src="../assets/js/auth.js?v=5"></script>
+    <script src="../assets/js/perfil.js?v=5"></script>
+    <script src="../assets/js/factura.js?v=5"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const user = window.auth.getUser();
@@ -436,7 +428,7 @@
             const rolNombre = user.rol_nombre || user.rol || '';
             const fullName = `${user.nombre} ${user.apellido || ''}`.trim();
             document.querySelectorAll('#user-name, .user-display-name').forEach(el => el.textContent = fullName);
-            document.querySelectorAll('#user-rol, .user-display-rol').forEach(el => el.textContent = rolNombre);
+            document.querySelectorAll('#user-rol, .user-display-rol').forEach(el => el.textContent = window.tRole ? window.tRole(rolNombre) : rolNombre);
 
             const rol = rolNombre.toLowerCase();
             if (rol === 'admin' || rol === 'cajero') {
@@ -473,7 +465,7 @@
 
                 get currentSedeName() {
                     const s = this.sedes.find(item => String(item.id) === String(this.selectedSedeId));
-                    return s ? s.nombre : 'Sede Principal';
+                    return s ? s.nombre : 'Main Branch';
                 },
 
                 get totalItemsSelected() {
@@ -492,13 +484,17 @@
                     );
                 },
 
+                formatStatus(st) {
+                    if (!st) return '';
+                    return window.tStatus ? window.tStatus(st) : st.replace('_', ' ');
+                },
+
                 async fetchSedes() {
                     try {
                         const res = await window.api.get('/api/sedes');
                         this.sedes = res?.data || [];
                         const user = window.auth.getUser();
                         
-                        // Si el usuario tiene sede asignada, usarla; si no, la primera sede
                         if (user?.sede_id && this.sedes.some(s => String(s.id) === String(user.sede_id))) {
                             this.selectedSedeId = user.sede_id;
                         } else if (this.sedes.length > 0) {
@@ -527,8 +523,10 @@
                 },
 
                 async refreshData() {
-                    await this.fetchProducts();
-                    await this.fetchActiveOrders();
+                    await Promise.all([
+                        this.fetchProducts(),
+                        this.fetchActiveOrders()
+                    ]);
                 },
 
                 async fetchProducts() {
@@ -553,12 +551,10 @@
                         const res = await window.api.get(url);
                         const orders = res?.data || [];
                         
-                        // Mapear órdenes a las mesas de la sede
                         this.mesas.forEach(m => {
                             m.orden = orders.find(o => String(o.mesa) === String(m.numero)) || null;
                         });
 
-                        // Si hay mesa seleccionada, recargar su orden
                         if (this.selectedMesa) {
                             const currentM = this.mesas.find(m => m.numero === this.selectedMesa.numero);
                             if (currentM && currentM.orden) {
@@ -570,7 +566,7 @@
                             this.selectMesa(this.mesas[0]);
                         }
                     } catch (e) {
-                        console.error("Error cargando órdenes:", e);
+                        console.error("Error loading orders:", e);
                     }
                 },
 
@@ -601,18 +597,18 @@
                             sede_id: this.selectedSedeId || user?.sede_id || null,
                             mesero_id: user?.id || null
                         };
-                        const res = await window.api.post('/api/ordenes', payload);
-                        this.showToast('Orden abierta exitosamente');
+                        await window.api.post('/api/ordenes', payload);
+                        this.showToast('Order opened successfully');
                         await this.fetchActiveOrders();
                     } catch(e) {
-                        alert(e.message || 'Error al abrir la orden');
+                        alert(e.message || 'Error opening order');
                     }
                 },
 
                 openAddProductsModal() {
                     this.itemSelections = {};
                     this.prodSearch = '';
-                    this.fetchProducts(); // Refrescar stock de la sede actual
+                    this.fetchProducts();
                     this.showAddModal = true;
                 },
 
@@ -634,11 +630,11 @@
 
                     try {
                         await window.api.post(`/api/ordenes/${this.currentOrder.id}/items`, { items: itemsToAdd });
-                        this.showToast('Productos agregados a la orden');
+                        this.showToast('Products added to order');
                         this.showAddModal = false;
                         await this.fetchActiveOrders();
                     } catch(e) {
-                        alert(e.message || 'Error al agregar productos');
+                        alert(e.message || 'Error adding products');
                     }
                 },
 
@@ -646,36 +642,36 @@
                     if (!this.currentOrder) return;
                     try {
                         await window.api.delete(`/api/ordenes/${this.currentOrder.id}/items/${itemId}`);
-                        this.showToast('Producto eliminado');
+                        this.showToast('Product removed');
                         await this.fetchActiveOrders();
                     } catch(e) {
-                        alert(e.message || 'Error al remover producto');
+                        alert(e.message || 'Error removing product');
                     }
                 },
 
                 async changeStatus(newStatus) {
                     if (!this.currentOrder) return;
                     if (newStatus === 'lista' && !this.hasItems) {
-                        this.showToast('Debes agregar al menos un producto a la mesa antes de marcarla lista para cobro');
+                        this.showToast('You must add at least one product to the table before marking it ready to pay');
                         return;
                     }
                     try {
                         await window.api.put(`/api/ordenes/${this.currentOrder.id}`, { estado: newStatus });
-                        this.showToast(`Estado actualizado a: ${newStatus.replace('_', ' ')}`);
+                        this.showToast(`Status updated to: ${this.formatStatus(newStatus)}`);
                         await this.fetchActiveOrders();
                     } catch(e) {
-                        alert(e.message || 'Error al cambiar estado');
+                        alert(e.message || 'Error updating status');
                     }
                 },
 
                 async cancelOrder() {
-                    if (!this.currentOrder || !confirm('¿Estás seguro de cancelar esta orden? Se repondrá el stock en el inventario.')) return;
+                    if (!this.currentOrder || !confirm('Are you sure you want to cancel this order? Inventory stock will be restored.')) return;
                     try {
                         await window.api.delete(`/api/ordenes/${this.currentOrder.id}`);
-                        this.showToast('Orden cancelada');
+                        this.showToast('Order cancelled');
                         await this.fetchActiveOrders();
                     } catch(e) {
-                        alert(e.message || 'Error al cancelar la orden');
+                        alert(e.message || 'Error cancelling order');
                     }
                 },
 

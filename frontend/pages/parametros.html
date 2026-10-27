@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en" class="theme-light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Parámetros - Bar Mune</title>
+    <title>Settings - Bar Mune</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -20,7 +20,7 @@
             }
         }
     </script>
-    <link rel="stylesheet" href="../assets/css/app.css">
+    <link rel="stylesheet" href="../assets/css/app.css?v=5">
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 <body class="bg-slate-900 text-white flex h-screen overflow-hidden" x-data="{ sidebarOpen: true, mobileMenuOpen: false }">
@@ -51,7 +51,7 @@
              <!-- Header -->
              <div class="h-14 flex items-center justify-between border-b border-[#222E46] pb-3 mb-2">
                  <img src="../assets/Logos/Horizontal_Fondo_Transparente_Negativo.png" alt="Bar Mune" class="h-7 w-auto object-contain" />
-                 <button @click="mobileMenuOpen = false" class="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800" title="Cerrar menú">
+                 <button @click="mobileMenuOpen = false" class="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800" title="Close menu">
                      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
                  </button>
              </div>
@@ -64,46 +64,46 @@
                  </a>
                  <a href="ordenes.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition-colors font-medium text-sm">
                      <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
-                     <span class="ml-3">Órdenes</span>
+                     <span class="ml-3">Orders</span>
                  </a>
                  <a href="pagos.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition-colors font-medium text-sm nav-cajero nav-admin" style="display:none">
                      <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
-                     <span class="ml-3">Pagos</span>
+                     <span class="ml-3">Payments</span>
                  </a>
                  <a href="inventario.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition-colors font-medium text-sm nav-cajero nav-admin" style="display:none">
                      <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
-                     <span class="ml-3">Inventario</span>
+                     <span class="ml-3">Inventory</span>
                  </a>
                  <a href="stock-alertas.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition-colors font-medium text-sm nav-cajero nav-admin" style="display:none">
                      <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
-                     <span class="ml-3">Alertas Stock</span>
+                     <span class="ml-3">Stock Alerts</span>
                  </a>
                  <a href="reportes.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition-colors font-medium text-sm nav-cajero nav-admin" style="display:none">
                      <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                     <span class="ml-3">Reportes</span>
+                     <span class="ml-3">Reports</span>
                  </a>
                  <div class="nav-admin border-t border-[#222E46] my-2" style="display:none"></div>
                  <a href="usuarios.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition-colors font-medium text-sm nav-admin" style="display:none">
                      <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
-                     <span class="ml-3">Usuarios</span>
+                     <span class="ml-3">Users</span>
                  </a>
                  <a href="sedes.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition-colors font-medium text-sm nav-admin" style="display:none">
                      <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
-                     <span class="ml-3">Sedes</span>
+                     <span class="ml-3">Branches</span>
                  </a>
                  <a href="parametros.html" class="flex items-center px-3 py-2.5 rounded-lg bg-amber-500/15 text-amber-400 border border-amber-500/30 font-medium text-sm nav-admin" style="display:none">
                      <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                     <span class="ml-3">Parámetros</span>
+                     <span class="ml-3">Settings</span>
                  </a>
              </nav>
 
              <!-- User Footer -->
              <div class="border-t border-[#222E46] pt-3 mt-auto flex items-center justify-between">
-                 <button onclick="window.openPerfilModal()" class="truncate pr-2 text-left hover:opacity-80 transition-opacity cursor-pointer" title="Ver mi perfil">
+                 <button onclick="window.openPerfilModal()" class="truncate pr-2 text-left hover:opacity-80 transition-opacity cursor-pointer" title="View my profile">
                      <p class="user-display-name text-xs font-bold text-white truncate"></p>
                      <p class="user-display-rol text-[10px] text-[#C4B5FD] capitalize"></p>
                  </button>
-                 <button onclick="window.auth.logout()" class="p-2 text-slate-400 hover:text-red-400 rounded-lg hover:bg-red-500/10" title="Cerrar sesión">
+                 <button onclick="window.auth.logout()" class="p-2 text-slate-400 hover:text-red-400 rounded-lg hover:bg-red-500/10" title="Sign out">
                      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
                  </button>
              </div>
@@ -113,8 +113,7 @@
     <!-- Desktop Sidebar -->
     <aside :class="sidebarOpen ? 'w-64' : 'w-20'" class="bg-[#070A12] border-r border-[#222E46] transition-all duration-300 flex flex-col h-full z-20 hidden md:flex flex-shrink-0">
         <div class="h-16 flex items-center px-4 border-b border-[#222E46] gap-3 overflow-hidden">
-            <!--<img src="../assets/Logos/Isotipo.png" alt="Bar Mune" class="h-8 w-8 object-contain flex-shrink-0" />-->
-            <img x-show="sidebarOpen" src="../assets/Logos/Horizontal_Fondo_Transparente_Positivo.png" alt="Bar Mune" class="h-6 w-auto object-contain" />
+            <img x-show="sidebarOpen" src="../assets/Logos/Horizontal_Fondo_Transparente_Negativo.png" alt="Bar Mune" class="h-6 w-auto object-contain" />
         </div>
 
         <nav class="flex-1 overflow-y-auto py-4 space-y-1 px-2" id="sidebar-nav">
@@ -124,38 +123,38 @@
             </a>
             <a href="ordenes.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white transition-colors font-medium text-sm">
                 <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
-                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Órdenes</span>
+                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Orders</span>
             </a>
             <a href="pagos.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white transition-colors nav-item nav-cajero nav-admin font-medium text-sm" style="display:none">
                 <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
-                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Pagos</span>
+                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Payments</span>
             </a>
             <a href="inventario.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white transition-colors nav-item nav-cajero nav-admin font-medium text-sm" style="display:none">
                 <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
-                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Inventario</span>
+                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Inventory</span>
             </a>
             <a href="stock-alertas.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white transition-colors nav-item nav-cajero nav-admin font-medium text-sm" style="display:none">
                 <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
-                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Alertas Stock</span>
+                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Stock Alerts</span>
             </a>
             <a href="reportes.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white transition-colors nav-item nav-cajero nav-admin font-medium text-sm" style="display:none">
                 <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Reportes</span>
+                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Reports</span>
             </a>
 
             <div class="nav-admin border-t border-[#222E46] my-2" style="display:none"></div>
 
             <a href="usuarios.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white transition-colors nav-item nav-admin font-medium text-sm" style="display:none">
                 <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
-                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Usuarios</span>
+                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Users</span>
             </a>
             <a href="sedes.html" class="flex items-center px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white transition-colors nav-item nav-admin font-medium text-sm" style="display:none">
                 <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
-                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Sedes</span>
+                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Branches</span>
             </a>
             <a href="parametros.html" class="flex items-center px-3 py-2.5 rounded-lg bg-amber-500/10 text-amber-400 border border-amber-500/30 font-medium text-sm nav-item nav-admin" style="display:none">
                 <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Parámetros</span>
+                <span x-show="sidebarOpen" class="ml-3 whitespace-nowrap">Settings</span>
             </a>
         </nav>
     </aside>
@@ -166,29 +165,31 @@
         <header class="h-16 bg-[#141C2E] border-b border-[#222E46] flex items-center justify-between px-3 sm:px-6 z-10 flex-shrink-0">
             <div class="flex items-center gap-2 sm:gap-4 min-w-0">
                 <!-- Hamburger Button Mobile -->
-                <button @click="mobileMenuOpen = true" class="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 md:hidden flex-shrink-0" title="Abrir Menú">
+                <button @click="mobileMenuOpen = true" class="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 md:hidden flex-shrink-0" title="Open Menu">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
                 </button>
                 
                 <!-- Desktop Sidebar Toggle -->
-                <button @click="sidebarOpen = !sidebarOpen" class="text-slate-400 hover:text-white hidden md:block flex-shrink-0" title="Contraer/Expandir">
+                <button @click="sidebarOpen = !sidebarOpen" class="text-slate-400 hover:text-white hidden md:block flex-shrink-0" title="Collapse/Expand">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
                 </button>
 
-                <h1 class="text-base sm:text-xl font-semibold text-white truncate">Configuración y Parámetros</h1>
+                <h1 class="text-base sm:text-xl font-semibold text-white truncate">Settings & Parameters</h1>
             </div>
 
             <div class="flex items-center gap-2 sm:gap-4">
                 <button @click="openCreateModal()" class="px-2.5 sm:px-3.5 py-1.5 sm:py-2 bg-amber-500 hover:bg-amber-600 text-white rounded-lg text-xs font-semibold flex items-center gap-1.5 sm:gap-2 shadow-sm transition-colors flex-shrink-0">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-                    <span class="hidden xs:inline sm:inline">+ Nuevo</span>
+                    <span class="hidden xs:inline sm:inline">+ New</span>
                 </button>
-
-                <button onclick="window.openPerfilModal()" class="text-right hidden sm:block p-1.5 rounded-xl hover:bg-slate-800/80 transition-all cursor-pointer group" title="Ver mi perfil">
+                <button type="button" onclick="window.toggleTheme()" class="theme-toggle-btn" title="Switch Theme">
+                    <span>Theme</span>
+                </button>
+                <button onclick="window.openPerfilModal()" class="text-right hidden sm:block p-1.5 rounded-xl hover:bg-slate-800/80 transition-all cursor-pointer group" title="View my profile">
                     <p class="user-display-name text-sm font-medium text-white"></p>
                     <p class="user-display-rol text-xs text-slate-400 capitalize"></p>
                 </button>
-                <button onclick="window.auth.logout()" title="Cerrar sesión" class="p-2 text-slate-400 hover:text-red-400 transition-colors rounded-lg hover:bg-red-400/10 flex-shrink-0">
+                <button onclick="window.auth.logout()" title="Sign out" class="p-2 text-slate-400 hover:text-red-400 transition-colors rounded-lg hover:bg-red-400/10 flex-shrink-0">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
                 </button>
             </div>
@@ -201,17 +202,17 @@
                 <div class="flex justify-between items-center bg-slate-800/80 p-4 rounded-xl border border-slate-700">
                     <div class="relative flex-1 max-w-md">
                         <svg class="w-4 h-4 text-slate-400 absolute left-3 top-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-                        <input type="text" x-model="searchQuery" placeholder="Buscar parámetro por clave o descripción..." class="w-full pl-9 pr-4 py-2 bg-slate-900 border border-slate-700 rounded-lg text-sm text-white focus:border-amber-500 outline-none">
+                        <input type="text" x-model="searchQuery" placeholder="Search parameter by key or description..." class="w-full pl-9 pr-4 py-2 bg-slate-900 border border-slate-700 rounded-lg text-sm text-white focus:border-amber-500 outline-none">
                     </div>
-                    <span class="text-xs text-slate-400 font-medium" x-text="`${parametros.length} parámetros configurados`"></span>
+                    <span class="text-xs text-slate-400 font-medium" x-text="`${parametros.length} parameters configured`"></span>
                 </div>
 
-                <!-- Categorías de Parámetros iteradas en Array -->
+                <!-- Parameter Categories -->
                 <template x-for="cat in categoriesList" :key="cat.name">
                     <div class="space-y-3">
                         <h2 class="text-xs font-bold text-amber-500 uppercase tracking-wider flex items-center gap-2">
                             <span class="w-2 h-2 rounded-full bg-amber-500"></span>
-                            <span x-text="cat.name"></span>
+                            <span x-text="cat.label"></span>
                         </h2>
 
                         <div class="bg-slate-800 rounded-xl border border-slate-700 overflow-hidden shadow-sm">
@@ -223,11 +224,11 @@
                                                 <h3 class="text-sm font-bold text-white font-mono" x-text="param.clave"></h3>
                                                 <span class="text-[10px] px-2 py-0.5 rounded bg-slate-900 text-slate-400 border border-slate-700 uppercase" x-text="param.tipo"></span>
                                             </div>
-                                            <p class="text-xs text-slate-400 mt-1" x-text="param.descripcion || 'Sin descripción'"></p>
+                                            <p class="text-xs text-slate-400 mt-1" x-text="param.descripcion || 'No description'"></p>
                                         </div>
                                         <div class="flex items-center gap-4">
                                             <span class="inline-block bg-slate-900 border border-slate-700 text-amber-400 px-4 py-1.5 rounded-lg text-sm font-mono font-bold" x-text="param.valor"></span>
-                                            <button @click="openEditModal(param)" title="Editar Parámetro" class="p-2 text-slate-400 hover:text-amber-400 rounded-lg hover:bg-slate-700 transition-colors">
+                                            <button @click="openEditModal(param)" title="Edit Parameter" class="p-2 text-slate-400 hover:text-amber-400 rounded-lg hover:bg-slate-700 transition-colors">
                                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
                                             </button>
                                         </div>
@@ -239,11 +240,11 @@
                 </template>
                 
                 <div x-show="!loading && categoriesList.length === 0" class="bg-slate-800 rounded-xl p-12 text-center text-slate-500 border border-slate-700">
-                    No se encontraron parámetros con el criterio de búsqueda.
+                    No parameters found matching the search criteria.
                 </div>
 
                 <div x-show="loading" class="bg-slate-800 rounded-xl p-12 text-center text-slate-400 border border-slate-700">
-                    Cargando parámetros del sistema...
+                    Loading system parameters...
                 </div>
             </div>
 
@@ -255,55 +256,55 @@
                     <div class="inline-block bg-slate-800 rounded-xl text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:max-w-lg sm:w-full border border-slate-700 z-10">
                         <form @submit.prevent="saveParam">
                             <div class="px-6 pt-6 pb-4">
-                                <h3 class="text-lg font-bold text-white mb-4" x-text="isCreating ? 'Nuevo Parámetro' : 'Editar Parámetro'"></h3>
+                                <h3 class="text-lg font-bold text-white mb-4" x-text="isCreating ? 'New Parameter' : 'Edit Parameter'"></h3>
                                 
                                 <div class="space-y-4">
                                     <div>
-                                        <label class="block text-xs font-medium text-slate-300 mb-1">Clave Única *</label>
-                                        <input type="text" x-model="form.clave" :readonly="!isCreating" required placeholder="ej: empresa_nit, impuesto_porcentaje" 
+                                        <label class="block text-xs font-medium text-slate-300 mb-1">Unique Key *</label>
+                                        <input type="text" x-model="form.clave" :readonly="!isCreating" required placeholder="e.g., empresa_nit, impuesto_porcentaje" 
                                             class="w-full border rounded-lg px-3 py-2 text-sm font-mono outline-none"
                                             :class="!isCreating ? 'border-slate-700 bg-slate-900 text-slate-400 cursor-not-allowed' : 'border-slate-600 bg-slate-700 text-white focus:border-amber-500'">
                                     </div>
 
                                     <div class="grid grid-cols-2 gap-4" x-show="isCreating">
                                         <div>
-                                            <label class="block text-xs font-medium text-slate-300 mb-1">Categoría</label>
+                                            <label class="block text-xs font-medium text-slate-300 mb-1">Category</label>
                                             <select x-model="form.categoria" class="w-full border border-slate-600 rounded-lg bg-slate-700 text-white px-3 py-2 text-sm focus:border-amber-500 outline-none">
                                                 <option value="general">General</option>
-                                                <option value="impuestos">Impuestos</option>
-                                                <option value="operacion">Operación</option>
-                                                <option value="inventario">Inventario</option>
-                                                <option value="reportes">Reportes</option>
+                                                <option value="impuestos">Taxes</option>
+                                                <option value="operacion">Operations</option>
+                                                <option value="inventario">Inventory</option>
+                                                <option value="reportes">Reports</option>
                                             </select>
                                         </div>
                                         <div>
-                                            <label class="block text-xs font-medium text-slate-300 mb-1">Tipo de Dato</label>
+                                            <label class="block text-xs font-medium text-slate-300 mb-1">Data Type</label>
                                             <select x-model="form.tipo" class="w-full border border-slate-600 rounded-lg bg-slate-700 text-white px-3 py-2 text-sm focus:border-amber-500 outline-none">
-                                                <option value="string">Texto (String)</option>
-                                                <option value="number">Numérico (Number)</option>
-                                                <option value="boolean">Booleano (True/False)</option>
+                                                <option value="string">Text (String)</option>
+                                                <option value="number">Numeric (Number)</option>
+                                                <option value="boolean">Boolean (True/False)</option>
                                             </select>
                                         </div>
                                     </div>
 
                                     <div>
-                                        <label class="block text-xs font-medium text-slate-300 mb-1">Descripción</label>
-                                        <textarea x-model="form.descripcion" rows="2" placeholder="Describe el propósito de este parámetro..." class="w-full border border-slate-600 rounded-lg bg-slate-700 text-white px-3 py-2 text-sm focus:border-amber-500 outline-none"></textarea>
+                                        <label class="block text-xs font-medium text-slate-300 mb-1">Description</label>
+                                        <textarea x-model="form.descripcion" rows="2" placeholder="Describe the purpose of this parameter..." class="w-full border border-slate-600 rounded-lg bg-slate-700 text-white px-3 py-2 text-sm focus:border-amber-500 outline-none"></textarea>
                                     </div>
 
                                     <div>
-                                        <label class="block text-xs font-medium text-slate-300 mb-1">Valor *</label>
-                                        <input x-show="form.tipo !== 'boolean'" type="text" x-model="form.valor" required placeholder="Valor del parámetro..." class="w-full border border-slate-600 rounded-lg bg-slate-700 text-white px-3 py-2 text-sm focus:border-amber-500 outline-none font-mono font-bold">
+                                        <label class="block text-xs font-medium text-slate-300 mb-1">Value *</label>
+                                        <input x-show="form.tipo !== 'boolean'" type="text" x-model="form.valor" required placeholder="Parameter value..." class="w-full border border-slate-600 rounded-lg bg-slate-700 text-white px-3 py-2 text-sm focus:border-amber-500 outline-none font-mono font-bold">
                                         <select x-show="form.tipo === 'boolean'" x-model="form.valor" class="w-full border border-slate-600 rounded-lg bg-slate-700 text-white px-3 py-2 text-sm focus:border-amber-500 outline-none">
-                                            <option value="true">Verdadero (True)</option>
-                                            <option value="false">Falso (False)</option>
+                                            <option value="true">True</option>
+                                            <option value="false">False</option>
                                         </select>
                                     </div>
                                 </div>
                             </div>
                             <div class="bg-slate-900/60 px-6 py-4 flex flex-row-reverse gap-3 border-t border-slate-700">
-                                <button type="submit" class="px-4 py-2 bg-amber-500 text-white rounded-lg text-sm font-semibold hover:bg-amber-600 transition-colors">Guardar Parámetro</button>
-                                <button type="button" @click="closeModal()" class="px-4 py-2 bg-slate-700 text-slate-300 rounded-lg text-sm font-medium hover:bg-slate-600 transition-colors">Cancelar</button>
+                                <button type="submit" class="px-4 py-2 bg-amber-500 text-white rounded-lg text-sm font-semibold hover:bg-amber-600 transition-colors">Save Parameter</button>
+                                <button type="button" @click="closeModal()" class="px-4 py-2 bg-slate-700 text-slate-300 rounded-lg text-sm font-medium hover:bg-slate-600 transition-colors">Cancel</button>
                             </div>
                         </form>
                     </div>
@@ -317,10 +318,10 @@
         </main>
     </div>
 
-    <script src="../assets/js/config.js?v=4"></script>
-    <script src="../assets/js/api.js?v=4"></script>
-    <script src="../assets/js/auth.js?v=4"></script>
-    <script src="../assets/js/perfil.js?v=1"></script>
+    <script src="../assets/js/config.js?v=5"></script>
+    <script src="../assets/js/api.js?v=5"></script>
+    <script src="../assets/js/auth.js?v=5"></script>
+    <script src="../assets/js/perfil.js?v=5"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const user = window.auth.getUser();
@@ -333,7 +334,7 @@
             const rolNombre = user.rol_nombre || user.rol || '';
             const fullName = `${user.nombre} ${user.apellido || ''}`.trim();
             document.querySelectorAll('#user-name, .user-display-name').forEach(el => el.textContent = fullName);
-            document.querySelectorAll('#user-rol, .user-display-rol').forEach(el => el.textContent = rolNombre);
+            document.querySelectorAll('#user-rol, .user-display-rol').forEach(el => el.textContent = window.tRole ? window.tRole(rolNombre) : rolNombre);
 
             const rol = rolNombre.toLowerCase();
             if (rol === 'admin' || rol === 'cajero') {
@@ -346,6 +347,15 @@
         });
 
         document.addEventListener('alpine:init', () => {
+            const catTranslations = {
+                'GENERAL': 'GENERAL',
+                'IMPUESTOS': 'TAXES',
+                'OPERACION': 'OPERATIONS',
+                'OPERACIÓN': 'OPERATIONS',
+                'INVENTARIO': 'INVENTORY',
+                'REPORTES': 'REPORTS'
+            };
+
             Alpine.data('parametrosPage', () => ({
                 parametros: [],
                 searchQuery: '',
@@ -370,7 +380,8 @@
                     const groups = {};
                     filtered.forEach(p => {
                         const cat = (p.categoria || 'General').toUpperCase();
-                        if (!groups[cat]) groups[cat] = { name: cat, items: [] };
+                        const label = catTranslations[cat] || cat;
+                        if (!groups[cat]) groups[cat] = { name: cat, label, items: [] };
                         groups[cat].items.push(p);
                     });
                     return Object.values(groups);
@@ -382,7 +393,7 @@
                         const res = await window.api.get('/api/parametros');
                         this.parametros = res?.data || [];
                     } catch (e) {
-                        console.error("Error cargando parámetros:", e);
+                        console.error("Error loading parameters:", e);
                         this.parametros = [];
                     } finally {
                         this.loading = false;
@@ -409,16 +420,16 @@
                     try {
                         if (this.isCreating) {
                             await window.api.post('/api/parametros', this.form);
-                            this.showToast('Parámetro creado exitosamente');
+                            this.showToast('Parameter created successfully');
                         } else {
                             await window.api.put(`/api/parametros/${this.form.clave}`, this.form);
-                            this.showToast('Parámetro actualizado exitosamente');
+                            this.showToast('Parameter updated successfully');
                         }
                         await this.fetchParametros();
                         this.closeModal();
                     } catch (e) {
                         console.error(e);
-                        alert(e.message || 'Error al guardar parámetro');
+                        alert(e.message || 'Error saving parameter');
                     }
                 },
 
