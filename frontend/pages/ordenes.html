@@ -384,9 +384,9 @@
                                         </p>
                                     </div>
                                     <div class="flex items-center gap-3">
-                                        <button type="button" @click="adjustQty(p.id, -1)" class="w-8 h-8 rounded-lg bg-slate-700 hover:bg-slate-600 text-white font-bold flex items-center justify-center transition-colors">-</button>
+                                        <button type="button" @click="adjustQty(p.id, -1)" :disabled="!(itemSelections[p.id] > 0)" class="w-8 h-8 rounded-lg bg-slate-700 hover:bg-slate-600 disabled:opacity-40 disabled:cursor-not-allowed text-white font-bold flex items-center justify-center transition-colors">-</button>
                                         <span class="w-8 text-center font-bold text-amber-400" x-text="itemSelections[p.id] || 0"></span>
-                                        <button type="button" @click="adjustQty(p.id, 1)" class="w-8 h-8 rounded-lg bg-slate-700 hover:bg-slate-600 text-white font-bold flex items-center justify-center transition-colors">+</button>
+                                        <button type="button" @click="adjustQty(p.id, 1)" :disabled="(itemSelections[p.id] || 0) >= (p.stock_actual ?? p.stock ?? 0)" class="w-8 h-8 rounded-lg bg-slate-700 hover:bg-slate-600 disabled:opacity-40 disabled:cursor-not-allowed text-white font-bold flex items-center justify-center transition-colors">+</button>
                                     </div>
                                 </div>
                             </template>
@@ -613,8 +613,18 @@
                 },
 
                 adjustQty(prodId, delta) {
+                    const prod = this.allProducts.find(p => String(p.id) === String(prodId));
+                    const maxStock = prod ? Math.max(0, parseInt(prod.stock_actual ?? prod.stock ?? 0, 10)) : 0;
                     const current = this.itemSelections[prodId] || 0;
-                    const next = Math.max(0, current + delta);
+
+                    if (delta > 0 && current >= maxStock) {
+                        this.showToast(maxStock === 0
+                            ? `"${prod?.nombre || 'Product'}" is out of stock (0 available)`
+                            : `Only ${maxStock} units available for "${prod?.nombre || 'Product'}"`);
+                        return;
+                    }
+
+                    const next = Math.max(0, Math.min(maxStock, current + delta));
                     this.itemSelections[prodId] = next;
                 },
 

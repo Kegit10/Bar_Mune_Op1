@@ -2,6 +2,7 @@ import uuid
 import datetime
 from decimal import Decimal
 from flask import Blueprint, request, jsonify
+from flask_jwt_extended import get_jwt_identity
 from app.db import query, query_one, execute, execute_one
 from app.utils.decorators import require_auth, require_roles
 
@@ -227,16 +228,21 @@ def update_orden(id):
 @require_auth
 def add_items(id):
     try:
-        orden = query_one("SELECT id, estado FROM public.ordenes WHERE id = %s", (id,))
+        orden = query_one("SELECT id, estado, mesero_id FROM public.ordenes WHERE id = %s", (id,))
         if not orden:
             return jsonify({"success": False, "message": "Orden no encontrada", "data": None}), 404
         if orden['estado'] in ['pagada', 'cancelada']:
             return jsonify({"success": False, "message": f"No se pueden agregar items a una orden {orden['estado']}", "data": None}), 400
 
+        current_user_id = get_jwt_identity() or orden.get('mesero_id')
+
         data = request.get_json() or {}
         items = data.get('items') or [data] if not isinstance(data, list) else data
 
-        inserted_items = []
+        # 1. Validar stock disponible para todos los productos antes de insertar
+        validated_items = []
+        requested_by_prod = {}
+
         for item in items:
             producto_id = item.get('producto_id')
             cantidad = int(item.get('cantidad', 1))
@@ -247,9 +253,44 @@ def add_items(id):
 
             prod = query_one("SELECT id, precio_venta, stock_actual, nombre FROM public.productos WHERE id = %s", (producto_id,))
             if not prod:
-                continue
+                return jsonify({
+                    "success": False,
+                    "message": f"Product not found ({producto_id})",
+                    "data": None
+                }), 404
 
-            precio_unitario = float(item.get('precio_unitario') or prod['precio_venta'])
+            stock_disponible = int(prod['stock_actual'] or 0)
+            acumulado = requested_by_prod.get(producto_id, 0) + cantidad
+
+            if stock_disponible <= 0:
+                return jsonify({
+                    "success": False,
+                    "message": f"Out of stock for '{prod['nombre']}' (Available: 0)",
+                    "data": None
+                }), 400
+
+            if acumulado > stock_disponible:
+                return jsonify({
+                    "success": False,
+                    "message": f"Insufficient stock for '{prod['nombre']}': requested {acumulado}, available {stock_disponible}",
+                    "data": None
+                }), 400
+
+            requested_by_prod[producto_id] = acumulado
+            validated_items.append((prod, cantidad, notas, item.get('precio_unitario')))
+
+        if not validated_items:
+            return jsonify({"success": False, "message": "No valid items provided", "data": None}), 400
+
+        # 2. Insertar items y descontar inventario
+        inserted_items = []
+        for prod, cantidad, notas, custom_price in validated_items:
+            producto_id = prod['id']
+            # Re-consultar stock actual en caso de múltiples líneas del mismo producto
+            curr_prod = query_one("SELECT stock_actual FROM public.productos WHERE id = %s", (producto_id,))
+            stock_anterior = int(curr_prod['stock_actual'] if curr_prod else prod['stock_actual'])
+
+            precio_unitario = float(custom_price or prod['precio_venta'])
             subtotal_item = round(cantidad * precio_unitario, 2)
 
             # Insertar item
@@ -262,14 +303,14 @@ def add_items(id):
             inserted_items.append(item_row)
 
             # Descontar inventario
-            nuevo_stock = max(0, int(prod['stock_actual']) - cantidad)
+            nuevo_stock = stock_anterior - cantidad
             execute("UPDATE public.productos SET stock_actual = %s, updated_at = NOW() WHERE id = %s", (nuevo_stock, producto_id))
 
             # Registrar movimiento
             execute(
-                """INSERT INTO public.movimientos_inventario (producto_id, tipo, cantidad, stock_anterior, stock_nuevo, referencia)
-                   VALUES (%s, 'salida', %s, %s, %s, %s)""",
-                (producto_id, cantidad, prod['stock_actual'], nuevo_stock, f"Orden #{id[:8]}")
+                """INSERT INTO public.movimientos_inventario (producto_id, tipo, cantidad, stock_anterior, stock_nuevo, referencia, usuario_id)
+                   VALUES (%s, 'salida', %s, %s, %s, %s, %s)""",
+                (producto_id, cantidad, stock_anterior, nuevo_stock, f"Orden #{id[:8]}", current_user_id)
             )
 
         # Si la orden estaba abierta, pasar a en_proceso
@@ -293,9 +334,17 @@ def add_items(id):
 @require_auth
 def remove_item(id, item_id):
     try:
+        orden = query_one("SELECT id, estado, mesero_id FROM public.ordenes WHERE id = %s", (id,))
+        if not orden:
+            return jsonify({"success": False, "message": "Order not found", "data": None}), 404
+        if orden['estado'] in ['pagada', 'cancelada']:
+            return jsonify({"success": False, "message": f"Cannot remove items from a {orden['estado']} order", "data": None}), 400
+
+        current_user_id = get_jwt_identity() or orden.get('mesero_id')
+
         item = query_one("SELECT id, producto_id, cantidad FROM public.orden_items WHERE id = %s AND orden_id = %s", (item_id, id))
         if not item:
-            return jsonify({"success": False, "message": "Item no encontrado", "data": None}), 404
+            return jsonify({"success": False, "message": "Item not found", "data": None}), 404
 
         # Restaurar stock
         prod = query_one("SELECT id, stock_actual FROM public.productos WHERE id = %s", (item['producto_id'],))
@@ -303,14 +352,14 @@ def remove_item(id, item_id):
             nuevo_stock = int(prod['stock_actual']) + int(item['cantidad'])
             execute("UPDATE public.productos SET stock_actual = %s, updated_at = NOW() WHERE id = %s", (nuevo_stock, item['producto_id']))
             execute(
-                """INSERT INTO public.movimientos_inventario (producto_id, tipo, cantidad, stock_anterior, stock_nuevo, referencia)
-                   VALUES (%s, 'entrada', %s, %s, %s, %s)""",
-                (item['producto_id'], item['cantidad'], prod['stock_actual'], nuevo_stock, f"Cancelación item orden #{id[:8]}")
+                """INSERT INTO public.movimientos_inventario (producto_id, tipo, cantidad, stock_anterior, stock_nuevo, referencia, usuario_id)
+                   VALUES (%s, 'entrada', %s, %s, %s, %s, %s)""",
+                (item['producto_id'], item['cantidad'], prod['stock_actual'], nuevo_stock, f"Cancelación item orden #{id[:8]}", current_user_id)
             )
 
         execute("DELETE FROM public.orden_items WHERE id = %s", (item_id,))
         totals = recalculate_order(id)
-        return jsonify({"success": True, "message": "Item eliminado y stock restaurado", "data": totals}), 200
+        return jsonify({"success": True, "message": "Item removed and stock restored", "data": totals}), 200
     except Exception as e:
         return jsonify({"success": False, "message": str(e), "data": None}), 500
 
@@ -321,7 +370,11 @@ def cancel_orden(id):
     try:
         orden = query_one("SELECT id, estado FROM public.ordenes WHERE id = %s", (id,))
         if not orden:
-            return jsonify({"success": False, "message": "Orden no encontrada", "data": None}), 404
+            return jsonify({"success": False, "message": "Order not found", "data": None}), 404
+        if orden['estado'] == 'cancelada':
+            return jsonify({"success": False, "message": "Order is already cancelled", "data": None}), 400
+        if orden['estado'] == 'pagada':
+            return jsonify({"success": False, "message": "Cannot cancel an already paid order", "data": None}), 400
 
         # Restaurar stock de todos los items
         items = query("SELECT producto_id, cantidad FROM public.orden_items WHERE orden_id = %s", (id,))
@@ -332,6 +385,6 @@ def cancel_orden(id):
                 execute("UPDATE public.productos SET stock_actual = %s WHERE id = %s", (nuevo_stock, it['producto_id']))
 
         execute("UPDATE public.ordenes SET estado = 'cancelada', updated_at = NOW() WHERE id = %s", (id,))
-        return jsonify({"success": True, "message": "Orden cancelada y stock restaurado", "data": None}), 200
+        return jsonify({"success": True, "message": "Order cancelled and stock restored", "data": None}), 200
     except Exception as e:
         return jsonify({"success": False, "message": str(e), "data": None}), 500
