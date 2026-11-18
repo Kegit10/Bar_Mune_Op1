@@ -189,13 +189,13 @@
             <!-- Toolbar -->
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
                 <div class="flex flex-wrap items-center gap-3">
-                    <input type="text" x-model="searchQuery" placeholder="Search by code or name..." class="bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:border-amber-500 w-64">
+                    <input type="text" x-model="searchQuery" @input.debounce.300ms="onFilterChange()" placeholder="Search by code or name..." class="bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:border-amber-500 w-64">
                     
-                    <select x-model="filterCategoria" id="filter-cat-select" class="bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-amber-500">
+                    <select x-model="filterCategoria" @change="onFilterChange()" id="filter-cat-select" class="bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-amber-500">
                         <option value="" class="bg-slate-800 text-white">All Categories</option>
                     </select>
 
-                    <select x-model="filterSede" id="filter-sede-select" class="bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-amber-500">
+                    <select x-model="filterSede" @change="onFilterChange()" id="filter-sede-select" class="bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-amber-500">
                         <option value="" class="bg-slate-800 text-white">All Branches</option>
                     </select>
                 </div>
@@ -266,6 +266,33 @@
                             </tr>
                         </tbody>
                     </table>
+                </div>
+
+                <!-- Pagination Footer -->
+                <div class="px-6 py-3.5 bg-slate-900/50 border-t border-slate-700 flex flex-wrap items-center justify-between gap-4 text-xs">
+                    <div class="flex items-center gap-2 text-slate-400">
+                        <span class="font-medium">Rows per page:</span>
+                        <select x-model.number="pageSize" @change="onPageSizeChange()" class="bg-slate-800 border border-slate-600 rounded-lg px-2.5 py-1 text-xs text-white font-semibold focus:outline-none focus:border-amber-500">
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="30">30</option>
+                            <option value="40">40</option>
+                            <option value="50">50</option>
+                        </select>
+                        <span class="ml-2 text-slate-400" x-text="`Showing ${paginationStart} - ${paginationEnd} of ${totalItems} products`"></span>
+                    </div>
+
+                    <div class="flex items-center gap-2">
+                        <span class="text-slate-400 font-medium mr-2" x-text="`Page ${currentPage} of ${totalPages}`"></span>
+                        <button type="button" @click="prevPage()" :disabled="currentPage <= 1"
+                            class="px-3 py-1.5 rounded-lg bg-slate-700 hover:bg-slate-600 disabled:opacity-40 disabled:cursor-not-allowed text-white font-medium transition-colors border border-slate-600">
+                            ← Previous
+                        </button>
+                        <button type="button" @click="nextPage()" :disabled="currentPage >= totalPages"
+                            class="px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-600 disabled:opacity-40 disabled:cursor-not-allowed text-white font-semibold transition-colors">
+                            Next Page →
+                        </button>
+                    </div>
                 </div>
             </div>
 
@@ -414,6 +441,10 @@
                 searchQuery: '',
                 filterCategoria: '',
                 filterSede: '',
+                currentPage: 1,
+                pageSize: 10,
+                totalItems: 0,
+                totalPages: 1,
                 showModal: false,
                 showCatModal: false,
                 catForm: { nombre: '', descripcion: '' },
@@ -425,20 +456,47 @@
                 async init() {
                     await Promise.all([
                         this.fetchCategorias(),
-                        this.fetchSedes(),
-                        this.fetchProductos()
+                        this.fetchSedes()
                     ]);
+                    await this.fetchProductos();
                     this.populateAllSelects();
                 },
 
                 get filteredProductos() {
-                    return this.productos.filter(p => {
-                        const target = `${p.codigo || ''} ${p.nombre || ''}`.toLowerCase();
-                        const matchesSearch = target.includes(this.searchQuery.toLowerCase());
-                        const matchesCat = this.filterCategoria === '' || String(p.categoria_id) === String(this.filterCategoria);
-                        const matchesSede = this.filterSede === '' || String(p.sede_id) === String(this.filterSede);
-                        return matchesSearch && matchesCat && matchesSede;
-                    });
+                    return this.productos;
+                },
+
+                get paginationStart() {
+                    if (this.totalItems === 0) return 0;
+                    return (this.currentPage - 1) * this.pageSize + 1;
+                },
+
+                get paginationEnd() {
+                    return Math.min(this.totalItems, this.currentPage * this.pageSize);
+                },
+
+                async onFilterChange() {
+                    this.currentPage = 1;
+                    await this.fetchProductos();
+                },
+
+                async onPageSizeChange() {
+                    this.currentPage = 1;
+                    await this.fetchProductos();
+                },
+
+                async nextPage() {
+                    if (this.currentPage < this.totalPages) {
+                        this.currentPage++;
+                        await this.fetchProductos();
+                    }
+                },
+
+                async prevPage() {
+                    if (this.currentPage > 1) {
+                        this.currentPage--;
+                        await this.fetchProductos();
+                    }
                 },
 
                 populateAllSelects() {
@@ -494,10 +552,27 @@
 
                 async fetchProductos() {
                     try {
-                        const res = await window.api.get('/api/productos');
+                        const params = new URLSearchParams();
+                        params.set('page', String(this.currentPage));
+                        params.set('limit', String(this.pageSize));
+                        if (this.searchQuery.trim()) params.set('search', this.searchQuery.trim());
+                        if (this.filterCategoria) params.set('categoria_id', this.filterCategoria);
+                        if (this.filterSede) params.set('sede_id', this.filterSede);
+
+                        const res = await window.api.get(`/api/productos?${params.toString()}`);
                         this.productos = res?.data || [];
+                        if (res?.pagination) {
+                            this.totalItems = res.pagination.total ?? this.productos.length;
+                            this.totalPages = Math.max(1, res.pagination.total_pages ?? 1);
+                            this.currentPage = res.pagination.page ?? this.currentPage;
+                        } else {
+                            this.totalItems = this.productos.length;
+                            this.totalPages = 1;
+                        }
                     } catch (e) {
                         this.productos = [];
+                        this.totalItems = 0;
+                        this.totalPages = 1;
                     }
                 },
 

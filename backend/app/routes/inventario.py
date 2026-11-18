@@ -109,38 +109,59 @@ def get_productos():
         categoria_id = request.args.get('categoria_id')
         search = request.args.get('search')
         estado = request.args.get('estado')
-        limit = request.args.get('limit', 500)
+        page_param = request.args.get('page')
+        limit_param = request.args.get('limit')
 
-        sql = """
+        page = max(1, int(page_param)) if page_param and str(page_param).isdigit() else 1
+        limit = max(1, int(limit_param)) if limit_param and str(limit_param).isdigit() else (10 if page_param else 500)
+        offset = (page - 1) * limit
+
+        where_sql = " WHERE 1=1"
+        params = []
+
+        if sede_id:
+            where_sql += " AND p.sede_id = %s"
+            params.append(sede_id)
+        if categoria_id:
+            where_sql += " AND p.categoria_id = %s"
+            params.append(categoria_id)
+        if estado:
+            where_sql += " AND p.estado = %s"
+            params.append(estado)
+        if search:
+            where_sql += " AND (p.nombre ILIKE %s OR p.codigo ILIKE %s)"
+            params.extend([f"%{search}%", f"%{search}%"])
+
+        count_row = query_one(f"SELECT COUNT(*) AS total FROM public.productos p {where_sql}", tuple(params))
+        total = int(count_row['total']) if count_row else 0
+        total_pages = max(1, (total + limit - 1) // limit)
+
+        sql = f"""
             SELECT p.id, p.codigo, p.nombre, p.descripcion, p.precio_costo, p.precio_venta,
                    p.stock_actual, p.stock_minimo, p.categoria_id, p.sede_id, p.estado, p.imagen_url, p.created_at,
                    c.nombre as categoria_nombre, s.nombre as sede_nombre
             FROM public.productos p
             LEFT JOIN public.categorias c ON p.categoria_id = c.id
             LEFT JOIN public.sedes s ON p.sede_id = s.id
-            WHERE 1=1
+            {where_sql}
+            ORDER BY p.nombre ASC
+            LIMIT %s OFFSET %s
         """
-        params = []
+        query_params = list(params) + [limit, offset]
 
-        if sede_id:
-            sql += " AND p.sede_id = %s"
-            params.append(sede_id)
-        if categoria_id:
-            sql += " AND p.categoria_id = %s"
-            params.append(categoria_id)
-        if estado:
-            sql += " AND p.estado = %s"
-            params.append(estado)
-        if search:
-            sql += " AND (p.nombre ILIKE %s OR p.codigo ILIKE %s)"
-            params.extend([f"%{search}%", f"%{search}%"])
-
-        sql += " ORDER BY p.nombre ASC LIMIT %s"
-        params.append(int(limit))
-
-        rows = query(sql, tuple(params))
+        rows = query(sql, tuple(query_params))
         formatted = [format_producto(r) for r in rows]
-        return jsonify({"success": True, "message": "Productos obtenidos", "data": formatted}), 200
+        return jsonify({
+            "success": True,
+            "message": "Productos obtenidos",
+            "data": formatted,
+            "pagination": {
+                "page": page,
+                "limit": limit,
+                "total": total,
+                "total_pages": total_pages
+            }
+        }), 200
     except Exception as e:
         return jsonify({"success": False, "message": str(e), "data": None}), 500
 

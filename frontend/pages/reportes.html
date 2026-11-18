@@ -216,7 +216,7 @@
                     </select>
                 </div>
                 
-                <button @click="generarReporte()" :disabled="loading" class="bg-slate-700 hover:bg-slate-600 text-white font-medium px-4 py-2 rounded-lg transition-colors border border-slate-600 flex items-center gap-2">
+                <button @click="onFilterApply()" :disabled="loading" class="bg-slate-700 hover:bg-slate-600 text-white font-medium px-4 py-2 rounded-lg transition-colors border border-slate-600 flex items-center gap-2">
                     <svg x-show="loading" class="animate-spin h-4 w-4 text-white" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
                     <span>Preview</span>
                 </button>
@@ -325,6 +325,33 @@
                         </tbody>
                     </table>
                 </div>
+
+                <!-- Pagination Footer -->
+                <div class="px-6 py-3.5 bg-slate-900/50 border-t border-slate-700 flex flex-wrap items-center justify-between gap-4 text-xs">
+                    <div class="flex items-center gap-2 text-slate-400">
+                        <span class="font-medium">Rows per page:</span>
+                        <select x-model.number="pageSize" @change="onPageSizeChange()" class="bg-slate-800 border border-slate-600 rounded-lg px-2.5 py-1 text-xs text-white font-semibold focus:outline-none focus:border-amber-500">
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="30">30</option>
+                            <option value="40">40</option>
+                            <option value="50">50</option>
+                        </select>
+                        <span class="ml-2 text-slate-400" x-text="`Showing ${paginationStart} - ${paginationEnd} of ${totalItems} records`"></span>
+                    </div>
+
+                    <div class="flex items-center gap-2">
+                        <span class="text-slate-400 font-medium mr-2" x-text="`Page ${currentPage} of ${totalPages}`"></span>
+                        <button type="button" @click="prevPage()" :disabled="loading || currentPage <= 1"
+                            class="px-3 py-1.5 rounded-lg bg-slate-700 hover:bg-slate-600 disabled:opacity-40 disabled:cursor-not-allowed text-white font-medium transition-colors border border-slate-600">
+                            ← Previous
+                        </button>
+                        <button type="button" @click="nextPage()" :disabled="loading || currentPage >= totalPages"
+                            class="px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-600 disabled:opacity-40 disabled:cursor-not-allowed text-white font-semibold transition-colors">
+                            Next Page →
+                        </button>
+                    </div>
+                </div>
             </div>
             
         </main>
@@ -364,9 +391,22 @@
                 activeTab: 'ventas',
                 sedes: [],
                 filters: { desde: '', hasta: '', sede_id: '' },
+                currentPage: 1,
+                pageSize: 10,
+                totalItems: 0,
+                totalPages: 1,
                 tableData: [],
                 summaryStats: [],
                 loading: false,
+
+                get paginationStart() {
+                    if (this.totalItems === 0) return 0;
+                    return (this.currentPage - 1) * this.pageSize + 1;
+                },
+
+                get paginationEnd() {
+                    return Math.min(this.totalItems, this.currentPage * this.pageSize);
+                },
 
                 async init() {
                     const today = new Date().toISOString().split('T')[0];
@@ -393,7 +433,32 @@
 
                 setTab(tab) {
                     this.activeTab = tab;
+                    this.currentPage = 1;
                     this.generarReporte();
+                },
+
+                async onFilterApply() {
+                    this.currentPage = 1;
+                    await this.generarReporte();
+                },
+
+                async onPageSizeChange() {
+                    this.currentPage = 1;
+                    await this.generarReporte();
+                },
+
+                async nextPage() {
+                    if (this.currentPage < this.totalPages) {
+                        this.currentPage++;
+                        await this.generarReporte();
+                    }
+                },
+
+                async prevPage() {
+                    if (this.currentPage > 1) {
+                        this.currentPage--;
+                        await this.generarReporte();
+                    }
                 },
 
                 async generarReporte() {
@@ -401,11 +466,18 @@
                     this.tableData = [];
                     try {
                         if (this.activeTab === 'ventas') {
-                            let url = `/api/reportes/ventas/preview?desde=${this.filters.desde}&hasta=${this.filters.hasta}`;
+                            let url = `/api/reportes/ventas/preview?desde=${this.filters.desde}&hasta=${this.filters.hasta}&page=${this.currentPage}&limit=${this.pageSize}`;
                             if (this.filters.sede_id) url += `&sede_id=${this.filters.sede_id}`;
                             const res = await window.api.get(url);
                             this.tableData = res?.data || [];
                             const summary = res?.summary || {};
+                            if (res?.pagination) {
+                                this.totalItems = res.pagination.total ?? 0;
+                                this.totalPages = Math.max(1, res.pagination.total_pages ?? 1);
+                            } else {
+                                this.totalItems = this.tableData.length;
+                                this.totalPages = 1;
+                            }
                             this.summaryStats = [
                                 { label: 'Total Sales', value: this.formatCurrency(summary.total_ventas || 0) },
                                 { label: 'Paid Orders', value: (summary.num_ordenes || 0).toString() },
@@ -413,11 +485,18 @@
                                 { label: 'Total Tips', value: this.formatCurrency(summary.total_propinas || 0) }
                             ];
                         } else {
-                            let url = `/api/reportes/inventario/preview`;
-                            if (this.filters.sede_id) url += `?sede_id=${this.filters.sede_id}`;
+                            let url = `/api/reportes/inventario/preview?page=${this.currentPage}&limit=${this.pageSize}`;
+                            if (this.filters.sede_id) url += `&sede_id=${this.filters.sede_id}`;
                             const res = await window.api.get(url);
                             this.tableData = res?.data || [];
                             const summary = res?.summary || {};
+                            if (res?.pagination) {
+                                this.totalItems = res.pagination.total ?? 0;
+                                this.totalPages = Math.max(1, res.pagination.total_pages ?? 1);
+                            } else {
+                                this.totalItems = this.tableData.length;
+                                this.totalPages = 1;
+                            }
                             this.summaryStats = [
                                 { label: 'Inventory Value', value: this.formatCurrency(summary.valor_total || 0) },
                                 { label: 'Units in Stock', value: (summary.stock_total || 0).toString() },

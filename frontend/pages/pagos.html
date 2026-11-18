@@ -108,7 +108,7 @@
     <!-- Desktop Sidebar -->
     <aside :class="sidebarOpen ? 'w-64' : 'w-20'" class="bg-[#070A12] border-r border-[#222E46] transition-all duration-300 flex flex-col h-full z-20 hidden md:flex flex-shrink-0">
         <div class="h-16 flex items-center px-4 border-b border-[#222E46] gap-3 overflow-hidden">
-            <img src="../assets/Logos/Isotipo.png" alt="Bar Mune" class="h-8 w-8 object-contain flex-shrink-0" />
+           <!-- <img src="../assets/Logos/Isotipo.png" alt="Bar Mune" class="h-8 w-8 object-contain flex-shrink-0" />-->
             <img x-show="sidebarOpen" src="../assets/Logos/Horizontal_Fondo_Transparente_Negativo.png" alt="Bar Mune" class="h-6 w-auto object-contain" />
         </div>
 
@@ -369,8 +369,14 @@
                                     </div>
                                 </div>
 
-                                <button type="button" @click="confirmarPago()" :disabled="submitting || (metodoPago === 'efectivo' && montoRecibido < totalACobrar)"
-                                    class="w-full py-3.5 bg-amber-500 hover:bg-amber-600 disabled:opacity-50 text-white font-bold rounded-xl transition-colors shadow-sm flex items-center justify-center gap-2">
+                                <!-- Warning if order is not Ready to Pay -->
+                                <div x-show="selectedOrder.estado !== 'lista'" class="bg-amber-500/10 border border-amber-500/40 rounded-lg p-3 text-xs text-amber-300 flex items-center justify-between gap-3">
+                                    <span>⚠️ This order is currently <strong class="uppercase" x-text="formatStatus(selectedOrder.estado)"></strong>. Payment can only be confirmed when the order status is <strong>Ready to Pay</strong>.</span>
+                                    <a href="ordenes.html" class="px-2.5 py-1 bg-amber-500 text-white rounded-md font-semibold whitespace-nowrap hover:bg-amber-600 transition-colors">Go to Orders →</a>
+                                </div>
+
+                                <button type="button" @click="confirmarPago()" :disabled="submitting || selectedOrder.estado !== 'lista' || (metodoPago === 'efectivo' && montoRecibido < totalACobrar)"
+                                    class="w-full py-3.5 bg-amber-500 hover:bg-amber-600 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold rounded-xl transition-colors shadow-sm flex items-center justify-center gap-2">
                                     <svg x-show="submitting" class="animate-spin h-5 w-5 text-white" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
                                     <span>Confirm Payment & Generate Electronic Invoice</span>
                                 </button>
@@ -523,6 +529,10 @@
 
                 async confirmarPago() {
                     if (!this.selectedOrder) return;
+                    if (this.selectedOrder.estado !== 'lista') {
+                        alert('Only orders in "Ready to Pay" status can be charged.');
+                        return;
+                    }
                     this.submitting = true;
                     try {
                         const user = window.auth.getUser();

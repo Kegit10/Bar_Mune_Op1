@@ -173,9 +173,11 @@ def create_pago():
         if not orden:
             return jsonify({"success": False, "message": "Orden no encontrada", "data": None}), 404
         if orden['estado'] == 'pagada':
-            return jsonify({"success": False, "message": "La orden ya ha sido pagada previamente", "data": None}), 400
+            return jsonify({"success": False, "message": "This order has already been paid", "data": None}), 400
         if orden['estado'] == 'cancelada':
-            return jsonify({"success": False, "message": "No se puede pagar una orden cancelada", "data": None}), 400
+            return jsonify({"success": False, "message": "Cannot pay a cancelled order", "data": None}), 400
+        if orden['estado'] != 'lista':
+            return jsonify({"success": False, "message": "Only orders in 'Ready to Pay' status can be charged", "data": None}), 400
 
         # Validar que la orden tenga al menos un producto
         items_count = query_one("SELECT COUNT(*) as count FROM public.orden_items WHERE orden_id = %s", (orden_id,))
